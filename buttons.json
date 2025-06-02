@@ -1,54 +1,32 @@
-{
-  "text": {
-    "content": "Перерыв до 15:00",
-    "fontFamily": "'Open Sans', sans-serif",
-    "fontSize": "text-6xl",
-    "fontWeight": "font-bold",
-    "color": "#ffffff",
-    "effects": {
-      "shadow": false,
-      "glow": true,
-      "outline": false,
-      "blink": false
-    }
+[
+  {
+    "id": 1748883783032,
+    "name": "Текстовое Объявление",
+    "url": "advertisement.html",
+    "color": "bg-blue-500 hover:bg-blue-600"
   },
-  "background": {
-    "color": "#141e30",
-    "opacity": 64,
-    "imageUrl": "/images/ttfr_logo_new_03.png",
-    "type": "cover",
-    "imageOpacity": 64,
-    "coverSize": 55,
-    "coverPositionX": 50,
-    "coverPositionY": 50,
-    "patternSize": 276,
-    "patternDensity": "repeat",
-    "patternSpacingX": 0,
-    "patternSpacingY": 0
+  {
+    "id": 1748883811905,
+    "name": "Видеопроигрыватель повторов",
+    "url": "videos.html",
+    "color": "bg-green-500 hover:bg-green-600"
   },
-  "timer": {
-    "type": "alarm",
-    "minutes": 5,
-    "alarmTime": "19:00",
-    "fontFamily": "'Roboto', sans-serif",
-    "fontSize": "text-6xl",
-    "fontWeight": "font-bold",
-    "color": "#0011ff",
-    "effects": {
-      "shadow": false,
-      "glow": true,
-      "outline": false,
-      "blink": false
-    }
+  {
+    "id": 1748883835337,
+    "name": "Расписание игр",
+    "url": "schedule.html",
+    "color": "bg-purple-500 hover:bg-purple-600"
   },
-  "imageLibrary": [
-    {
-      "name": "slntr-sign",
-      "url": "/images/slntr-sign.png"
-    },
-    {
-      "name": "ttfr_logo_new_03",
-      "url": "/images/ttfr_logo_new_03.png"
-    }
-  ]
-}
+  {
+    "id": 1748883851105,
+    "name": "Группы",
+    "url": "net.html",
+    "color": "bg-red-500 hover:bg-red-600"
+  },
+  {
+    "id": 1748883872480,
+    "name": "Командное представление",
+    "url": "teams.html",
+    "color": "bg-yellow-500 hover:bg-yellow-600"
+  }
+]

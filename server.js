@@ -266,7 +266,7 @@ app.post('/api/buttons', (req, res) => {
 
 
 // ОБЪЯВЛЕНИЕ НА СТРАНИЦЕ advertisement
-const ADVERTISEMENT_FILE = path.join(__dirname, 'buttons.json');
+const ADVERTISEMENT_FILE = path.join(__dirname, 'advertisement.json');
 // Чтение JSON
 app.get('/api/advertisement', (req, res) => {
     fs.readFile(ADVERTISEMENT_FILE, 'utf8', (err, data) => {
