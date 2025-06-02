@@ -1,0 +1,1524 @@
+<html lang="ru"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система объявлений</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;family=Open+Sans:wght@400;600;700&amp;family=Montserrat:wght@400;500;700&amp;family=Playfair+Display:wght@400;700&amp;family=Oswald:wght@400;500;700&amp;display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .viewer-mode {
+            background-color: rgba(20, 20, 30, 0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .transparent-mode {
+            background-color: rgba(0, 0, 0, 0);
+        }
+
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            right: -550px;
+            width: 550px;
+            height: 100vh;
+            background-color: #2d3748;
+            color: white;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .admin-panel.active {
+            right: 0;
+        }
+
+        .admin-button {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 999;
+        }
+
+        body:hover .admin-button {
+            opacity: 0.3;
+        }
+
+        body:hover .admin-button:hover {
+            opacity: 1;
+        }
+
+        .text-effect-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .text-effect-glow {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        .text-effect-outline {
+            -webkit-text-stroke: 1px white;
+            text-stroke: 1px white;
+        }
+
+        .text-effect-blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .timer-display {
+            margin-top: 1rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .timer-units {
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 0.25rem;
+        }
+
+        .timer-unit {
+            width: 2.5rem;
+            text-align: center;
+        }
+
+        .color-picker {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 40px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .color-picker::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+
+        .color-picker::-webkit-color-swatch {
+            border: none;
+            border-radius: 4px;
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-repeat: repeat;
+        }
+
+        .tab-button {
+            padding: 0.5rem 1rem;
+            background-color: #4a5568;
+            border-radius: 0.25rem 0.25rem 0 0;
+            cursor: pointer;
+        }
+
+        .tab-button.active {
+            background-color: #2d3748;
+            border-bottom: 2px solid #4299e1;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 1rem;
+            background-color: #2d3748;
+            border-radius: 0 0.25rem 0.25rem 0.25rem;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .range-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #4a5568;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #4299e1;
+            cursor: pointer;
+        }
+
+        .range-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #4299e1;
+            cursor: pointer;
+            border: none;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #48bb78;
+            color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .notification.show {
+            opacity: 1;
+        }
+
+        .image-library-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            background-color: #4a5568;
+            border-radius: 0.25rem;
+        }
+
+        .image-library-item:hover {
+            background-color: #2d3748;
+        }
+
+        .image-thumbnail {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 0.25rem;
+            margin-right: 0.5rem;
+        }
+
+        .image-library-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .image-library-button {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+
+        .subtab-button {
+            padding: 0.25rem 0.5rem;
+            background-color: #4a5568;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtab-button.active {
+            background-color: #4299e1;
+        }
+    </style>
+    <style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.fixed{position:fixed}.inset-0{inset:0px}.z-\[1100\]{z-index:1100}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:0.25rem}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mr-1{margin-right:0.25rem}.mr-2{margin-right:0.5rem}.mt-1{margin-top:0.25rem}.mt-2{margin-top:0.5rem}.mt-6{margin-top:1.5rem}.ml-2{margin-left:0.5rem}.block{display:block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-10{height:2.5rem}.h-32{height:8rem}.h-5{height:1.25rem}.h-4{height:1rem}.max-h-64{max-height:16rem}.max-h-80{max-height:20rem}.max-h-full{max-height:100%}.w-10{width:2.5rem}.w-5{width:1.25rem}.w-full{width:100%}.w-4{width:1rem}.max-w-6xl{max-width:72rem}.max-w-full{max-width:100%}.max-w-md{max-width:28rem}.flex-1{flex:1 1 0%}.cursor-pointer{cursor:pointer}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}.rounded{border-radius:0.25rem}.rounded-lg{border-radius:0.5rem}.rounded-l{border-top-left-radius:0.25rem;border-bottom-left-radius:0.25rem}.rounded-r{border-top-right-radius:0.25rem;border-bottom-right-radius:0.25rem}.border-b{border-bottom-width:1px}.border-gray-600{--tw-border-opacity:1;border-color:rgb(75 85 99 / var(--tw-border-opacity, 1))}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-blue-600{--tw-bg-opacity:1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.bg-gray-600{--tw-bg-opacity:1;background-color:rgb(75 85 99 / var(--tw-bg-opacity, 1))}.bg-gray-700{--tw-bg-opacity:1;background-color:rgb(55 65 81 / var(--tw-bg-opacity, 1))}.bg-gray-800{--tw-bg-opacity:1;background-color:rgb(31 41 55 / var(--tw-bg-opacity, 1))}.bg-green-600{--tw-bg-opacity:1;background-color:rgb(22 163 74 / var(--tw-bg-opacity, 1))}.bg-purple-600{--tw-bg-opacity:1;background-color:rgb(147 51 234 / var(--tw-bg-opacity, 1))}.bg-yellow-600{--tw-bg-opacity:1;background-color:rgb(202 138 4 / var(--tw-bg-opacity, 1))}.bg-red-600{--tw-bg-opacity:1;background-color:rgb(220 38 38 / var(--tw-bg-opacity, 1))}.bg-opacity-50{--tw-bg-opacity:0.5}.p-2{padding:0.5rem}.p-3{padding:0.75rem}.p-6{padding:1.5rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.hover\:bg-blue-700:hover{--tw-bg-opacity:1;background-color:rgb(29 78 216 / var(--tw-bg-opacity, 1))}.hover\:bg-gray-700:hover{--tw-bg-opacity:1;background-color:rgb(55 65 81 / var(--tw-bg-opacity, 1))}.hover\:bg-green-700:hover{--tw-bg-opacity:1;background-color:rgb(21 128 61 / var(--tw-bg-opacity, 1))}.hover\:bg-purple-700:hover{--tw-bg-opacity:1;background-color:rgb(126 34 206 / var(--tw-bg-opacity, 1))}.hover\:bg-yellow-700:hover{--tw-bg-opacity:1;background-color:rgb(161 98 7 / var(--tw-bg-opacity, 1))}.hover\:bg-red-700:hover{--tw-bg-opacity:1;background-color:rgb(185 28 28 / var(--tw-bg-opacity, 1))}</style></head>
+<body>
+<div id="viewerMode" class="viewer-mode" style="background-color: rgba(20, 30, 48, 0.85);">
+    <div id="backgroundImage" class="background-image" style="display: none;"></div>
+    <div id="backgroundPattern" class="background-pattern" style="display: none;"></div>
+    <div id="announcementText" class="max-w-6xl px-6 py-4 text-center text-4xl font-bold" style="font-family: Roboto, sans-serif; color: rgb(255, 255, 255);">Добро пожаловать! Введите текст объявления в панели администратора.</div>
+    <div id="timerContainer" class="hidden">
+        <div id="timerDisplay" class="timer-display text-4xl font-bold" style="font-family: Roboto, sans-serif; color: rgb(255, 255, 255);"></div>
+        <div id="timerUnits" class="timer-units text-white" style="color: rgb(255, 255, 255);">
+            <span class="timer-unit">ч</span>
+            <span class="timer-unit">мин</span>
+            <span class="timer-unit">сек</span>
+        </div>
+    </div>
+</div>
+
+<button id="adminButton" class="admin-button bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded">
+    Админ
+</button>
+
+<div id="adminPanel" class="admin-panel active">
+    <div class="p-6">
+        <h2 class="text-2xl font-bold mb-4 text-center">Панель администратора</h2>
+
+        <div class="flex mb-4 border-b border-gray-600 overflow-x-auto">
+            <div id="tabText" class="tab-button active">Текст</div>
+            <div id="tabBackground" class="tab-button">Фон</div>
+            <div id="tabTimer" class="tab-button">Таймер</div>
+            <div id="tabImages" class="tab-button">Изображения</div>
+            <div id="tabSave" class="tab-button">Сохранение</div>
+        </div>
+
+        <!-- Вкладка Текст -->
+        <div id="contentText" class="tab-content active">
+            <div class="mb-6">
+                <label class="block mb-2 font-medium">Текст объявления</label>
+                <textarea id="textInput" class="w-full p-3 bg-gray-700 text-white rounded" rows="5"></textarea>
+            </div>
+
+            <div class="mb-6">
+                <label class="block mb-2 font-medium">Стиль текста</label>
+
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block mb-1 text-sm">Шрифт</label>
+                        <select id="fontFamily" class="w-full p-2 bg-gray-700 rounded">
+                            <option value="'Roboto', sans-serif">Roboto</option>
+                            <option value="'Open Sans', sans-serif">Open Sans</option>
+                            <option value="'Montserrat', sans-serif">Montserrat</option>
+                            <option value="'Playfair Display', serif">Playfair Display</option>
+                            <option value="'Oswald', sans-serif">Oswald</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block mb-1 text-sm">Размер шрифта</label>
+                        <select id="fontSize" class="w-full p-2 bg-gray-700 rounded">
+                            <option value="text-xl">Маленький</option>
+                            <option value="text-2xl">Средний</option>
+                            <option value="text-4xl" selected="">Большой</option>
+                            <option value="text-6xl">Очень большой</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block mb-1 text-sm">Жирность</label>
+                        <select id="fontWeight" class="w-full p-2 bg-gray-700 rounded">
+                            <option value="font-normal">Обычный</option>
+                            <option value="font-medium">Средний</option>
+                            <option value="font-bold" selected="">Жирный</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block mb-1 text-sm">Цвет текста</label>
+                        <input type="color" id="textColor" class="color-picker" value="#ffffff">
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block mb-1 text-sm">Эффекты</label>
+                    <div class="flex flex-wrap gap-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="effectShadow" class="mr-1">
+                            <span>Тень</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="effectGlow" class="mr-1">
+                            <span>Свечение</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="effectOutline" class="mr-1">
+                            <span>Обводка</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="effectBlink" class="mr-1">
+                            <span>Мигание</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка Фон -->
+        <div id="contentBackground" class="tab-content">
+            <div class="mb-6">
+                <label class="block mb-2 font-medium">Цвет фона</label>
+                <input type="color" id="backgroundColor" class="color-picker" value="#141e30">
+
+                <div class="mt-2">
+                    <label class="block mb-1 text-sm">Прозрачность фона</label>
+                    <input type="range" id="backgroundOpacity" class="range-slider" min="0" max="100" value="85">
+                    <div class="flex justify-between text-xs mt-1">
+                        <span>Прозрачный</span>
+                        <span>Непрозрачный</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block mb-2 font-medium">Фоновое изображение</label>
+                <div class="flex mb-2">
+                    <input type="text" id="backgroundImageUrl" class="flex-1 p-2 bg-gray-700 text-white rounded-l" placeholder="URL или путь к изображению">
+                    <button id="selectFromLibraryBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-2 rounded-r">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mb-2">
+                    <div>
+                        <label class="block mb-1 text-sm">Тип отображения</label>
+                        <select id="backgroundType" class="w-full p-2 bg-gray-700 rounded">
+                            <option value="cover">На весь экран</option>
+                            <option value="pattern">Повторяющийся узор</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block mb-1 text-sm">Прозрачность изображения</label>
+                        <input type="range" id="imageOpacity" class="range-slider" min="0" max="100" value="100">
+                    </div>
+                </div>
+
+                <div id="coverSettings" class="mb-2">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block mb-1 text-sm">Размер изображения</label>
+                            <input type="range" id="coverSize" class="range-slider" min="10" max="200" value="100">
+                            <div class="flex justify-between text-xs mt-1">
+                                <span>10%</span>
+                                <span>200%</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block mb-1 text-sm">Позиция по X</label>
+                            <input type="range" id="coverPositionX" class="range-slider" min="0" max="100" value="50">
+                            <div class="flex justify-between text-xs mt-1">
+                                <span>Лево</span>
+                                <span>Право</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block mb-1 text-sm">Позиция по Y</label>
+                            <input type="range" id="coverPositionY" class="range-slider" min="0" max="100" value="50">
+                            <div class="flex justify-between text-xs mt-1">
+                                <span>Верх</span>
+                                <span>Низ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="patternSettings" class="hidden">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block mb-1 text-sm">Размер узора</label>
+                            <input type="range" id="patternSize" class="range-slider" min="50" max="500" value="200">
+                        </div>
+
+                        <div>
+                            <label class="block mb-1 text-sm">Плотность узора</label>
+                            <select id="patternDensity" class="w-full p-2 bg-gray-700 rounded">
+                                <option value="repeat">Обычная</option>
+                                <option value="repeat-x">Только по горизонтали</option>
+                                <option value="repeat-y">Только по вертикали</option>
+                                <option value="space">С промежутками</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block mb-1 text-sm">Промежуток по X (px)</label>
+                            <input type="number" id="patternSpacingX" class="w-full p-2 bg-gray-700 rounded" min="0" value="0">
+                        </div>
+
+                        <div>
+                            <label class="block mb-1 text-sm">Промежуток по Y (px)</label>
+                            <input type="number" id="patternSpacingY" class="w-full p-2 bg-gray-700 rounded" min="0" value="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка Таймер -->
+        <div id="contentTimer" class="tab-content">
+            <div class="mb-6">
+                <label class="block mb-2 font-medium">Настройки таймера</label>
+
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block mb-1 text-sm">Тип</label>
+                        <select id="timerType" class="w-full p-2 bg-gray-700 rounded">
+                            <option value="none" selected="">Нет</option>
+                            <option value="countdown">Таймер обратного отсчета</option>
+                            <option value="alarm">Будильник</option>
+                        </select>
+                    </div>
+
+                    <div id="countdownContainer" class="hidden">
+                        <label class="block mb-1 text-sm">Минуты</label>
+                        <input type="number" id="countdownMinutes" class="w-full p-2 bg-gray-700 rounded" min="0" value="5">
+                    </div>
+
+                    <div id="alarmContainer" class="hidden">
+                        <label class="block mb-1 text-sm">Время</label>
+                        <input type="time" id="alarmTime" class="w-full p-2 bg-gray-700 rounded">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block mb-2 font-medium">Стиль таймера</label>
+
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block mb-1 text-sm">Шрифт</label>
+                        <select id="timerFontFamily" class="w-full p-2 bg-gray-700 rounded">
+                            <option value="'Roboto', sans-serif">Roboto</option>
+                            <option value="'Open Sans', sans-serif">Open Sans</option>
+                            <option value="'Montserrat', sans-serif">Montserrat</option>
+                            <option value="'Playfair Display', serif">Playfair Display</option>
+                            <option value="'Oswald', sans-serif">Oswald</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block mb-1 text-sm">Размер шрифта</label>
+                        <select id="timerFontSize" class="w-full p-2 bg-gray-700 rounded">
+                            <option value="text-xl">Маленький</option>
+                            <option value="text-2xl">Средний</option>
+                            <option value="text-4xl" selected="">Большой</option>
+                            <option value="text-6xl">Очень большой</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block mb-1 text-sm">Жирность</label>
+                        <select id="timerFontWeight" class="w-full p-2 bg-gray-700 rounded">
+                            <option value="font-normal">Обычный</option>
+                            <option value="font-medium">Средний</option>
+                            <option value="font-bold" selected="">Жирный</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block mb-1 text-sm">Цвет таймера</label>
+                        <input type="color" id="timerColor" class="color-picker" value="#ffffff">
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block mb-1 text-sm">Эффекты</label>
+                    <div class="flex flex-wrap gap-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="timerEffectShadow" class="mr-1">
+                            <span>Тень</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="timerEffectGlow" class="mr-1">
+                            <span>Свечение</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="timerEffectOutline" class="mr-1">
+                            <span>Обводка</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="timerEffectBlink" class="mr-1">
+                            <span>Мигание</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка Изображения -->
+        <div id="contentImages" class="tab-content">
+            <div class="mb-4">
+                <div class="flex mb-2">
+                    <div id="subtabLibrary" class="subtab-button active">Библиотека</div>
+                    <div id="subtabAdd" class="subtab-button">Добавить</div>
+                </div>
+
+                <div id="contentLibrary" class="mb-4">
+                    <div class="mb-2 text-sm">Выберите изображение из библиотеки:</div>
+                    <div id="imageLibrary" class="max-h-64 overflow-y-auto"><div class="image-library-item">
+                        <div class="flex items-center">
+                            <img src="/images/mountains.jpg" alt="Горы" class="image-thumbnail">
+                            <span class="ml-2">Горы</span>
+                        </div>
+                        <div class="image-library-actions">
+                            <button class="image-library-button bg-blue-600 hover:bg-blue-700 text-white" data-action="select" data-index="0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </button>
+                            <button class="image-library-button bg-red-600 hover:bg-red-700 text-white" data-action="delete" data-index="0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div><div class="image-library-item">
+                        <div class="flex items-center">
+                            <img src="/images/ocean.jpg" alt="Океан" class="image-thumbnail">
+                            <span class="ml-2">Океан</span>
+                        </div>
+                        <div class="image-library-actions">
+                            <button class="image-library-button bg-blue-600 hover:bg-blue-700 text-white" data-action="select" data-index="1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </button>
+                            <button class="image-library-button bg-red-600 hover:bg-red-700 text-white" data-action="delete" data-index="1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div><div class="image-library-item">
+                        <div class="flex items-center">
+                            <img src="/images/forest.jpg" alt="Лес" class="image-thumbnail">
+                            <span class="ml-2">Лес</span>
+                        </div>
+                        <div class="image-library-actions">
+                            <button class="image-library-button bg-blue-600 hover:bg-blue-700 text-white" data-action="select" data-index="2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </button>
+                            <button class="image-library-button bg-red-600 hover:bg-red-700 text-white" data-action="delete" data-index="2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div></div>
+                </div>
+
+                <div id="contentAdd" class="mb-4 hidden">
+                    <div class="mb-4">
+                        <label class="block mb-1 text-sm">Название изображения</label>
+                        <input type="text" id="newImageName" class="w-full p-2 bg-gray-700 text-white rounded" placeholder="Введите название">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block mb-1 text-sm">URL изображения</label>
+                        <input type="text" id="newImageUrl" class="w-full p-2 bg-gray-700 text-white rounded" placeholder="Введите URL или путь">
+                    </div>
+
+                    <button id="addImageButton" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded w-full">
+                        Добавить изображение
+                    </button>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="text-sm mb-2">Предпросмотр:</div>
+                <div class="bg-gray-800 rounded-lg p-2 h-32 flex items-center justify-center">
+                    <img id="imagePreview" class="max-h-full max-w-full" src="" alt="Предпросмотр" style="display: none;">
+                    <div id="noImagePreview" class="text-gray-400 text-center" style="display: flex;">
+                        <svg class="w-10 h-10 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        Нет выбранного изображения
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка Сохранение -->
+        <div id="contentSave" class="tab-content">
+            <div class="mb-6">
+                <label class="block mb-2 font-medium">Сохранение настроек</label>
+                <p class="text-sm mb-4">Выберите способ сохранения настроек:</p>
+
+                <div class="flex flex-col gap-3">
+                    <button id="saveLocalButton" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
+                        </svg>
+                        Сохранить локально
+                    </button>
+
+                    <button id="saveApiButton" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                        </svg>
+                        Сохранить через API
+                    </button>
+
+                    <button id="loadApiButton" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        Загрузить из API
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-between mt-6">
+            <button id="previewButton" class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded">
+                Предпросмотр
+            </button>
+            <button id="closeAdminButton" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded">
+                Закрыть
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно выбора изображения -->
+<div id="imageLibraryModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1100] hidden">
+    <div class="bg-gray-800 p-6 rounded-lg w-full max-w-md">
+        <h3 class="text-xl font-bold mb-4">Выберите изображение</h3>
+
+        <div id="modalImageList" class="max-h-80 overflow-y-auto mb-4"><div class="image-library-item cursor-pointer" data-index="0">
+            <div class="flex items-center">
+                <img src="/images/mountains.jpg" alt="Горы" class="image-thumbnail">
+                <span class="ml-2">Горы</span>
+            </div>
+        </div><div class="image-library-item cursor-pointer" data-index="1">
+            <div class="flex items-center">
+                <img src="/images/ocean.jpg" alt="Океан" class="image-thumbnail">
+                <span class="ml-2">Океан</span>
+            </div>
+        </div><div class="image-library-item cursor-pointer" data-index="2">
+            <div class="flex items-center">
+                <img src="/images/forest.jpg" alt="Лес" class="image-thumbnail">
+                <span class="ml-2">Лес</span>
+            </div>
+        </div></div>
+
+        <div class="flex justify-end">
+            <button id="closeModalButton" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded">
+                Закрыть
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="notification" class="notification">
+    Настройки сохранены!
+</div>
+
+<script>
+    // Элементы DOM
+    const viewerMode = document.getElementById('viewerMode');
+    const announcementText = document.getElementById('announcementText');
+    const timerContainer = document.getElementById('timerContainer');
+    const timerDisplay = document.getElementById('timerDisplay');
+    const timerUnits = document.getElementById('timerUnits');
+    const adminButton = document.getElementById('adminButton');
+    const adminPanel = document.getElementById('adminPanel');
+    const closeAdminButton = document.getElementById('closeAdminButton');
+    const previewButton = document.getElementById('previewButton');
+    const backgroundImage = document.getElementById('backgroundImage');
+    const backgroundPattern = document.getElementById('backgroundPattern');
+    const notification = document.getElementById('notification');
+    const imageLibraryModal = document.getElementById('imageLibraryModal');
+    const modalImageList = document.getElementById('modalImageList');
+    const closeModalButton = document.getElementById('closeModalButton');
+    const selectFromLibraryBtn = document.getElementById('selectFromLibraryBtn');
+
+    // Вкладки
+    const tabText = document.getElementById('tabText');
+    const tabBackground = document.getElementById('tabBackground');
+    const tabTimer = document.getElementById('tabTimer');
+    const tabImages = document.getElementById('tabImages');
+    const tabSave = document.getElementById('tabSave');
+    const contentText = document.getElementById('contentText');
+    const contentBackground = document.getElementById('contentBackground');
+    const contentTimer = document.getElementById('contentTimer');
+    const contentImages = document.getElementById('contentImages');
+    const contentSave = document.getElementById('contentSave');
+
+    // Подвкладки изображений
+    const subtabLibrary = document.getElementById('subtabLibrary');
+    const subtabAdd = document.getElementById('subtabAdd');
+    const contentLibrary = document.getElementById('contentLibrary');
+    const contentAdd = document.getElementById('contentAdd');
+
+    // Поля формы - Текст
+    const textInput = document.getElementById('textInput');
+    const fontFamily = document.getElementById('fontFamily');
+    const fontSize = document.getElementById('fontSize');
+    const fontWeight = document.getElementById('fontWeight');
+    const textColor = document.getElementById('textColor');
+    const effectShadow = document.getElementById('effectShadow');
+    const effectGlow = document.getElementById('effectGlow');
+    const effectOutline = document.getElementById('effectOutline');
+    const effectBlink = document.getElementById('effectBlink');
+
+    // Поля формы - Фон
+    const backgroundColor = document.getElementById('backgroundColor');
+    const backgroundOpacity = document.getElementById('backgroundOpacity');
+    const backgroundImageUrl = document.getElementById('backgroundImageUrl');
+    const backgroundType = document.getElementById('backgroundType');
+    const imageOpacity = document.getElementById('imageOpacity');
+    const coverSettings = document.getElementById('coverSettings');
+    const coverSize = document.getElementById('coverSize');
+    const coverPositionX = document.getElementById('coverPositionX');
+    const coverPositionY = document.getElementById('coverPositionY');
+    const patternSettings = document.getElementById('patternSettings');
+    const patternSize = document.getElementById('patternSize');
+    const patternDensity = document.getElementById('patternDensity');
+    const patternSpacingX = document.getElementById('patternSpacingX');
+    const patternSpacingY = document.getElementById('patternSpacingY');
+
+    // Поля формы - Таймер
+    const timerType = document.getElementById('timerType');
+    const countdownContainer = document.getElementById('countdownContainer');
+    const alarmContainer = document.getElementById('alarmContainer');
+    const countdownMinutes = document.getElementById('countdownMinutes');
+    const alarmTime = document.getElementById('alarmTime');
+    const timerFontFamily = document.getElementById('timerFontFamily');
+    const timerFontSize = document.getElementById('timerFontSize');
+    const timerFontWeight = document.getElementById('timerFontWeight');
+    const timerColor = document.getElementById('timerColor');
+    const timerEffectShadow = document.getElementById('timerEffectShadow');
+    const timerEffectGlow = document.getElementById('timerEffectGlow');
+    const timerEffectOutline = document.getElementById('timerEffectOutline');
+    const timerEffectBlink = document.getElementById('timerEffectBlink');
+
+    // Поля формы - Изображения
+    const imageLibrary = document.getElementById('imageLibrary');
+    const newImageName = document.getElementById('newImageName');
+    const newImageUrl = document.getElementById('newImageUrl');
+    const addImageButton = document.getElementById('addImageButton');
+    const imagePreview = document.getElementById('imagePreview');
+    const noImagePreview = document.getElementById('noImagePreview');
+
+    // Кнопки сохранения
+    const saveLocalButton = document.getElementById('saveLocalButton');
+    const saveApiButton = document.getElementById('saveApiButton');
+    const loadApiButton = document.getElementById('loadApiButton');
+
+    // Переменные для таймера
+    let timerInterval = null;
+    let timerEndTime = null;
+    let timerMode = 'none';
+
+    // Библиотека изображений
+    let imageLibraryData = [];
+
+    // Переключение вкладок
+    function switchTab(tab) {
+        // Скрыть все вкладки
+        [contentText, contentBackground, contentTimer, contentImages, contentSave].forEach(content => {
+            content.classList.remove('active');
+        });
+
+        // Убрать активный класс у всех кнопок
+        [tabText, tabBackground, tabTimer, tabImages, tabSave].forEach(button => {
+            button.classList.remove('active');
+        });
+
+        // Активировать выбранную вкладку
+        if (tab === 'text') {
+            contentText.classList.add('active');
+            tabText.classList.add('active');
+        } else if (tab === 'background') {
+            contentBackground.classList.add('active');
+            tabBackground.classList.add('active');
+        } else if (tab === 'timer') {
+            contentTimer.classList.add('active');
+            tabTimer.classList.add('active');
+        } else if (tab === 'images') {
+            contentImages.classList.add('active');
+            tabImages.classList.add('active');
+        } else if (tab === 'save') {
+            contentSave.classList.add('active');
+            tabSave.classList.add('active');
+        }
+    }
+
+    // Переключение подвкладок изображений
+    function switchImageSubtab(subtab) {
+        if (subtab === 'library') {
+            contentLibrary.classList.remove('hidden');
+            contentAdd.classList.add('hidden');
+            subtabLibrary.classList.add('active');
+            subtabAdd.classList.remove('active');
+        } else if (subtab === 'add') {
+            contentLibrary.classList.add('hidden');
+            contentAdd.classList.remove('hidden');
+            subtabLibrary.classList.remove('active');
+            subtabAdd.classList.add('active');
+        }
+    }
+
+    // Показать уведомление
+    function showNotification(message) {
+        notification.textContent = message;
+        notification.classList.add('show');
+
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    }
+
+    // Загрузка сохраненных настроек
+    function loadSettings() {
+        const defaultSettings = {
+            text: {
+                content: 'Добро пожаловать! Введите текст объявления в панели администратора.',
+                fontFamily: "'Roboto', sans-serif",
+                fontSize: 'text-4xl',
+                fontWeight: 'font-bold',
+                color: '#ffffff',
+                effects: {
+                    shadow: false,
+                    glow: false,
+                    outline: false,
+                    blink: false
+                }
+            },
+            background: {
+                color: '#141e30',
+                opacity: 85,
+                imageUrl: '',
+                type: 'cover',
+                imageOpacity: 100,
+                coverSize: 100,
+                coverPositionX: 50,
+                coverPositionY: 50,
+                patternSize: 200,
+                patternDensity: 'repeat',
+                patternSpacingX: 0,
+                patternSpacingY: 0
+            },
+            timer: {
+                type: 'none',
+                minutes: 5,
+                alarmTime: '12:00',
+                fontFamily: "'Roboto', sans-serif",
+                fontSize: 'text-4xl',
+                fontWeight: 'font-bold',
+                color: '#ffffff',
+                effects: {
+                    shadow: false,
+                    glow: false,
+                    outline: false,
+                    blink: false
+                }
+            },
+            imageLibrary: [
+                { name: 'Горы', url: '/images/mountains.jpg' },
+                { name: 'Океан', url: '/images/ocean.jpg' },
+                { name: 'Лес', url: '/images/forest.jpg' }
+            ]
+        };
+
+        let settings;
+        try {
+            settings = JSON.parse(localStorage.getItem('announcementSettings')) || defaultSettings;
+
+            // Добавляем новые поля, если они отсутствуют (для обратной совместимости)
+            if (!settings.background.coverSize) settings.background.coverSize = 100;
+            if (!settings.background.coverPositionX) settings.background.coverPositionX = 50;
+            if (!settings.background.coverPositionY) settings.background.coverPositionY = 50;
+            if (!settings.background.patternSpacingX) settings.background.patternSpacingX = 0;
+            if (!settings.background.patternSpacingY) settings.background.patternSpacingY = 0;
+            if (!settings.imageLibrary) settings.imageLibrary = defaultSettings.imageLibrary;
+        } catch (e) {
+            settings = defaultSettings;
+        }
+
+        // Применение настроек к форме - Текст
+        textInput.value = settings.text.content;
+        fontFamily.value = settings.text.fontFamily;
+        fontSize.value = settings.text.fontSize;
+        fontWeight.value = settings.text.fontWeight;
+        textColor.value = settings.text.color;
+        effectShadow.checked = settings.text.effects.shadow;
+        effectGlow.checked = settings.text.effects.glow;
+        effectOutline.checked = settings.text.effects.outline;
+        effectBlink.checked = settings.text.effects.blink;
+
+        // Применение настроек к форме - Фон
+        backgroundColor.value = settings.background.color;
+        backgroundOpacity.value = settings.background.opacity;
+        backgroundImageUrl.value = settings.background.imageUrl;
+        backgroundType.value = settings.background.type;
+        imageOpacity.value = settings.background.imageOpacity;
+        coverSize.value = settings.background.coverSize;
+        coverPositionX.value = settings.background.coverPositionX;
+        coverPositionY.value = settings.background.coverPositionY;
+        patternSize.value = settings.background.patternSize;
+        patternDensity.value = settings.background.patternDensity;
+        patternSpacingX.value = settings.background.patternSpacingX;
+        patternSpacingY.value = settings.background.patternSpacingY;
+
+        // Применение настроек к форме - Таймер
+        timerType.value = settings.timer.type;
+        countdownMinutes.value = settings.timer.minutes;
+        alarmTime.value = settings.timer.alarmTime;
+        timerFontFamily.value = settings.timer.fontFamily;
+        timerFontSize.value = settings.timer.fontSize;
+        timerFontWeight.value = settings.timer.fontWeight;
+        timerColor.value = settings.timer.color;
+        timerEffectShadow.checked = settings.timer.effects.shadow;
+        timerEffectGlow.checked = settings.timer.effects.glow;
+        timerEffectOutline.checked = settings.timer.effects.outline;
+        timerEffectBlink.checked = settings.timer.effects.blink;
+
+        // Загрузка библиотеки изображений
+        imageLibraryData = settings.imageLibrary;
+        updateImageLibrary();
+
+        // Обновление отображения
+        updateDisplay();
+        toggleTimerFields();
+        toggleBackgroundSettings();
+    }
+
+    // Получение текущих настроек из формы
+    function getCurrentSettings() {
+        return {
+            text: {
+                content: textInput.value,
+                fontFamily: fontFamily.value,
+                fontSize: fontSize.value,
+                fontWeight: fontWeight.value,
+                color: textColor.value,
+                effects: {
+                    shadow: effectShadow.checked,
+                    glow: effectGlow.checked,
+                    outline: effectOutline.checked,
+                    blink: effectBlink.checked
+                }
+            },
+            background: {
+                color: backgroundColor.value,
+                opacity: parseInt(backgroundOpacity.value),
+                imageUrl: backgroundImageUrl.value,
+                type: backgroundType.value,
+                imageOpacity: parseInt(imageOpacity.value),
+                coverSize: parseInt(coverSize.value),
+                coverPositionX: parseInt(coverPositionX.value),
+                coverPositionY: parseInt(coverPositionY.value),
+                patternSize: parseInt(patternSize.value),
+                patternDensity: patternDensity.value,
+                patternSpacingX: parseInt(patternSpacingX.value),
+                patternSpacingY: parseInt(patternSpacingY.value)
+            },
+            timer: {
+                type: timerType.value,
+                minutes: parseInt(countdownMinutes.value),
+                alarmTime: alarmTime.value,
+                fontFamily: timerFontFamily.value,
+                fontSize: timerFontSize.value,
+                fontWeight: timerFontWeight.value,
+                color: timerColor.value,
+                effects: {
+                    shadow: timerEffectShadow.checked,
+                    glow: timerEffectGlow.checked,
+                    outline: timerEffectOutline.checked,
+                    blink: timerEffectBlink.checked
+                }
+            },
+            imageLibrary: imageLibraryData
+        };
+    }
+
+    // Сохранение настроек локально
+    function saveSettingsLocal() {
+        const settings = getCurrentSettings();
+        localStorage.setItem('announcementSettings', JSON.stringify(settings));
+        updateDisplay();
+        showNotification('Настройки сохранены локально!');
+    }
+
+    // Сохранение настроек через API
+    async function saveSettingsApi() {
+        try {
+            const settings = getCurrentSettings();
+            const response = await fetch('/api/advertisement', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(settings)
+            });
+
+            if (response.ok) {
+                updateDisplay();
+                showNotification('Настройки сохранены через API!');
+            } else {
+                showNotification('Ошибка при сохранении через API');
+            }
+        } catch (error) {
+            console.error('Ошибка API:', error);
+            showNotification('Ошибка соединения с API');
+        }
+    }
+
+    // Загрузка настроек через API
+    async function loadSettingsApi() {
+        try {
+            const response = await fetch('/api/advertisement');
+
+            if (response.ok) {
+                const settings = await response.json();
+                localStorage.setItem('announcementSettings', JSON.stringify(settings));
+                loadSettings();
+                showNotification('Настройки загружены из API!');
+            } else {
+                showNotification('Ошибка при загрузке из API');
+            }
+        } catch (error) {
+            console.error('Ошибка API:', error);
+            showNotification('Ошибка соединения с API');
+        }
+    }
+
+    // Обновление отображения
+    function updateDisplay() {
+        const settings = getCurrentSettings();
+
+        // Обновление текста объявления
+        announcementText.textContent = settings.text.content;
+        announcementText.style.fontFamily = settings.text.fontFamily;
+        announcementText.className = 'max-w-6xl px-6 py-4 text-center';
+        announcementText.classList.add(settings.text.fontSize);
+        announcementText.classList.add(settings.text.fontWeight);
+        announcementText.style.color = settings.text.color;
+
+        // Применение эффектов к тексту
+        if (settings.text.effects.shadow) announcementText.classList.add('text-effect-shadow');
+        if (settings.text.effects.glow) announcementText.classList.add('text-effect-glow');
+        if (settings.text.effects.outline) announcementText.classList.add('text-effect-outline');
+        if (settings.text.effects.blink) announcementText.classList.add('text-effect-blink');
+
+        // Обновление фона
+        const bgColor = settings.background.color;
+        const bgOpacity = settings.background.opacity / 100;
+        const rgbColor = hexToRgb(bgColor);
+        viewerMode.style.backgroundColor = `rgba(${rgbColor.r}, ${rgbColor.g}, ${rgbColor.b}, ${bgOpacity})`;
+
+        // Обновление фонового изображения
+        if (settings.background.imageUrl) {
+            if (settings.background.type === 'cover') {
+                backgroundImage.style.backgroundImage = `url('${settings.background.imageUrl}')`;
+                backgroundImage.style.opacity = settings.background.imageOpacity / 100;
+                backgroundImage.style.display = 'block';
+
+                if(settings.background.coverSize < 100){
+                    backgroundImage.style.backgroundSize = `${settings.background.coverSize}%`;
+                    backgroundImage.style.backgroundRepeat = 'no-repeat';
+                    backgroundImage.style.backgroundPosition = 'center';
+                }else{
+                    backgroundImage.style.backgroundSize = `${settings.background.coverSize}%`;
+                }
+                backgroundImage.style.backgroundPosition = `${settings.background.coverPositionX}% ${settings.background.coverPositionY}%`;
+                backgroundPattern.style.display = 'none';
+            } else {
+                backgroundPattern.style.backgroundImage = `url('${settings.background.imageUrl}')`;
+                backgroundPattern.style.backgroundSize = `${settings.background.patternSize}px`;
+                backgroundPattern.style.backgroundRepeat = settings.background.patternDensity;
+                backgroundPattern.style.opacity = settings.background.imageOpacity / 100;
+                backgroundPattern.style.display = 'block';
+
+                // Применение промежутков между узорами
+                if (settings.background.patternSpacingX > 0 || settings.background.patternSpacingY > 0) {
+                    backgroundPattern.style.backgroundPosition = `${settings.background.patternSpacingX}px ${settings.background.patternSpacingY}px`;
+                } else {
+                    backgroundPattern.style.backgroundPosition = 'initial';
+                }
+
+                backgroundImage.style.display = 'none';
+            }
+        } else {
+            backgroundImage.style.display = 'none';
+            backgroundPattern.style.display = 'none';
+        }
+
+        // Настройка таймера
+        setupTimer();
+
+        // Стилизация таймера
+        timerDisplay.style.fontFamily = settings.timer.fontFamily;
+        timerDisplay.className = 'timer-display';
+        timerDisplay.classList.add(settings.timer.fontSize);
+        timerDisplay.classList.add(settings.timer.fontWeight);
+        timerDisplay.style.color = settings.timer.color;
+
+        // Применение эффектов к таймеру
+        if (settings.timer.effects.shadow) timerDisplay.classList.add('text-effect-shadow');
+        if (settings.timer.effects.glow) timerDisplay.classList.add('text-effect-glow');
+        if (settings.timer.effects.outline) timerDisplay.classList.add('text-effect-outline');
+        if (settings.timer.effects.blink) timerDisplay.classList.add('text-effect-blink');
+
+        // Стилизация единиц измерения таймера
+        timerUnits.style.color = settings.timer.color;
+    }
+
+    // Настройка таймера
+    function setupTimer() {
+        clearInterval(timerInterval);
+        timerContainer.classList.add('hidden');
+        timerMode = timerType.value;
+
+        if (timerMode === 'none') {
+            return;
+        }
+
+        timerContainer.classList.remove('hidden');
+
+        if (timerMode === 'countdown') {
+            const minutes = parseInt(countdownMinutes.value);
+            timerEndTime = new Date().getTime() + minutes * 60 * 1000;
+            startTimer();
+        } else if (timerMode === 'alarm') {
+            const [hours, minutes] = alarmTime.value.split(':').map(Number);
+            const now = new Date();
+            const alarmDate = new Date();
+            alarmDate.setHours(hours, minutes, 0, 0);
+
+            // Если время уже прошло, установить на следующий день
+            if (alarmDate < now) {
+                alarmDate.setDate(alarmDate.getDate() + 1);
+            }
+
+            timerEndTime = alarmDate.getTime();
+            startTimer();
+        }
+    }
+
+    // Запуск таймера
+    function startTimer() {
+        updateTimerDisplay();
+
+        timerInterval = setInterval(() => {
+            const completed = updateTimerDisplay();
+            if (completed) {
+                clearInterval(timerInterval);
+                viewerMode.classList.add('transparent-mode');
+                announcementText.textContent = '';
+                timerContainer.classList.add('hidden');
+            }
+        }, 1000);
+    }
+
+    // Обновление отображения таймера
+    function updateTimerDisplay() {
+        const now = new Date().getTime();
+        const distance = timerEndTime - now;
+
+        if (distance <= 0) {
+            timerDisplay.textContent = "00:00:00";
+            return true;
+        }
+
+        const hours = Math.floor(distance / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        timerDisplay.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        return false;
+    }
+
+    // Переключение панели администратора
+    function toggleAdminPanel(show) {
+        if (show) {
+            adminPanel.classList.add('active');
+        } else {
+            adminPanel.classList.remove('active');
+        }
+    }
+
+    // Переключение отображения полей таймера
+    function toggleTimerFields() {
+        if (timerType.value === 'countdown') {
+            countdownContainer.classList.remove('hidden');
+            alarmContainer.classList.add('hidden');
+        } else if (timerType.value === 'alarm') {
+            countdownContainer.classList.add('hidden');
+            alarmContainer.classList.remove('hidden');
+        } else {
+            countdownContainer.classList.add('hidden');
+            alarmContainer.classList.add('hidden');
+        }
+    }
+
+    // Переключение настроек фона
+    function toggleBackgroundSettings() {
+        if (backgroundType.value === 'pattern') {
+            patternSettings.classList.remove('hidden');
+            coverSettings.classList.add('hidden');
+        } else {
+            patternSettings.classList.add('hidden');
+            coverSettings.classList.remove('hidden');
+        }
+    }
+
+    // Обновление библиотеки изображений
+    function updateImageLibrary() {
+        // Очистка списка
+        imageLibrary.innerHTML = '';
+
+        // Добавление изображений
+        imageLibraryData.forEach((image, index) => {
+            const item = document.createElement('div');
+            item.className = 'image-library-item';
+
+            // Проверка URL изображения
+            const imageUrl = image.url.startsWith('/') || image.url.startsWith('http') ?
+                image.url : `/images/${image.url}`;
+
+            item.innerHTML = `
+                    <div class="flex items-center">
+                        <img src="${imageUrl}" alt="${image.name}" class="image-thumbnail">
+                        <span class="ml-2">${image.name}</span>
+                    </div>
+                    <div class="image-library-actions">
+                        <button class="image-library-button bg-blue-600 hover:bg-blue-700 text-white" data-action="select" data-index="${index}">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </button>
+                        <button class="image-library-button bg-red-600 hover:bg-red-700 text-white" data-action="delete" data-index="${index}">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                `;
+
+            imageLibrary.appendChild(item);
+        });
+
+        // Добавление обработчиков событий
+        const selectButtons = imageLibrary.querySelectorAll('[data-action="select"]');
+        const deleteButtons = imageLibrary.querySelectorAll('[data-action="delete"]');
+
+        selectButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const index = parseInt(button.getAttribute('data-index'));
+                selectImageFromLibrary(index);
+            });
+        });
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const index = parseInt(button.getAttribute('data-index'));
+                deleteImageFromLibrary(index);
+            });
+        });
+
+        // Обновление модального окна
+        updateModalImageList();
+    }
+
+    // Обновление списка изображений в модальном окне
+    function updateModalImageList() {
+        modalImageList.innerHTML = '';
+
+        imageLibraryData.forEach((image, index) => {
+            const item = document.createElement('div');
+            item.className = 'image-library-item cursor-pointer';
+            item.setAttribute('data-index', index);
+
+            // Проверка URL изображения
+            const imageUrl = image.url.startsWith('/') || image.url.startsWith('http') ?
+                image.url : `/images/${image.url}`;
+
+            item.innerHTML = `
+                    <div class="flex items-center">
+                        <img src="${imageUrl}" alt="${image.name}" class="image-thumbnail">
+                        <span class="ml-2">${image.name}</span>
+                    </div>
+                `;
+
+            item.addEventListener('click', () => {
+                selectImageFromModal(index);
+            });
+
+            modalImageList.appendChild(item);
+        });
+    }
+
+    // Добавление изображения в библиотеку
+    function addImageToLibrary() {
+        const name = newImageName.value.trim();
+        let url = newImageUrl.value.trim();
+
+        if (!name || !url) {
+            showNotification('Введите название и URL изображения!');
+            return;
+        }
+
+        // Если URL не начинается с / или http, добавляем префикс /images/
+        if (!url.startsWith('/') && !url.startsWith('http')) {
+            url = `/images/${url}`;
+        }
+
+        imageLibraryData.push({ name, url });
+        updateImageLibrary();
+
+        // Очистка полей
+        newImageName.value = '';
+        newImageUrl.value = '';
+
+        showNotification('Изображение добавлено в библиотеку!');
+
+        // Переключение на вкладку библиотеки
+        switchImageSubtab('library');
+    }
+
+    // Выбор изображения из библиотеки
+    function selectImageFromLibrary(index) {
+        const image = imageLibraryData[index];
+        if (image) {
+            backgroundImageUrl.value = image.url;
+            updateImagePreview(image.url);
+            showNotification(`Выбрано изображение: ${image.name}`);
+        }
+    }
+
+    // Выбор изображения из модального окна
+    function selectImageFromModal(index) {
+        const image = imageLibraryData[index];
+        if (image) {
+            backgroundImageUrl.value = image.url;
+            updateDisplay();
+            imageLibraryModal.classList.add('hidden');
+            showNotification(`Выбрано изображение: ${image.name}`);
+        }
+    }
+
+    // Удаление изображения из библиотеки
+    function deleteImageFromLibrary(index) {
+        const image = imageLibraryData[index];
+        if (image) {
+            if (confirm(`Вы уверены, что хотите удалить изображение "${image.name}"?`)) {
+                imageLibraryData.splice(index, 1);
+                updateImageLibrary();
+                showNotification(`Изображение "${image.name}" удалено из библиотеки`);
+
+                // Если текущее изображение было удалено, очищаем поле URL
+                if (backgroundImageUrl.value === image.url) {
+                    backgroundImageUrl.value = '';
+                    updateImagePreview('');
+                }
+            }
+        }
+    }
+
+    // Обновление предпросмотра изображения
+    function updateImagePreview(url) {
+        if (url) {
+            // Проверка URL изображения
+            const imageUrl = url.startsWith('/') || url.startsWith('http') ?
+                url : `/images/${url}`;
+
+            imagePreview.src = imageUrl;
+            imagePreview.style.display = 'block';
+            noImagePreview.style.display = 'none';
+        } else {
+            imagePreview.style.display = 'none';
+            noImagePreview.style.display = 'flex';
+        }
+    }
+
+    // Преобразование HEX в RGB
+    function hexToRgb(hex) {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : { r: 0, g: 0, b: 0 };
+    }
+
+    // Обработчики событий для вкладок
+    tabText.addEventListener('click', () => switchTab('text'));
+    tabBackground.addEventListener('click', () => switchTab('background'));
+    tabTimer.addEventListener('click', () => switchTab('timer'));
+    tabImages.addEventListener('click', () => switchTab('images'));
+    tabSave.addEventListener('click', () => switchTab('save'));
+
+    // Обработчики событий для подвкладок изображений
+    subtabLibrary.addEventListener('click', () => switchImageSubtab('library'));
+    subtabAdd.addEventListener('click', () => switchImageSubtab('add'));
+
+    // Обработчики событий для кнопок
+    adminButton.addEventListener('click', () => toggleAdminPanel(true));
+    closeAdminButton.addEventListener('click', () => toggleAdminPanel(false));
+    previewButton.addEventListener('click', updateDisplay);
+    saveLocalButton.addEventListener('click', saveSettingsLocal);
+    saveApiButton.addEventListener('click', saveSettingsApi);
+    loadApiButton.addEventListener('click', loadSettingsApi);
+    addImageButton.addEventListener('click', addImageToLibrary);
+
+    // Обработчики событий для модального окна
+    selectFromLibraryBtn.addEventListener('click', () => {
+        imageLibraryModal.classList.remove('hidden');
+    });
+
+    closeModalButton.addEventListener('click', () => {
+        imageLibraryModal.classList.add('hidden');
+    });
+
+    // Обработчики событий для полей формы
+    timerType.addEventListener('change', toggleTimerFields);
+    backgroundType.addEventListener('change', toggleBackgroundSettings);
+    backgroundImageUrl.addEventListener('input', () => {
+        updateImagePreview(backgroundImageUrl.value);
+    });
+
+    // Обработчик для предпросмотра изображения при загрузке
+    imagePreview.addEventListener('error', () => {
+        imagePreview.style.display = 'none';
+        noImagePreview.style.display = 'flex';
+        showNotification('Ошибка загрузки изображения. Проверьте URL.');
+    });
+
+    // Комбинация клавиш для открытия панели администратора (Shift+Ctrl+F)
+    document.addEventListener('keydown', (e) => {
+        if (e.shiftKey && e.ctrlKey && e.key.toLowerCase() === 'f') {
+            e.preventDefault();
+            toggleAdminPanel(true);
+        }
+    });
+
+    // Закрытие модального окна при клике вне его
+    imageLibraryModal.addEventListener('click', (e) => {
+        if (e.target === imageLibraryModal) {
+            imageLibraryModal.classList.add('hidden');
+        }
+    });
+
+    // Инициализация
+    loadSettings();
+    toggleTimerFields();
+    toggleBackgroundSettings();
+    updateImagePreview(backgroundImageUrl.value);
+</script>
+
+</body></html>

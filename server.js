@@ -70,23 +70,6 @@ app.post('/api/data', (req, res) => {
 });
 
 //ВИДЕО СТРАНИЦА
-// const VIDEOS_FILE = path.join(__dirname, 'videos.json');
-// // Чтение JSON
-// app.get('/api/videos', (req, res) => {
-//   fs.readFile(VIDEOS_FILE, 'utf8', (err, data) => {
-//     if (err) return res.status(500).json({ error: 'Ошибка чтения данных' });
-//     res.json(JSON.parse(data));
-//   });
-// });
-//
-// // Обновление JSON
-// app.post('/api/videos', (req, res) => {
-//   fs.writeFile(VIDEOS_FILE, JSON.stringify(req.body, null, 2), (err) => {
-//     if (err) return res.status(500).json({ error: 'Ошибка сохранения данных' });
-//     res.json({ success: true });
-//   });
-// });
-
 // Create videos directory if it doesn't exist
 const videosDir = path.join(__dirname, 'videos');
 if (!fs.existsSync(videosDir)) {
@@ -279,6 +262,29 @@ app.post('/api/buttons', (req, res) => {
         res.json({success: true});
     });
 });
+
+
+
+// ОБЪЯВЛЕНИЕ НА СТРАНИЦЕ advertisement
+const ADVERTISEMENT_FILE = path.join(__dirname, 'buttons.json');
+// Чтение JSON
+app.get('/api/advertisement', (req, res) => {
+    fs.readFile(ADVERTISEMENT_FILE, 'utf8', (err, data) => {
+        if (err) return res.status(500).json({error: 'Ошибка чтения данных'});
+        res.json(JSON.parse(data));
+    });
+});
+
+// Обновление JSON
+app.post('/api/advertisement', (req, res) => {
+    fs.writeFile(ADVERTISEMENT_FILE, JSON.stringify(req.body, null, 2), (err) => {
+        if (err) return res.status(500).json({error: 'Ошибка сохранения данных'});
+        res.json({success: true});
+    });
+});
+
+
+
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'buttons.html'));

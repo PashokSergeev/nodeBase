@@ -1,26 +1,54 @@
-[
-  {
-    "id": 1748810552085,
-    "name": "Расписание игр",
-    "url": "schedule.html",
-    "color": "bg-teal-500 hover:bg-teal-600"
+{
+  "text": {
+    "content": "Перерыв до 15:00",
+    "fontFamily": "'Open Sans', sans-serif",
+    "fontSize": "text-6xl",
+    "fontWeight": "font-bold",
+    "color": "#ffffff",
+    "effects": {
+      "shadow": false,
+      "glow": true,
+      "outline": false,
+      "blink": false
+    }
   },
-  {
-    "id": 1748810678453,
-    "name": "Сетка с группами",
-    "url": "net.html",
-    "color": "bg-yellow-500 hover:bg-yellow-600"
+  "background": {
+    "color": "#141e30",
+    "opacity": 64,
+    "imageUrl": "/images/ttfr_logo_new_03.png",
+    "type": "cover",
+    "imageOpacity": 64,
+    "coverSize": 55,
+    "coverPositionX": 50,
+    "coverPositionY": 50,
+    "patternSize": 276,
+    "patternDensity": "repeat",
+    "patternSpacingX": 0,
+    "patternSpacingY": 0
   },
-  {
-    "id": 1748810697374,
-    "name": "Представление команд",
-    "url": "teams.html",
-    "color": "bg-indigo-500 hover:bg-indigo-600"
+  "timer": {
+    "type": "alarm",
+    "minutes": 5,
+    "alarmTime": "19:00",
+    "fontFamily": "'Roboto', sans-serif",
+    "fontSize": "text-6xl",
+    "fontWeight": "font-bold",
+    "color": "#0011ff",
+    "effects": {
+      "shadow": false,
+      "glow": true,
+      "outline": false,
+      "blink": false
+    }
   },
-  {
-    "id": 1748812180774,
-    "name": "Видеопроигрыватель ",
-    "url": "videos.html",
-    "color": "bg-red-500 hover:bg-red-600"
-  }
-]
+  "imageLibrary": [
+    {
+      "name": "slntr-sign",
+      "url": "/images/slntr-sign.png"
+    },
+    {
+      "name": "ttfr_logo_new_03",
+      "url": "/images/ttfr_logo_new_03.png"
+    }
+  ]
+}
