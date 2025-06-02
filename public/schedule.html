@@ -1,0 +1,986 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Расписание игр</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            background: linear-gradient(135deg, rgb(10, 36, 99), rgba(30, 58, 138, 0.8));
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        .panel {
+            width: 900px;
+            max-width: 100%;
+            max-height: 100vh;
+            padding: 1.5rem;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+        }
+
+        #title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            letter-spacing: 1px;
+            /*margin-top: 60px;*/
+            margin-bottom: 0.5rem;
+            padding: 0 160px;
+        }
+
+        #date {
+            font-size: 1.2rem;
+            text-align: center;
+            background-color: #e63946;
+            padding: 0.3rem 1rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .competition-logo1, .competition-logo2 {
+            width: 150px;
+            height: 50px;
+            position: absolute;
+            top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 0.5em 0.5em;
+
+        }
+
+        .competition-logo1 {
+            left: 10px;
+        }
+
+        .competition-logo2 {
+            right: 10px;
+        }
+
+        .competition-logo1 img, .competition-logo2 img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .match-header {
+            background: #e63946;
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .match-block {
+            padding: 0.75rem;
+            font-size: 1.1rem;
+            background: rgba(30, 58, 138, 0.5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1rem;
+            border-radius: 0 0 4px 4px;
+        }
+
+        #next-match {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, rgba(30, 58, 138, 0.8), rgba(30, 58, 138, 0.5));
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #ff9500;
+            animation: pulse 2s infinite;
+        }
+
+        #next-match .match-header {
+            background: #ff9500;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            padding: 0.3rem 0.8rem;
+        }
+
+        .flag {
+            width: 45px;
+            height: 30px;
+            vertical-align: middle;
+            border-radius: 2px;
+            margin: 0 0.3rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        #upcoming-matches {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        #upcoming-matches .match-block {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-left: 3px solid #3a86ff;
+        }
+
+        #upcoming-matches .match-header {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            margin-right: 0.5rem;
+            font-size: 0.9rem;
+
+            border-radius: 3px;
+            vertical-align: middle;
+        }
+
+        .time-display {
+            font-weight: bold;
+            color: #ff9500;
+            margin-right: 0.5rem;
+            display: inline-block;
+        }
+
+        .player-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+
+        .player-name {
+            flex: 1;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .vs-divider {
+            margin: 0 0.5rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 149, 0, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 149, 0, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 149, 0, 0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .panel {
+                padding: 1rem;
+            }
+
+            #title {
+                font-size: 1.4rem;
+                margin-top: 50px;
+            }
+
+            .competition-logo1, .competition-logo2 {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        #admin-panel {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        #admin-panel input, #admin-panel select {
+            padding: 8px;
+            width: 100%;
+            border-radius: 4px;
+            border: none;
+        }
+
+        .match-block {
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+
+        }
+
+        .match-form input {
+            margin: 5px 0;
+
+        }
+
+        .button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: rgba(35, 67, 158, 0.8);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .button-back {
+
+            opacity: 0;
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+        .capitalize {
+            text-transform: capitalize;
+        }
+    </style>
+</head>
+<body>
+<div class="panel" id="main-panel">
+    <h1 id="title">ПЕРВЕНСТВО РОССИИ ДО 12 ЛЕТ </h1>
+    <h2 id="date" class="">29 May 2025 | Table 1</h2>
+    <div class="competition-logo1">
+        <img src="images/ttfr_logo_new_03.png">
+    </div>
+    <div class="competition-logo2">
+        <img src="images/slntr.png">
+    </div>
+
+    <div class="match-header">Следующий матч</div>
+    <div class="match-block" id="next-match">
+        <div class="match-header"></div>
+        <span class="time-display"></span>
+        <div class="player-row">
+            <span class="player-name"></span>
+            <svg class="flag" viewBox="0 0 24 16" width="24" height="16">
+                <rect width="24" height="16" fill="#0039A6"></rect>
+                <rect y="5.33" width="24" height="5.33" fill="#D52B1E"></rect>
+                <rect y="10.67" width="24" height="5.33" fill="#FFFFFF"></rect>
+            </svg>
+            <span class="vs-divider">-</span>
+            <svg class="flag" viewBox="0 0 24 16" width="24" height="16">
+                <rect width="24" height="16" fill="#0039A6"></rect>
+                <rect y="5.33" width="24" height="5.33" fill="#D52B1E"></rect>
+                <rect y="10.67" width="24" height="5.33" fill="#FFFFFF"></rect>
+            </svg>
+            <span class="player-name"></span>
+        </div>
+    </div>
+
+    <div class="match-header">Последующие матчи</div>
+    <div id="upcoming-matches">
+        <div class="match-block">
+            <div class="match-header">Полуфинал</div>
+            <span class="time-display">12:00</span>
+            <div class="player-row">
+                <span class="player-name">Терешкова Оксана</span>
+                <svg class="flag" viewBox="0 0 24 16" width="24" height="16">
+                    <rect width="24" height="16" fill="#FFFFFF"></rect>
+                    <rect y="5.33" width="24" height="5.33" fill="#0039A6"></rect>
+                    <rect y="10.67" width="24" height="5.33" fill="#D52B1E"></rect>
+                </svg>
+                <span class="vs-divider">-</span>
+                <svg class="flag" viewBox="0 0 24 16" width="24" height="16">
+                    <rect width="24" height="16" fill="#FFFFFF"></rect>
+                    <rect y="5.33" width="24" height="5.33" fill="#0039A6"></rect>
+                    <rect y="10.67" width="24" height="5.33" fill="#D52B1E"></rect>
+                </svg>
+                <span class="player-name">Варварина Лариса</span>
+            </div>
+        </div>
+
+        <div class="match-block">
+            <div class="match-header">Финал</div>
+            <span class="time-display">14:00</span>
+            <div class="player-row">
+                <span class="player-name">Терешкова Полина</span>
+                <svg class="flag" viewBox="0 0 24 16" width="24" height="16">
+                    <rect width="24" height="16" fill="#FFFFFF"></rect>
+                    <rect y="5.33" width="24" height="5.33" fill="#0039A6"></rect>
+                    <rect y="10.67" width="24" height="5.33" fill="#D52B1E"></rect>
+                </svg>
+                <span class="vs-divider">-</span>
+                <svg class="flag" viewBox="0 0 24 16" width="24" height="16">
+                    <rect width="24" height="16" fill="#FFFFFF"></rect>
+                    <rect y="5.33" width="24" height="5.33" fill="#0039A6"></rect>
+                    <rect y="10.67" width="24" height="5.33" fill="#D52B1E"></rect>
+                </svg>
+                <span class="player-name">Терешкова Оксана</span>
+            </div>
+        </div>
+
+        <div class="match-block">
+            <div class="match-header">Финал</div>
+            <span class="time-display">16:00</span>
+            <div class="player-row">
+                <span class="player-name">Скворцов Андрей</span>
+                <svg class="flag" viewBox="0 0 24 16" width="24" height="16">
+                    <rect width="24" height="16" fill="#FFFFFF"></rect>
+                    <rect y="5.33" width="24" height="5.33" fill="#0039A6"></rect>
+                    <rect y="10.67" width="24" height="5.33" fill="#D52B1E"></rect>
+                </svg>
+                <span class="vs-divider">-</span>
+                <svg class="flag" viewBox="0 0 24 16" width="24" height="16">
+                    <rect width="24" height="16" fill="#FFFFFF"></rect>
+                    <rect y="5.33" width="24" height="5.33" fill="#0039A6"></rect>
+                    <rect y="10.67" width="24" height="5.33" fill="#D52B1E"></rect>
+                </svg>
+                <span class="player-name">Емельянин Костя</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+<button class="button button-back" onclick="location.href='schedule.html?mode=admin'" style="">Админ панель</button>
+<div class="panel" id="admin-panel">
+    <label>Название турнира:</label>
+    <input type="text" id="input-title" placeholder="Event Title"/>
+    <label>Место и дата проведения | Номер стола:</label>
+    <input type="text" id="input-date" placeholder="Date & Table"/>
+
+    <div id="match-forms"></div>
+
+    <button class="button" onclick="addMatchForm()">Добавить матч</button>
+    <button class="button" onclick="updateSchedule()">Обновить</button>
+    <button class="button" onclick="location.href='schedule.html'">Вернуться на главную</button>
+</div>
+
+<template id="match-template">
+    <div class="match-form">
+        <label>Этап соревнования:</label>
+        <input type="text" placeholder="Match Header" class="head" name="head"/>
+        <label>Время начала игры(если известно):</label>
+        <input type="text" placeholder="Match Title" class="title"/>
+        <label>ФАМИЛИЯ Имя игрока1:</label>
+        <input type="text" placeholder="Player 1 Name" class="playerA"/>
+        <label>Регион игрока1:</label>
+        <select class="flagA">
+            <option value="ady">Адыгея</option>
+            <option value="alt">Алтай</option>
+            <option value="bash">Башкортостан</option>
+            <option value="bury">Бурятия</option>
+            <option value="dnr">Донецкая народная республика ДНР</option>
+            <option value="dag">Дагестан</option>
+            <option value="ing">Ингушетия</option>
+            <option value="kb">Кабардино-Балкария</option>
+            <option value="klm">Калмыкия</option>
+            <option value="kar">Карачаево-Черкесия</option>
+            <option value="krl">Карелия</option>
+            <option value="kom">Коми</option>
+            <option value="cr">Крым</option>
+            <option value="lnr">Луганская народная республика</option>
+            <option value="mr">Марий Эл</option>
+            <option value="mrd">Мордовия</option>
+            <option value="sak">Саха (Якутия)</option>
+            <option value="alv">Северная Осетия — Алания</option>
+            <option value="tat">Татарстан</option>
+            <option value="tuv">Тыва</option>
+            <option value="udm">Удмуртия</option>
+            <option value="khk">Хакасия</option>
+            <option value="che">Чечня</option>
+            <option value="chv">Чувашия</option>
+
+            <option value="altk">Алтайский край</option>
+            <option value="zbk">Забайкальский край</option>
+            <option value="kam">Камчатский край</option>
+            <option value="kras">Краснодарский край</option>
+            <option value="krd">Красноярский край</option>
+            <option value="per">Пермский край</option>
+            <option value="pri">Приморский край</option>
+            <option value="sta">Ставропольский край</option>
+            <option value="hab">Хабаровский край</option>
+
+            <option value="amur">Амурская область</option>
+            <option value="arh">Архангельская область</option>
+            <option value="ast">Астраханская область</option>
+            <option value="bel">Белгородская область</option>
+            <option value="bry">Брянская область</option>
+            <option value="vla">Владимирская область</option>
+            <option value="vlg">Волгоградская область</option>
+            <option value="vls">Вологодская область</option>
+            <option value="vrn">Воронежская область</option>
+            <option value="zpo">Запорожская область</option>
+            <option value="iva">Ивановская область</option>
+            <option value="irk">Иркутская область</option>
+            <option value="klg">Калининградская область</option>
+            <option value="klz">Калужская область</option>
+            <option value="kem">Кемеровская область</option>
+            <option value="kir">Кировская область</option>
+            <option value="kos">Костромская область</option>
+            <option value="kur">Курганская область</option>
+            <option value="kurs">Курская область</option>
+            <option value="len">Ленинградская область</option>
+            <option value="lip">Липецкая область</option>
+            <option value="mag">Магаданская область</option>
+            <option value="mos">Московская область</option>
+            <option value="mur">Мурманская область</option>
+            <option value="nin">Нижегородская область</option>
+            <option value="nov">Новгородская область</option>
+            <option value="nvs">Новосибирская область</option>
+            <option value="oms">Омская область</option>
+            <option value="oren">Оренбургская область</option>
+            <option value="orl">Орловская область</option>
+            <option value="pnz">Пензенская область</option>
+            <option value="psk">Псковская область</option>
+            <option value="ros">Ростовская область</option>
+            <option value="rya">Рязанская область</option>
+            <option value="sam">Самарская область</option>
+            <option value="sar">Саратовская область</option>
+            <option value="sah">Сахалинская область</option>
+            <option value="sve">Свердловская область</option>
+            <option value="smo">Смоленская область</option>
+            <option value="tam">Тамбовская область</option>
+            <option value="tom">Томская область</option>
+            <option value="tul">Тульская область</option>
+            <option value="tyu">Тюменская область</option>
+            <option value="uly">Ульяновская область</option>
+            <option value="xobl">Херсонская область</option>
+            <option value="cheb">Челябинская область</option>
+            <option value="yar">Ярославская область</option>
+
+            <option value="msk">Москва</option>
+            <option value="spb">Санкт-Петербург</option>
+            <option value="sev">Севастополь</option>
+
+            <option value="evao">Еврейская АО</option>
+            <option value="nao">Ненецкий АО</option>
+            <option value="hmao">Ханты-Мансийский АО</option>
+            <option value="chao">Чукотский АО</option>
+            <option value="yamalo">Ямало-Ненецкий АО</option>
+        </select>
+        <label>ФАМИЛИЯ Имя игрока1:</label>
+        <input type="text" placeholder="Player 2 Name" class="playerB"/>
+        <label>Регион игрока2:</label>
+        <select class="flagB">
+            <option value="ady">Адыгея</option>
+            <option value="alt">Алтай</option>
+            <option value="bash">Башкортостан</option>
+            <option value="bury">Бурятия</option>
+            <option value="dnr">Донецкая народная республика ДНР</option>
+            <option value="dag">Дагестан</option>
+            <option value="ing">Ингушетия</option>
+            <option value="kb">Кабардино-Балкария</option>
+            <option value="klm">Калмыкия</option>
+            <option value="kar">Карачаево-Черкесия</option>
+            <option value="krl">Карелия</option>
+            <option value="kom">Коми</option>
+            <option value="cr">Крым</option>
+            <option value="lnr">Луганская народная республика</option>
+            <option value="mr">Марий Эл</option>
+            <option value="mrd">Мордовия</option>
+            <option value="sak">Саха (Якутия)</option>
+            <option value="alv">Северная Осетия — Алания</option>
+            <option value="tat">Татарстан</option>
+            <option value="tuv">Тыва</option>
+            <option value="udm">Удмуртия</option>
+            <option value="khk">Хакасия</option>
+            <option value="che">Чечня</option>
+            <option value="chv">Чувашия</option>
+
+            <option value="altk">Алтайский край</option>
+            <option value="zbk">Забайкальский край</option>
+            <option value="kam">Камчатский край</option>
+            <option value="kras">Краснодарский край</option>
+            <option value="krd">Красноярский край</option>
+            <option value="per">Пермский край</option>
+            <option value="pri">Приморский край</option>
+            <option value="sta">Ставропольский край</option>
+            <option value="hab">Хабаровский край</option>
+
+            <option value="amur">Амурская область</option>
+            <option value="arh">Архангельская область</option>
+            <option value="ast">Астраханская область</option>
+            <option value="bel">Белгородская область</option>
+            <option value="bry">Брянская область</option>
+            <option value="vla">Владимирская область</option>
+            <option value="vlg">Волгоградская область</option>
+            <option value="vls">Вологодская область</option>
+            <option value="vrn">Воронежская область</option>
+            <option value="zpo">Запорожская область</option>
+            <option value="iva">Ивановская область</option>
+            <option value="irk">Иркутская область</option>
+            <option value="klg">Калининградская область</option>
+            <option value="klz">Калужская область</option>
+            <option value="kem">Кемеровская область</option>
+            <option value="kir">Кировская область</option>
+            <option value="kos">Костромская область</option>
+            <option value="kur">Курганская область</option>
+            <option value="kurs">Курская область</option>
+            <option value="len">Ленинградская область</option>
+            <option value="lip">Липецкая область</option>
+            <option value="mag">Магаданская область</option>
+            <option value="mos">Московская область</option>
+            <option value="mur">Мурманская область</option>
+            <option value="nin">Нижегородская область</option>
+            <option value="nov">Новгородская область</option>
+            <option value="nvs">Новосибирская область</option>
+            <option value="oms">Омская область</option>
+            <option value="oren">Оренбургская область</option>
+            <option value="orl">Орловская область</option>
+            <option value="pnz">Пензенская область</option>
+            <option value="psk">Псковская область</option>
+            <option value="ros">Ростовская область</option>
+            <option value="rya">Рязанская область</option>
+            <option value="sam">Самарская область</option>
+            <option value="sar">Саратовская область</option>
+            <option value="sah">Сахалинская область</option>
+            <option value="sve">Свердловская область</option>
+            <option value="smo">Смоленская область</option>
+            <option value="tam">Тамбовская область</option>
+            <option value="tom">Томская область</option>
+            <option value="tul">Тульская область</option>
+            <option value="tyu">Тюменская область</option>
+            <option value="uly">Ульяновская область</option>
+            <option value="xobl">Херсонская область</option>
+            <option value="cheb">Челябинская область</option>
+            <option value="yar">Ярославская область</option>
+
+            <option value="msk">Москва</option>
+            <option value="spb">Санкт-Петербург</option>
+            <option value="sev">Севастополь</option>
+
+            <option value="evao">Еврейская АО</option>
+            <option value="nao">Ненецкий АО</option>
+            <option value="hmao">Ханты-Мансийский АО</option>
+            <option value="chao">Чукотский АО</option>
+            <option value="yamalo">Ямало-Ненецкий АО</option>
+        </select>
+        <button class="button" onclick="removeMatchForm(this)">Удалить матч</button>
+        <hr/>
+    </div>
+</template>
+
+<script>
+    async function loadSchedule() {
+        const response = await fetch('/api/schedule');
+        const data = await response.json();
+        applyUpdates(data);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const isAdmin = urlParams.get('mode') === 'admin';
+        document.getElementById('main-panel').style.display = isAdmin ? 'none' : 'flex';
+        document.querySelector('.button-back').style.display = isAdmin ? 'none' : 'block';
+        document.getElementById('admin-panel').style.display = isAdmin ? 'flex' : 'none';
+
+        if (isAdmin) {
+            document.getElementById('input-title').value = data.title;
+            document.getElementById('input-date').value = data.date;
+            const container = document.getElementById('match-forms');
+            container.innerHTML = '';
+            data.matches.forEach(match => {
+                const template = document.getElementById('match-template');
+                const clone = template.content.cloneNode(true);
+                clone.querySelector('.head').value = match.head;
+                clone.querySelector('.title').value = match.title;
+                clone.querySelector('.playerA').value = match.playerA;
+                clone.querySelector('.flagA').value = match.flagA;
+                clone.querySelector('.playerB').value = match.playerB;
+                clone.querySelector('.flagB').value = match.flagB;
+                container.appendChild(clone);
+            });
+        }
+        const toggleAdminBtn = document.querySelector('.button-back')
+        // Add keyboard shortcut for admin mode (Shift+Ctrl+F)
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'F') {
+                toggleAdminBtn.click();
+            }
+        });
+    }
+
+    function flagImg(code) {
+        let flagSvg = '';
+        switch (code) {
+            case 'ady':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_adygea_new.jpg" alt="flag Адыгея">`;
+                break;
+            case 'alt':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_altay_new.jpg" alt="flag Алтай">`;
+                break;
+            case 'bash':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_bashkorkostan_res_new.jpg" alt="flag Башкортостан">`;
+                break;
+            case 'bury':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_buryatiya_new.jpg   " alt="flag Бурятия">`;
+                break;
+            case 'dnr':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_dnr.jpg" alt="flag ДНР">`;
+                break;
+            case 'dag':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_dagestan_enl.jpg" alt="flag Дагестан">`;
+                break;
+            case 'ing':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_ingushetiya_enl.jpg" alt="flag Ингушетия">`;
+                break;
+            case 'kb':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kabardino_balkarskoy_pes_enl.jpg" alt="flag Кабардино-Балкария">`;
+                break;
+            case 'klm':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kalmyikiya_enl.jpg  " alt="flag Калмыкия">`;
+                break;
+            case 'kar':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_karachaevo_cherkesskay_res_new.jpg" alt="flag Карачаево-Черкесия">`;
+                break;
+            case 'krl':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kareliya_enl.jpg" alt="flag Карелия">`;
+                break;
+            case 'kom':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_komi_new.jpg" alt="flag Коми">`;
+                break;
+            case 'cr':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_krym.jpg" alt="flag Крым">`;
+                break;
+            case 'lnr':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_lnr1.jpg" alt="flag Луганская народная республика">`;
+                break;
+            case 'mr':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_mari_el_new.jpg" alt="flag Марий Эл">`;
+                break;
+            case 'mrd':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_mordovia_enl.jpg" alt="flag Мордовия">`;
+                break;
+            case 'sak':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_saha_yakuyiya_new.jpg" alt="flag Саха (Якутия)">`;
+                break;
+            case 'alv':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_sev_osetiya_new.jpg" alt="flag Северная Осетия — Алания">`;
+                break;
+            case 'tat':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tatarstan_new.jpg" alt="flag Татарстан">`;
+                break;
+            case 'tuv':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tyva_new.jpg" alt="flag Тыва">`;
+                break;
+            case 'udm':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_udmurtiya_res_new.jpg" alt="flag Удмуртия">`;
+                break;
+            case 'khk':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_hakasia_new.jpg" alt="flag Хакасия">`;
+                break;
+            case 'che':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_chechni.jpg" alt="flag Чечня">`;
+                break;
+            case 'chv':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_chuvashskaya_res_new.jpg" alt="flag Чувашия">`;
+                break;
+
+            case 'altk':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_altay_kray_enl.jpg" alt="flag Алтайский край">`;
+                break;
+            case 'zbk':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_zabaykalskiy_kray_enl.jpg" alt="flag Забайкальский край">`;
+                break;
+            case 'kam':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kamchatskiy_kray_new.jpg" alt="flag Камчатский край">`;
+                break;
+            case 'kras':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_krasnodarskiy_kray_new.jpg" alt="flag Краснодарский край">`;
+                break;
+            case 'krd':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_krasnoyarskiy_kray_new.jpg" alt="flag Красноярский край">`;
+                break;
+            case 'per':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_permskiy_kray_new.jpg" alt="flag Пермский край">`;
+                break;
+            case 'pri':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_primorskiy_kray_new.jpg" alt="flag Приморский край">`;
+                break;
+            case 'sta':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_stavropolskiy_kray_new.jpg" alt="flag Ставропольский край">`;
+                break;
+            case 'hab':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_habarovskiy_kray_new.jpg" alt="flag Хабаровский край">`;
+                break;
+
+            case 'amur':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_amurskay_obl_new.jpg" alt="flag Амурская область">`;
+                break;
+            case 'arh':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_arhangelskaja_obl_new.jpg" alt="flag Архангельская область">`;
+                break;
+            case 'ast':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_astrahanskay_obl_new.jpg" alt="flag Астраханская область">`;
+                break;
+            case 'bel':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_belgorodskay_obl_new_0.jpg" alt="flag Белгородская область">`;
+                break;
+            case 'bry':
+                flagSvg = `<img  class="flag"src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_bryanskay_obl_new.jpg" alt="flag Брянская область">`;
+                break;
+            case 'vla':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_vladim_obl.jpg" alt="flag Владимирская область">`;
+                break;
+            case 'vlg':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_volgograd_obl_enl.jpg" alt="flag Волгоградская область">`;
+                break;
+            case 'vls':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_vologodskay_obl_enl_0.jpg" alt="flag Вологодская область">`;
+                break;
+            case 'vrn':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_voronezskay_obl_enl.jpg" alt="flag Воронежская область">`;
+                break;
+            case 'zpo':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_zaporogskaia_obl.jpg" alt="flag Запорожская область">`;
+                break;
+            case 'iva':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_ivanovskay_obl_enl.jpg" alt="flag Ивановская область">`;
+                break;
+            case 'irk':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_irkutskay_obl_new.jpg" alt="flag Иркутская область">`;
+                break;
+            case 'klg':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kaliningradskoy_obl_new.jpg" alt="flag Калининградская область">`;
+                break;
+            case 'klz':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kaluzskay_obl_enl.jpg" alt="flag Калужская область">`;
+                break;
+            case 'kem':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kemerovskay_obl_new.jpg" alt="flag Кемеровская область">`;
+                break;
+            case 'kir':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kirovskay_obl_new.jpg" alt="flag Кировская область">`;
+                break;
+            case 'kos':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kostromskay_obl_enl.jpg" alt="flag Костромская область">`;
+                break;
+            case 'kur':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kurganskay_obl_enl.jpg" alt="flag Курганская область">`;
+                break;
+            case 'kurs':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kurskay_obl_new.jpg" alt="flag Курская область">`;
+                break;
+            case 'len':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_leningradskay_obl_new.jpg" alt="flag Ленинградская область">`;
+                break;
+            case 'lip':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_lipetskay_obl_enl.jpg" alt="flag Липецкая область">`;
+                break;
+            case 'mag':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_magadanskay_obl_enl.jpg" alt="flag Магаданская область">`;
+                break;
+            case 'mos':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_moskovskay_obl_new.jpg" alt="flag Московская область">`;
+                break;
+            case 'mur':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_murmanskay_obl_new.jpg" alt="flag Мурманская область">`;
+                break;
+            case 'nin':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_nizegorodskay_obl_new.jpg" alt="flag Нижегородская область">`;
+                break;
+            case 'nov':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_novgorodskay_obl_new.jpg" alt="flag Новгородская область">`;
+                break;
+            case 'nvs':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_novosibirskay_obl_new.jpg" alt="flag Новосибирская область">`;
+                break;
+            case 'oms':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_omskay_obl_new.jpg" alt="flag Омская область">`;
+                break;
+            case 'oren':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_orenburskay_obl_enl.jpg" alt="flag Оренбургская область">`;
+                break;
+            case 'orl':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_orlovskay_obl_enl.jpg" alt="flag Орловская область">`;
+                break;
+            case 'pnz':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_penza_region_new.jpg" alt="flag Пензенская область">`;
+                break;
+            case 'psk':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_pskovskay_obl_new.jpg" alt="flag Псковская область">`;
+                break;
+            case 'ros':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_rostovskaya_obl_enl.jpg" alt="flag Ростовская область">`;
+                break;
+            case 'rya':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_ryazanskaya_obl_enl.jpg" alt="flag Рязанская область">`;
+                break;
+            case 'sam':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_samarskaya_obl_new.jpg" alt="flag Самарская область">`;
+                break;
+            case 'sar':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_saratovskaya_obl_enl_0.jpg" alt="flag Саратовская область">`;
+                break;
+            case 'sah':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_sahalinskaya_obl_enl.jpg" alt="flag Сахалинская область">`;
+                break;
+            case 'sve':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_sverdlovskaya_obl_new.jpg" alt="flag Свердловская область">`;
+                break;
+            case 'smo':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_smolenskaya_obl_enl.jpg" alt="flag Смоленская область">`;
+                break;
+            case 'tam':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tambovskaya_obl_new.jpg" alt="flag Тамбовская область">`;
+                break;
+            case 'tom':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tomskaya_obl_enl.jpg" alt="flag Томская область">`;
+                break;
+            case 'tul':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tulskaya_obl_enl.jpg" alt="flag Тульская область">`;
+                break;
+            case 'tyu':
+                flagSvg = `<img class="flag" src=https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tumenskaya_obl_enl.jpg"" alt="flag Тюменская область">`;
+                break;
+            case 'uly':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_ulyanovskaya_obl_new.jpg" alt="flag Ульяновская область">`;
+                break;
+            case 'xobl':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_hersonskaia_obl.jpg" alt="flag Херсонская область">`;
+                break;
+            case 'cheb':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_chelyabinskaya_obl_enl.jpg" alt="flag Челябинская область">`;
+                break;
+            case 'yar':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_yaroslavskaya_obl_enl.jpg" alt="flag Ярославская область">`;
+                break;
+
+            case 'msk':
+                flagSvg = `<img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Moscow%2C_Russia.svg/1280px-Flag_of_Moscow%2C_Russia.svg.png" alt="flag Москва">`;
+                break;
+            case 'spb':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_st_peterburg.jpg" alt="flag Санкт-Петербург">`;
+                break;
+            case 'sev':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_sevastopol.jpg" alt="flag Севастополь">`;
+                break;
+
+            case 'evao':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_evrejskaja_ao.jpg" alt="flag Еврейская АО">`;
+                break;
+            case 'nao':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_nenetskiy_avt_okrug_enl.jpg" alt="flag Ненецкий АО">`;
+                break;
+            case 'hmao':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_hanty_mansiyskiy_avt_okr1.jpg" alt="flag ХМАО">`;
+                break;
+            case 'chao':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_chucotskiy_avt_okr_new.jpg" alt="flag Чукотский АО">`;
+                break;
+            case 'yamalo':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_jamalo_neneckogo_avt_okr.jpg" alt="flag Ямало-Ненецкий АО">`;
+        }
+        return flagSvg;
+    }
+
+    function applyUpdates(data) {
+        document.getElementById('title').innerText = data.title;
+        document.getElementById('date').innerText = data.date;
+
+        const next = data.matches[0];
+        const rest = data.matches.slice(1);
+
+        const playerA = (next.playerA).split(' ');
+        const playerB = (next.playerB).split(' ');
+        if (!playerA[1]) playerA[1] = '';
+        if (!playerB[1]) playerB[1] = '';
+
+        document.getElementById('next-match').innerHTML = next
+            ? `<div class="match-header">${next.head}</div>
+            <span class="time-display">${next.title}</span>
+            <div class="player-row">
+                <span class="player-name capitalize"><span class="uppercase">${playerA[0]}</span> ${playerA[1]}</span>
+                ${flagImg(next.flagA)}
+                <span class="vs-divider">-</span>
+                ${flagImg(next.flagB)}
+                <span class="player-name capitalize"><span class="uppercase">${playerB[0]}</span> ${playerB[1]}</span>
+            </div>`
+            : '';
+        // <div class='match-header'>${next.head}</div>${next.title}<br>${next.playerA}${flagImg(next.flagA)} - ${flagImg(next.flagB)} ${next.playerB}
+
+        const upcomingDiv = document.getElementById('upcoming-matches');
+        upcomingDiv.innerHTML = '';
+        rest.forEach(match => {
+            const playerA = (match.playerA).split(' ');
+            const playerB = (match.playerB).split(' ');
+            if (!playerA[1]) playerA[1] = '';
+            if (!playerB[1]) playerB[1] = '';
+            upcomingDiv.innerHTML +=
+                `<div class='match-block'>
+                    <div class="match-header">${match.head}</div>
+                            <span class="time-display">${match.title}</span>
+                            <div class="player-row">
+                                 <span class="player-name capitalize"><span class="uppercase">${playerA[0]}</span> ${playerA[1]}</span>
+                                ${flagImg(match.flagA)}
+                                <span class="vs-divider">-</span>
+                                ${flagImg(match.flagB)}
+                                <span class="player-name capitalize"><span class="uppercase">${playerB[0]}</span> ${playerB[1]}</span>
+                            </div>
+                </div>`;
+        });
+
+    }
+
+
+    async function updateSchedule() {
+        const updates = {
+            title: document.getElementById('input-title').value,
+            date: document.getElementById('input-date').value,
+            matches: []
+        };
+
+        const forms = document.querySelectorAll('.match-form');
+        forms.forEach(form => {
+            updates.matches.push({
+                head: form.querySelector('.head').value,
+                title: form.querySelector('.title').value,
+                playerA: form.querySelector('.playerA').value,
+                flagA: form.querySelector('.flagA').value,
+                playerB: form.querySelector('.playerB').value,
+                flagB: form.querySelector('.flagB').value
+            });
+
+        });
+
+        await fetch('/api/schedule', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(updates)
+        });
+
+        applyUpdates(updates);
+        alert("Обновилось!")
+    }
+
+    function addMatchForm() {
+        const template = document.getElementById('match-template');
+        const clone = template.content.cloneNode(true);
+        document.getElementById('match-forms').appendChild(clone);
+    }
+
+    function removeMatchForm(button) {
+        button.parentElement.remove();
+    }
+
+    window.onload = loadSchedule;
+</script>
+</body>
+</html>

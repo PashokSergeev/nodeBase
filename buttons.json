@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1748810552085,
+    "name": "Расписание игр",
+    "url": "schedule.html",
+    "color": "bg-teal-500 hover:bg-teal-600"
+  },
+  {
+    "id": 1748810678453,
+    "name": "Сетка с группами",
+    "url": "net.html",
+    "color": "bg-yellow-500 hover:bg-yellow-600"
+  },
+  {
+    "id": 1748810697374,
+    "name": "Представление команд",
+    "url": "teams.html",
+    "color": "bg-indigo-500 hover:bg-indigo-600"
+  },
+  {
+    "id": 1748812180774,
+    "name": "Видеопроигрыватель ",
+    "url": "videos.html",
+    "color": "bg-red-500 hover:bg-red-600"
+  }
+]

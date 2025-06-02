@@ -1,0 +1,317 @@
+{
+  "groups": [
+    {
+      "id": "1748806278852",
+      "name": "Группа-1",
+      "players": [
+        {
+          "id": "1748806330348o68tm",
+          "name": "Сергеев П.А.",
+          "rating": "345",
+          "regionCode": "chv",
+          "matches": {
+            "1748806330348hiltn": "2:4",
+            "1748806330349y1aro": null,
+            "17488063507975niqm": null,
+            "1748806350797fqwnt": null,
+            "1748806350797nn2kf": null,
+            "1748806350797al9tm": null
+          },
+          "games": 2,
+          "sets": 1,
+          "points": 0,
+          "position": 1
+        },
+        {
+          "id": "1748806330348hiltn",
+          "name": "Сергеев П.А.",
+          "rating": "34",
+          "regionCode": "chv",
+          "matches": {
+            "1748806330348o68tm": null,
+            "1748806330349y1aro": "2:4",
+            "17488063507975niqm": "2:4",
+            "1748806350797fqwnt": null,
+            "1748806350797nn2kf": null,
+            "1748806350797al9tm": null
+          },
+          "games": 0,
+          "sets": 1,
+          "points": 0,
+          "position": 2
+        },
+        {
+          "id": "1748806330349y1aro",
+          "name": "Сергеев П.А.",
+          "rating": "533",
+          "regionCode": "udm",
+          "matches": {
+            "1748806330348o68tm": null,
+            "1748806330348hiltn": null,
+            "17488063507975niqm": "2:4",
+            "1748806350797fqwnt": null,
+            "1748806350797nn2kf": null,
+            "1748806350797al9tm": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 3
+        },
+        {
+          "id": "17488063507975niqm",
+          "name": "Сергеев П.А.",
+          "rating": "534",
+          "regionCode": "mrd",
+          "matches": {
+            "1748806330348o68tm": "2:4",
+            "1748806330348hiltn": null,
+            "1748806330349y1aro": null,
+            "1748806350797fqwnt": null,
+            "1748806350797nn2kf": "2:4",
+            "1748806350797al9tm": null
+          },
+          "games": 0,
+          "sets": 5,
+          "points": 0,
+          "position": 3
+        },
+        {
+          "id": "1748806350797fqwnt",
+          "name": "Сергеев П.А.",
+          "rating": "354",
+          "regionCode": "bry",
+          "matches": {
+            "1748806330348o68tm": null,
+            "1748806330348hiltn": "2:4",
+            "1748806330349y1aro": null,
+            "17488063507975niqm": null,
+            "1748806350797nn2kf": null,
+            "1748806350797al9tm": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 4
+        },
+        {
+          "id": "1748806350797nn2kf",
+          "name": "Сергеев П.А.",
+          "rating": "345",
+          "regionCode": "hab",
+          "matches": {
+            "1748806330348o68tm": null,
+            "1748806330348hiltn": "2:4",
+            "1748806330349y1aro": "2:4",
+            "17488063507975niqm": null,
+            "1748806350797fqwnt": null,
+            "1748806350797al9tm": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 5
+        },
+        {
+          "id": "1748806350797al9tm",
+          "name": "Сергеев П.А.",
+          "rating": "435",
+          "regionCode": "zpo",
+          "matches": {
+            "1748806330348o68tm": "2:4",
+            "1748806330348hiltn": null,
+            "1748806330349y1aro": "2:4",
+            "17488063507975niqm": null,
+            "1748806350797fqwnt": null,
+            "1748806350797nn2kf": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 6
+        }
+      ]
+    },
+    {
+      "id": "1748806377116",
+      "name": "Группа-2",
+      "players": [
+        {
+          "id": "1748806393412lttwr",
+          "name": "Сергеев П.А.",
+          "rating": "53",
+          "regionCode": "mrd",
+          "matches": {
+            "1748806393412nweqs": null,
+            "1748806393412j4c4w": null,
+            "1748806393412wowoh": null,
+            "17488064100840bqxn": null,
+            "1748806410084qm6zh": null,
+            "17488064100847etii": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1748806393412nweqs",
+          "name": "Сергеев П.А.",
+          "rating": "543",
+          "regionCode": "krd",
+          "matches": {
+            "1748806393412lttwr": null,
+            "1748806393412j4c4w": null,
+            "1748806393412wowoh": null,
+            "17488064100840bqxn": null,
+            "1748806410084qm6zh": null,
+            "17488064100847etii": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1748806393412j4c4w",
+          "name": "Сергеев П.А.",
+          "rating": "345",
+          "regionCode": "arh",
+          "matches": {
+            "1748806393412lttwr": null,
+            "1748806393412nweqs": null,
+            "1748806393412wowoh": null,
+            "17488064100840bqxn": null,
+            "1748806410084qm6zh": null,
+            "17488064100847etii": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1748806393412wowoh",
+          "name": "Сергеев П.А.",
+          "rating": "534",
+          "regionCode": "amur",
+          "matches": {
+            "1748806393412lttwr": null,
+            "1748806393412nweqs": null,
+            "1748806393412j4c4w": null,
+            "17488064100840bqxn": null,
+            "1748806410084qm6zh": null,
+            "17488064100847etii": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "17488064100840bqxn",
+          "name": "Сергеев П.А.",
+          "rating": "534",
+          "regionCode": "lnr",
+          "matches": {
+            "1748806393412lttwr": null,
+            "1748806393412nweqs": null,
+            "1748806393412j4c4w": null,
+            "1748806393412wowoh": null,
+            "1748806410084qm6zh": null,
+            "17488064100847etii": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1748806410084qm6zh",
+          "name": "Сергеев П.А.",
+          "rating": "435",
+          "regionCode": "sah",
+          "matches": {
+            "1748806393412lttwr": null,
+            "1748806393412nweqs": null,
+            "1748806393412j4c4w": null,
+            "1748806393412wowoh": null,
+            "17488064100840bqxn": null,
+            "17488064100847etii": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "17488064100847etii",
+          "name": "Сергеев П.А.",
+          "rating": "543",
+          "regionCode": "bry",
+          "matches": {
+            "1748806393412lttwr": null,
+            "1748806393412nweqs": null,
+            "1748806393412j4c4w": null,
+            "1748806393412wowoh": null,
+            "17488064100840bqxn": null,
+            "1748806410084qm6zh": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
+    },
+    {
+      "id": "1748807163469",
+      "name": "Группа-3",
+      "players": [
+        {
+          "id": "1748807189677c46cs",
+          "name": "Максимов А.А.",
+          "rating": "345",
+          "regionCode": "sak",
+          "matches": {
+            "17488071896778z7nt": null,
+            "1748807189677xlz9r": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "17488071896778z7nt",
+          "name": "Максимов А.А.",
+          "rating": "543",
+          "regionCode": "hab",
+          "matches": {
+            "1748807189677c46cs": null,
+            "1748807189677xlz9r": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1748807189677xlz9r",
+          "name": "Максимов А.А.",
+          "rating": "45",
+          "regionCode": "zbk",
+          "matches": {
+            "1748807189677c46cs": null,
+            "17488071896778z7nt": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
+    }
+  ],
+  "tournamentTitle": "ПЕРВЕНСТВО РОССИИ ПО НАСТОЛЬНОМУ ТЕННИСУ СРЕДИ МАЛЬЧИКОВ И ДЕВОЧЕК ДО 12 ЛЕТ"
+}
