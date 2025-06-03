@@ -1,13 +1,13 @@
 {
   "text": {
-    "content": "Перерыв до 15:00",
-    "fontFamily": "'Open Sans', sans-serif",
+    "content": "Начало игр в 10:00",
+    "fontFamily": "'Oswald', sans-serif",
     "fontSize": "text-6xl",
     "fontWeight": "font-bold",
     "color": "#ffffff",
     "effects": {
       "shadow": false,
-      "glow": true,
+      "glow": false,
       "outline": false,
       "blink": false
     }
@@ -15,21 +15,21 @@
   "background": {
     "color": "#141e30",
     "opacity": 64,
-    "imageUrl": "/images/ttfr_logo_new_03.png",
+    "imageUrl": "/images/bg-image.png",
     "type": "cover",
-    "imageOpacity": 64,
-    "coverSize": 78,
-    "coverPositionX": 50,
-    "coverPositionY": 50,
+    "imageOpacity": 86,
+    "coverSize": 55,
+    "coverPositionX": 46,
+    "coverPositionY": 28,
     "patternSize": 276,
     "patternDensity": "repeat",
     "patternSpacingX": 0,
     "patternSpacingY": 0
   },
   "timer": {
-    "type": "alarm",
-    "minutes": 5,
-    "alarmTime": "19:00",
+    "type": "countdown",
+    "minutes": 1,
+    "alarmTime": "22:17",
     "fontFamily": "'Roboto', sans-serif",
     "fontSize": "text-6xl",
     "fontWeight": "font-bold",
@@ -49,6 +49,10 @@
     {
       "name": "ttfr_logo_new_03",
       "url": "/images/ttfr_logo_new_03.png"
+    },
+    {
+      "name": "Geometric",
+      "url": "/images/bg-image.png"
     }
   ]
 }

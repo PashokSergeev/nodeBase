@@ -283,6 +283,24 @@ app.post('/api/advertisement', (req, res) => {
     });
 });
 
+// Олимпийская система olympic system
+const OLYMPIC_SYSTEM_FILE = path.join(__dirname, 'olympic.json');
+// Чтение JSON
+app.get('/api/olympic', (req, res) => {
+    fs.readFile(OLYMPIC_SYSTEM_FILE, 'utf8', (err, data) => {
+        if (err) return res.status(500).json({error: 'Ошибка чтения данных'});
+        res.json(JSON.parse(data));
+    });
+});
+
+// Обновление JSON
+app.post('/api/olympic', (req, res) => {
+    fs.writeFile(OLYMPIC_SYSTEM_FILE, JSON.stringify(req.body, null, 2), (err) => {
+        if (err) return res.status(500).json({error: 'Ошибка сохранения данных'});
+        res.json({success: true});
+    });
+});
+
 
 
 

@@ -1,7 +1,7 @@
 [
   {
     "id": 1748883783032,
-    "name": "Текстовое Объявление",
+    "name": "Текстовое объявление",
     "url": "advertisement.html",
     "color": "bg-blue-500 hover:bg-blue-600"
   },
@@ -28,5 +28,11 @@
     "name": "Командное представление",
     "url": "teams.html",
     "color": "bg-yellow-500 hover:bg-yellow-600"
+  },
+  {
+    "id": 1748948912127,
+    "name": "Olympic",
+    "url": "olympic.html",
+    "color": "bg-pink-500 hover:bg-pink-600"
   }
 ]

@@ -1,0 +1,2351 @@
+<html lang="ru"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Турнирная сетка - Настольный теннис</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: "Oswald", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+            scroll-behavior: smooth;
+            color: #1a202c; /* Dark text for light background */
+        }
+        body::-webkit-scrollbar , .tournament-bracket::-webkit-scrollbar{
+            width: 0;
+        }
+
+        .tournament-header {
+            background: linear-gradient(90deg, #002F6C 0%, #C8102E 100%);
+            /*background: linear-gradient(90deg, #003366 0%, #FFFFFF 100%);*/
+            /*background: linear-gradient(90deg, #1A1F71 0%, #808080 100%);*/
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            min-height: 150px;
+        }
+        .logo-container {
+            width: 350px;
+            padding: 10px;
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .tournament-bracket {
+            display: flex;
+            overflow-x: auto;
+            padding: 70px 0 20px;
+            position: relative;
+        }
+
+        .round {
+            display: flex;
+            flex-direction: column;
+            min-width: 250px;
+            margin-right: 120px;
+            position: relative;
+        }
+        .round h3{
+            color: white;
+            font-weight: bold;
+            font-size: 35px;
+        }
+
+        .match {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+            position: relative;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .match:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .player {
+            padding: 12px;
+            border-bottom: 1px solid #eaeaea;
+            display: flex;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .player:last-child {
+            border-bottom: none;
+        }
+
+        .player-name {
+            flex-grow: 1;
+            margin-left: 10px;
+        }
+
+        .player-score {
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .match-info {
+            font-size: 0.8rem;
+            color: #666;
+            padding: 8px 12px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eaeaea;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .winner {
+            background-color: #065ed8;
+            color: white;font-weight: bold;
+        }
+
+        .connector-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .connector {
+            position: absolute;
+            border: 2px solid #ccc;
+            z-index: 1;
+            transition: border-color 0.3s ease;
+        }
+
+        .connector-horizontal {
+            height: 2px;
+        }
+
+        .connector-vertical {
+            width: 2px;
+        }
+
+        .connector.highlight {
+            border-color: #002F6C;
+            border-width: 3px;
+            z-index: 10;
+        }
+
+        .flag-icon {
+            width: 24px;
+            height: 16px;
+            margin-right: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .admin-controls {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            background-color: #f0f8ff;
+            border-radius: 8px 8px 0 0;
+        }
+
+        input[type="text"], select {
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .progress-indicator {
+            height: 6px;
+            background: linear-gradient(to right, #002F6C, #0052ba);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .tournament-tabs {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tournament-tab {
+            padding: 8px 16px;
+            margin-right: 8px;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            position: relative;
+            color: white;
+        }
+
+        .tournament-tab.active {
+            background-color: #002F6C;
+            font-weight: bold;
+        }
+
+        .tournament-tab:hover:not(.active) {
+            background-color: #e2e8f0;
+            color: #002F6C;
+        }
+
+        .tab-actions {
+            display: none;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            text-align: center;
+            line-height: 24px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+
+        .tournament-tab:hover .tab-actions {
+            display: block;
+        }
+
+        /* Стиль для классической сетки (слева направо) */
+        .classic-bracket .round {
+            justify-content: space-around;
+        }
+
+        .classic-bracket .round:nth-child(1) .match {
+            margin: 5px 0;
+        }
+
+        .classic-bracket .round:nth-child(2) .match {
+            margin: 20px 0;
+        }
+
+        .classic-bracket .round:nth-child(3) .match {
+            margin: 50px 0;
+        }
+
+        .classic-bracket .round:nth-child(4) .match {
+            margin: 110px 0;
+        }
+
+        .classic-bracket .round:nth-child(5) .match {
+            margin: 230px 0;
+        }
+
+        .classic-bracket .round:nth-child(6) .match {
+            margin: 470px 0;
+        }
+
+        .classic-bracket .round:nth-child(7) .match {
+            margin: 950px 0;
+        }
+
+        /* Автоскрытие элементов управления в режиме просмотра */
+        .viewer-controls {
+            transition: opacity 0.3s ease;
+        }
+
+        .viewer-controls.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Контекстное меню для вкладок */
+        .tab-context-menu {
+            position: absolute;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            padding: 8px 0;
+            z-index: 1000;
+            min-width: 150px;
+        }
+
+        .tab-context-menu-item {
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .tab-context-menu-item:hover {
+            background-color: #f0f4f8;
+        }
+
+        .tab-context-menu-item.danger {
+            color: #e53e3e;
+        }
+
+        /* Всплывающая подсказка для игрока */
+        .player-tooltip {
+            position: absolute;
+            top: -120px;
+            left: 0;
+            background-color: white;
+            color: #002F6C;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            width: 280px;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            pointer-events: none;
+        }
+
+        .player:hover .player-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tooltip-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .tooltip-name {
+            font-weight: bold;
+            margin-left: 8px;
+            flex-grow: 1;
+        }
+
+        .tooltip-score {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .tooltip-sets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .tooltip-set {
+            background-color: #f0f4f8;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .tooltip-info {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Анимация скроллинга */
+        @keyframes scrollAnimation {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+
+        .scroll-animation {
+            animation: scrollAnimation 15s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .tournament-bracket {
+                flex-direction: column;
+                overflow-x: hidden;
+                overflow-y: auto;
+            }
+
+            .round {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+
+            .connector-wrapper {
+                display: none;
+            }
+
+            .player-tooltip {
+                width: 90%;
+                left: 5%;
+                top: -100px;
+            }
+        }
+    </style>
+    <style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.fixed{position:fixed}.relative{position:relative}.inset-0{inset:0px}.z-50{z-index:50}.mx-2{margin-left:0.5rem;margin-right:0.5rem}.mx-auto{margin-left:auto;margin-right:auto}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-8{margin-bottom:2rem}.mr-2{margin-right:0.5rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.block{display:block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.min-h-screen{min-height:100vh}.w-1\/3{width:33.333333%}.w-2\/3{width:66.666667%}.w-full{width:100%}.max-w-md{max-width:28rem}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.items-center{align-items:center}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-6{gap:1.5rem}.overflow-hidden{overflow:hidden}.rounded-lg{border-radius:0.5rem}.rounded-md{border-radius:0.375rem}.border{border-width:1px}.border-gray-300{--tw-border-opacity:1;border-color:rgb(209 213 219 / var(--tw-border-opacity, 1))}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-blue-600{--tw-bg-opacity:1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.bg-gray-500{--tw-bg-opacity:1;background-color:rgb(107 114 128 / var(--tw-bg-opacity, 1))}.bg-gray-600{--tw-bg-opacity:1;background-color:rgb(75 85 99 / var(--tw-bg-opacity, 1))}.bg-green-600{--tw-bg-opacity:1;background-color:rgb(22 163 74 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-opacity-50{--tw-bg-opacity:0.5}.p-2{padding:0.5rem}.p-6{padding:1.5rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-8{padding-top:2rem;padding-bottom:2rem}.text-center{text-align:center}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.font-semibold{font-weight:600}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}.text-gray-700{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity, 1))}.text-gray-800{--tw-text-opacity:1;color:rgb(31 41 55 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.shadow{--tw-shadow:0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-md{--tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.hover\:bg-blue-700:hover{--tw-bg-opacity:1;background-color:rgb(29 78 216 / var(--tw-bg-opacity, 1))}.hover\:bg-gray-600:hover{--tw-bg-opacity:1;background-color:rgb(75 85 99 / var(--tw-bg-opacity, 1))}.hover\:bg-gray-700:hover{--tw-bg-opacity:1;background-color:rgb(55 65 81 / var(--tw-bg-opacity, 1))}.hover\:bg-green-700:hover{--tw-bg-opacity:1;background-color:rgb(21 128 61 / var(--tw-bg-opacity, 1))}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}</style></head>
+<body class="min-h-screen" style="background-color: rgba(13, 25, 42, 0.7)">
+<div class="container mx-auto px-4 py-8">
+<!--    <header class="tournament-header text-white shadow-lg">-->
+<!--        <div class="container mx-auto py-8 flex justify-between items-center gap-16">-->
+<!--            <div class="logo-container">-->
+<!--                <img id="leftLogo" class="logo-img" src="images/ttfr_logo_new_03.png" alt="Left Logo">-->
+<!--            </div>-->
+<!--            <h1 id="tournamentTitle" class="text-3xl font-bold text-center ">Турнир по настольному теннису</h1>-->
+<!--            <div class="logo-container">-->
+<!--                <img id="rightLogo" class="logo-img" src="images/slntr.png" alt="Right Logo">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </header>-->
+
+    <div class="mode-toggle viewer-controls">
+        <button id="toggleMode" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition-all">
+            Режим просмотра
+        </button>
+    </div>
+
+    <div id="adminPanel" class="mb-8 bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold mb-4">Настройки турнира</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-gray-700 mb-2">Название турнира:</label>
+                <input type="text" id="tournamentName" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Введите название турнира" value="Турнир по настольному теннису">
+            </div>
+
+            <div>
+                <label class="block text-gray-700 mb-2">Количество участников:</label>
+                <select id="playerCount" class="w-full p-2 border border-gray-300 rounded-md">
+                    <option value="4">4 участника</option>
+                    <option value="8">8 участников</option>
+                    <option value="16" >16 участников</option>
+                    <option value="32" selected="">32 участника</option>
+                    <option value="64">64 участника</option>
+                    <option value="128">128 участников</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mt-6 flex justify-between">
+            <button id="createTournament" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow transition-all">
+                Создать новый турнир
+            </button>
+
+            <div>
+                <button id="saveTournament" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow transition-all mr-2">
+                    Сохранить
+                </button>
+                <button id="loadTournament" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg shadow transition-all">
+                    Загрузить
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="viewerControls" class="mb-8 bg-white p-6 rounded-lg shadow-md viewer-controls" style="display: none;">
+        <h2 class="text-xl font-semibold mb-4">Настройки просмотра</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-gray-700 mb-2">Показать раунды:</label>
+                <div class="flex items-center">
+                    <span class="mr-2">От:</span>
+                    <select id="startRound" class="w-full p-2 border border-gray-300 rounded-md">
+                        <option value="0">1/128 финала</option>
+                        <option value="1">1/64 финала</option>
+                        <option value="2">1/32 финала</option>
+                        <option value="3">1/16 финала</option>
+                        <option value="4" >1/8 финала</option>
+                        <option value="5" >1/4 финала</option>
+                        <option value="6" >1/2 финала</option>
+                        <option value="7" >Финал</option>
+                    </select>
+
+                    <span class="mx-2">До:</span>
+                    <select id="endRound" class="w-full p-2 border border-gray-300 rounded-md">
+                        <option value="0">1/128 финала</option>
+                        <option value="1">1/64 финала</option>
+                        <option value="2">1/32 финала</option>
+                        <option value="3">1/16 финала</option>
+                        <option value="4" >1/8 финала</option>
+                        <option value="5" >1/4 финала</option>
+                        <option value="6" >1/2 финала</option>
+                        <option value="7" selected="" >Финал</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button id="applyViewSettings" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow transition-all">
+                Применить
+            </button>
+        </div>
+    </div>
+
+    <div id="tournamentTabs" class="tournament-tabs viewer-controls"><div class="tournament-tab active">Чемпионат города<div class="tab-actions">⋮</div></div><div class="tournament-tab ">Кубок области<div class="tab-actions">⋮</div></div><div class="tournament-tab">+ Новый турнир</div></div>
+
+    <div id="tournamentContainer" class="relative overflow-hidden">
+        <div id="tournamentBracket" class="tournament-bracket classic-bracket"><div class="round"><h3 class="text-center font-bold mb-4">1/8 финала</h3><div class="match" data-round="3" data-match="0"><div class="player winner" data-player-name="Иванов А." data-round="3" data-match="0" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span class="tooltip-name">Иванов А.</span><span class="tooltip-score">3:0</span></div><div class="tooltip-sets"><div class="tooltip-set">11-1</div><div class="tooltip-set">11-4</div><div class="tooltip-set">11-5</div></div><div class="tooltip-info">📅 15.06.2023 10:00 🏓 Стол 1 📝 1/16 финала</div></div><span class="flag-icon flag-icon-kr"></span><span class="player-name">Иванов А.</span><span class="player-score">3</span></div><div class="player " data-player-name="Петров С." data-round="3" data-match="0" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-jp"></span><span class="tooltip-name">Петров С.</span><span class="tooltip-score">3:0</span></div><div class="tooltip-sets"><div class="tooltip-set">11-1</div><div class="tooltip-set">11-4</div><div class="tooltip-set">11-5</div></div><div class="tooltip-info">📅 15.06.2023 10:00 🏓 Стол 1 📝 1/16 финала</div></div><span class="flag-icon flag-icon-jp"></span><span class="player-name">Петров С.</span><span class="player-score">0</span></div><div class="match-info">📅 15.06.2023 10:00 🏓 Стол 1 📝 1/16 финала</div><div class="progress-indicator" style="width: 100%;"></div></div><div class="match" data-round="3" data-match="1"><div class="player winner" data-player-name="Сидоров И." data-round="3" data-match="1" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-jp"></span><span class="tooltip-name">Сидоров И.</span><span class="tooltip-score">3:0</span></div><div class="tooltip-sets"><div class="tooltip-set">11-1</div><div class="tooltip-set">11-7</div><div class="tooltip-set">11-7</div></div><div class="tooltip-info">📅 15.06.2023 11:00 🏓 Стол 2 📝 1/16 финала</div></div><span class="flag-icon flag-icon-jp"></span><span class="player-name">Сидоров И.</span><span class="player-score">3</span></div><div class="player " data-player-name="Смирнов К." data-round="3" data-match="1" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span class="tooltip-name">Смирнов К.</span><span class="tooltip-score">3:0</span></div><div class="tooltip-sets"><div class="tooltip-set">11-1</div><div class="tooltip-set">11-7</div><div class="tooltip-set">11-7</div></div><div class="tooltip-info">📅 15.06.2023 11:00 🏓 Стол 2 📝 1/16 финала</div></div><span class="flag-icon flag-icon-kr"></span><span class="player-name">Смирнов К.</span><span class="player-score">0</span></div><div class="match-info">📅 15.06.2023 11:00 🏓 Стол 2 📝 1/16 финала</div><div class="progress-indicator" style="width: 100%;"></div></div><div class="match" data-round="3" data-match="2"><div class="player winner" data-player-name="Кузнецов Д." data-round="3" data-match="2" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span class="tooltip-name">Кузнецов Д.</span><span class="tooltip-score">4:0</span></div><div class="tooltip-sets"><div class="tooltip-set">11-3</div><div class="tooltip-set">11-7</div><div class="tooltip-set">11-4</div><div class="tooltip-set">11-5</div></div><div class="tooltip-info">📅 15.06.2023 12:00 🏓 Стол 3 📝 1/16 финала</div></div><span class="flag-icon flag-icon-de"></span><span class="player-name">Кузнецов Д.</span><span class="player-score">4</span></div><div class="player winner" data-player-name="Попов М." data-round="3" data-match="2" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span class="tooltip-name">Попов М.</span><span class="tooltip-score">4:0</span></div><div class="tooltip-sets"><div class="tooltip-set">11-3</div><div class="tooltip-set">11-7</div><div class="tooltip-set">11-4</div><div class="tooltip-set">11-5</div></div><div class="tooltip-info">📅 15.06.2023 12:00 🏓 Стол 3 📝 1/16 финала</div></div><span class="flag-icon flag-icon-de"></span><span class="player-name">Попов М.</span><span class="player-score">0</span></div><div class="match-info">📅 15.06.2023 12:00 🏓 Стол 3 📝 1/16 финала</div><div class="progress-indicator" style="width: 100%;"></div></div><div class="match" data-round="3" data-match="3"><div class="player winner" data-player-name="Васильев Н." data-round="3" data-match="3" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-jp"></span><span class="tooltip-name">Васильев Н.</span><span class="tooltip-score">4:1</span></div><div class="tooltip-sets"><div class="tooltip-set">11-8</div><div class="tooltip-set">11-5</div><div class="tooltip-set">11-6</div><div class="tooltip-set">11-5</div><div class="tooltip-set">9-11</div></div><div class="tooltip-info">📅 15.06.2023 13:00 🏓 Стол 4 📝 1/16 финала</div></div><span class="flag-icon flag-icon-jp"></span><span class="player-name">Васильев Н.</span><span class="player-score">4</span></div><div class="player " data-player-name="Соколов А." data-round="3" data-match="3" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span class="tooltip-name">Соколов А.</span><span class="tooltip-score">4:1</span></div><div class="tooltip-sets"><div class="tooltip-set">11-8</div><div class="tooltip-set">11-5</div><div class="tooltip-set">11-6</div><div class="tooltip-set">11-5</div><div class="tooltip-set">9-11</div></div><div class="tooltip-info">📅 15.06.2023 13:00 🏓 Стол 4 📝 1/16 финала</div></div><span class="flag-icon flag-icon-de"></span><span class="player-name">Соколов А.</span><span class="player-score">1</span></div><div class="match-info">📅 15.06.2023 13:00 🏓 Стол 4 📝 1/16 финала</div><div class="progress-indicator" style="width: 100%;"></div></div><div class="match" data-round="3" data-match="4"><div class="player " data-player-name="Михайлов В." data-round="3" data-match="4" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-cn"></span><span class="tooltip-name">Михайлов В.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-cn"></span><span class="player-name">Михайлов В.</span><span class="player-score"></span></div><div class="player " data-player-name="Новиков Г." data-round="3" data-match="4" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span class="tooltip-name">Новиков Г.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-kr"></span><span class="player-name">Новиков Г.</span><span class="player-score"></span></div></div><div class="match" data-round="3" data-match="5"><div class="player " data-player-name="Федоров Е." data-round="3" data-match="5" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-kz"></span><span class="tooltip-name">Федоров Е.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-kz"></span><span class="player-name">Федоров Е.</span><span class="player-score"></span></div><div class="player " data-player-name="Морозов Л." data-round="3" data-match="5" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-ua"></span><span class="tooltip-name">Морозов Л.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-ua"></span><span class="player-name">Морозов Л.</span><span class="player-score"></span></div></div><div class="match" data-round="3" data-match="6"><div class="player " data-player-name="Волков П." data-round="3" data-match="6" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span class="tooltip-name">Волков П.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-de"></span><span class="player-name">Волков П.</span><span class="player-score"></span></div><div class="player " data-player-name="Алексеев Р." data-round="3" data-match="6" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-kz"></span><span class="tooltip-name">Алексеев Р.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-kz"></span><span class="player-name">Алексеев Р.</span><span class="player-score"></span></div></div><div class="match" data-round="3" data-match="7"><div class="player " data-player-name="Лебедев Т." data-round="3" data-match="7" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span class="tooltip-name">Лебедев Т.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-kr"></span><span class="player-name">Лебедев Т.</span><span class="player-score"></span></div><div class="player " data-player-name="Семенов Ю." data-round="3" data-match="7" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-by"></span><span class="tooltip-name">Семенов Ю.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-by"></span><span class="player-name">Семенов Ю.</span><span class="player-score"></span></div></div></div><div class="round"><h3 class="text-center font-bold mb-4">1/4 финала</h3><div class="match" data-round="2" data-match="0"><div class="player winner" data-player-name="Иванов А." data-round="2" data-match="0" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span class="tooltip-name">Иванов А.</span><span class="tooltip-score">3:2</span></div><div class="tooltip-sets"><div class="tooltip-set">11-8</div><div class="tooltip-set">11-8</div><div class="tooltip-set">11-6</div><div class="tooltip-set">1-11</div><div class="tooltip-set">6-11</div></div><div class="tooltip-info">📅 16.06.2023 10:00 🏓 Стол 1 📝 1/8 финала</div></div><span class="flag-icon flag-icon-kr"></span><span class="player-name">Иванов А.</span><span class="player-score">3</span></div><div class="player " data-player-name="Сидоров И." data-round="2" data-match="0" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-jp"></span><span class="tooltip-name">Сидоров И.</span><span class="tooltip-score">3:2</span></div><div class="tooltip-sets"><div class="tooltip-set">11-8</div><div class="tooltip-set">11-8</div><div class="tooltip-set">11-6</div><div class="tooltip-set">1-11</div><div class="tooltip-set">6-11</div></div><div class="tooltip-info">📅 16.06.2023 10:00 🏓 Стол 1 📝 1/8 финала</div></div><span class="flag-icon flag-icon-jp"></span><span class="player-name">Сидоров И.</span><span class="player-score">2</span></div><div class="match-info">📅 16.06.2023 10:00 🏓 Стол 1 📝 1/8 финала</div><div class="progress-indicator" style="width: 100%;"></div></div><div class="match" data-round="2" data-match="1"><div class="player winner" data-player-name="Кузнецов Д." data-round="2" data-match="1" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span class="tooltip-name">Кузнецов Д.</span><span class="tooltip-score">3:2</span></div><div class="tooltip-sets"><div class="tooltip-set">11-1</div><div class="tooltip-set">11-4</div><div class="tooltip-set">11-9</div><div class="tooltip-set">1-11</div><div class="tooltip-set">4-11</div></div><div class="tooltip-info">📅 16.06.2023 11:00 🏓 Стол 2 📝 1/8 финала</div></div><span class="flag-icon flag-icon-de"></span><span class="player-name">Кузнецов Д.</span><span class="player-score">3</span></div><div class="player " data-player-name="Васильев Н." data-round="2" data-match="1" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-jp"></span><span class="tooltip-name">Васильев Н.</span><span class="tooltip-score">3:2</span></div><div class="tooltip-sets"><div class="tooltip-set">11-1</div><div class="tooltip-set">11-4</div><div class="tooltip-set">11-9</div><div class="tooltip-set">1-11</div><div class="tooltip-set">4-11</div></div><div class="tooltip-info">📅 16.06.2023 11:00 🏓 Стол 2 📝 1/8 финала</div></div><span class="flag-icon flag-icon-jp"></span><span class="player-name">Васильев Н.</span><span class="player-score">2</span></div><div class="match-info">📅 16.06.2023 11:00 🏓 Стол 2 📝 1/8 финала</div><div class="progress-indicator" style="width: 100%;"></div></div><div class="match" data-round="2" data-match="2"><div class="player " data-player-name="" data-round="2" data-match="2" data-player-index="0"><span class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span class="player-score"></span></div><div class="player " data-player-name="" data-round="2" data-match="2" data-player-index="1"><span class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span class="player-score"></span></div></div><div class="match" data-round="2" data-match="3"><div class="player " data-player-name="" data-round="2" data-match="3" data-player-index="0"><span class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span class="player-score"></span></div><div class="player " data-player-name="" data-round="2" data-match="3" data-player-index="1"><span class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span class="player-score"></span></div></div></div><div class="round"><h3 class="text-center font-bold mb-4">1/2 финала</h3><div class="match" data-round="1" data-match="0"><div class="player winner" data-player-name="Иванов А." data-round="1" data-match="0" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span class="tooltip-name">Иванов А.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-kr"></span><span class="player-name">Иванов А.</span><span class="player-score"></span></div><div class="player winner" data-player-name="Кузнецов Д." data-round="1" data-match="0" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span class="tooltip-name">Кузнецов Д.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-de"></span><span class="player-name">Кузнецов Д.</span><span class="player-score"></span></div></div><div class="match" data-round="1" data-match="1"><div class="player " data-player-name="" data-round="1" data-match="1" data-player-index="0"><span class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span class="player-score"></span></div><div class="player " data-player-name="" data-round="1" data-match="1" data-player-index="1"><span class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span class="player-score"></span></div></div></div><div class="round"><h3 class="text-center font-bold mb-4">Финал</h3><div class="match" data-round="0" data-match="0"><div class="player " data-player-name="" data-round="0" data-match="0" data-player-index="0"><span class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span class="player-score"></span></div><div class="player " data-player-name="" data-round="0" data-match="0" data-player-index="1"><span class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span class="player-score"></span></div></div></div><div class="connector-wrapper"><div class="connector connector-horizontal" data-from="undefined-0" data-to="undefined-0" style="top: 568.094px; left: 675.5px;"></div><div class="connector connector-vertical" data-connects="undefined-0" style="top: 568.094px; left: 65.5px; height: 144.188px;"></div><div class="connector connector-horizontal" data-from="undefined-1" data-to="undefined-0" style="top: 712.281px; left: 675.5px;"></div><div class="connector connector-horizontal" data-from="undefined-2" data-to="undefined-1" style="top: 856.469px; left: 675.5px;"></div><div class="connector connector-vertical" data-connects="undefined-1" style="top: 856.469px; left: 65.5px; height: 144.188px;"></div><div class="connector connector-horizontal" data-from="undefined-3" data-to="undefined-1" style="top: 1000.66px; left: 675.5px;"></div><div class="connector connector-horizontal" data-from="undefined-4" data-to="undefined-2" style="top: 1126.25px; left: 675.5px;"></div><div class="connector connector-vertical" data-connects="undefined-2" style="top: 1126.25px; left: 65.5px; height: 107px;"></div><div class="connector connector-horizontal" data-from="undefined-5" data-to="undefined-2" style="top: 1233.25px; left: 675.5px;"></div><div class="connector connector-horizontal" data-from="undefined-6" data-to="undefined-3" style="top: 1340.25px; left: 675.5px;"></div><div class="connector connector-vertical" data-connects="undefined-3" style="top: 1340.25px; left: 65.5px; height: 107px;"></div><div class="connector connector-horizontal" data-from="undefined-7" data-to="undefined-3" style="top: 1447.25px; left: 675.5px;"></div><div class="connector connector-horizontal" data-from="undefined-0" data-to="undefined-0" style="top: 1647.84px; left: 675.5px;"></div><div class="connector connector-vertical" data-connects="undefined-0" style="top: 1647.84px; left: 65.5px; height: 174.188px;"></div><div class="connector connector-horizontal" data-from="undefined-1" data-to="undefined-0" style="top: 1822.03px; left: 675.5px;"></div><div class="connector connector-horizontal" data-from="undefined-2" data-to="undefined-1" style="top: 1977.62px; left: 675.5px;"></div><div class="connector connector-vertical" data-connects="undefined-1" style="top: 1977.62px; left: 65.5px; height: 137px;"></div><div class="connector connector-horizontal" data-from="undefined-3" data-to="undefined-1" style="top: 2114.62px; left: 675.5px;"></div><div class="connector connector-horizontal" data-from="undefined-0" data-to="undefined-0" style="top: 2341.62px; left: 675.5px;"></div><div class="connector connector-vertical" data-connects="undefined-0" style="top: 2341.62px; left: 65.5px; height: 197px;"></div><div class="connector connector-horizontal" data-from="undefined-1" data-to="undefined-0" style="top: 2538.62px; left: 675.5px;"></div></div></div>
+    </div>
+</div>
+
+<!-- Модальное окно для редактирования матча -->
+<div id="matchModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+        <h3 class="text-xl font-bold mb-4">Редактирование матча</h3>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">Игрок 1:</label>
+            <div class="flex items-center">
+                <select id="player1Country" class="w-1/3 p-2 border border-gray-300 rounded-md mr-2">
+                    <option value="">Выберите регион</option>
+                    <option value="ady">Адыгея</option>
+                    <option value="alt">Алтай</option>
+                    <option value="bash">Башкортостан</option>
+                    <option value="bury">Бурятия</option>
+                    <option value="dnr">Донецкая народная республика ДНР</option>
+                    <option value="dag">Дагестан</option>
+                    <option value="ing">Ингушетия</option>
+                    <option value="kb">Кабардино-Балкария</option>
+                    <option value="klm">Калмыкия</option>
+                    <option value="kar">Карачаево-Черкесия</option>
+                    <option value="krl">Карелия</option>
+                    <option value="kom">Коми</option>
+                    <option value="cr">Крым</option>
+                    <option value="lnr">Луганская народная республика</option>
+                    <option value="mr">Марий Эл</option>
+                    <option value="mrd">Мордовия</option>
+                    <option value="sak">Саха (Якутия)</option>
+                    <option value="alv">Северная Осетия — Алания</option>
+                    <option value="tat">Татарстан</option>
+                    <option value="tuv">Тыва</option>
+                    <option value="udm">Удмуртия</option>
+                    <option value="khk">Хакасия</option>
+                    <option value="che">Чечня</option>
+                    <option value="chv">Чувашия</option>
+
+                    <option value="altk">Алтайский край</option>
+                    <option value="zbk">Забайкальский край</option>
+                    <option value="kam">Камчатский край</option>
+                    <option value="kras">Краснодарский край</option>
+                    <option value="krd">Красноярский край</option>
+                    <option value="per">Пермский край</option>
+                    <option value="pri">Приморский край</option>
+                    <option value="sta">Ставропольский край</option>
+                    <option value="hab">Хабаровский край</option>
+
+                    <option value="amur">Амурская область</option>
+                    <option value="arh">Архангельская область</option>
+                    <option value="ast">Астраханская область</option>
+                    <option value="bel">Белгородская область</option>
+                    <option value="bry">Брянская область</option>
+                    <option value="vla">Владимирская область</option>
+                    <option value="vlg">Волгоградская область</option>
+                    <option value="vls">Вологодская область</option>
+                    <option value="vrn">Воронежская область</option>
+                    <option value="zpo">Запорожская область</option>
+                    <option value="iva">Ивановская область</option>
+                    <option value="irk">Иркутская область</option>
+                    <option value="klg">Калининградская область</option>
+                    <option value="klz">Калужская область</option>
+                    <option value="kem">Кемеровская область</option>
+                    <option value="kir">Кировская область</option>
+                    <option value="kos">Костромская область</option>
+                    <option value="kur">Курганская область</option>
+                    <option value="kurs">Курская область</option>
+                    <option value="len">Ленинградская область</option>
+                    <option value="lip">Липецкая область</option>
+                    <option value="mag">Магаданская область</option>
+                    <option value="mos">Московская область</option>
+                    <option value="mur">Мурманская область</option>
+                    <option value="nin">Нижегородская область</option>
+                    <option value="nov">Новгородская область</option>
+                    <option value="nvs">Новосибирская область</option>
+                    <option value="oms">Омская область</option>
+                    <option value="oren">Оренбургская область</option>
+                    <option value="orl">Орловская область</option>
+                    <option value="pnz">Пензенская область</option>
+                    <option value="psk">Псковская область</option>
+                    <option value="ros">Ростовская область</option>
+                    <option value="rya">Рязанская область</option>
+                    <option value="sam">Самарская область</option>
+                    <option value="sar">Саратовская область</option>
+                    <option value="sah">Сахалинская область</option>
+                    <option value="sve">Свердловская область</option>
+                    <option value="smo">Смоленская область</option>
+                    <option value="tam">Тамбовская область</option>
+                    <option value="tom">Томская область</option>
+                    <option value="tul">Тульская область</option>
+                    <option value="tyu">Тюменская область</option>
+                    <option value="uly">Ульяновская область</option>
+                    <option value="xobl">Херсонская область</option>
+                    <option value="cheb">Челябинская область</option>
+                    <option value="yar">Ярославская область</option>
+
+                    <option value="msk">Москва</option>
+                    <option value="spb">Санкт-Петербург</option>
+                    <option value="sev">Севастополь</option>
+
+                    <option value="evao">Еврейская АО</option>
+                    <option value="nao">Ненецкий АО</option>
+                    <option value="hmao">Ханты-Мансийский АО</option>
+                    <option value="chao">Чукотский АО</option>
+                    <option value="yamalo">Ямало-Ненецкий АО</option>
+                </select>
+                <input type="text" id="player1Name" class="w-2/3 p-2 border border-gray-300 rounded-md" placeholder="Имя игрока">
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">Игрок 2:</label>
+            <div class="flex items-center">
+                <select id="player2Country" class="w-1/3 p-2 border border-gray-300 rounded-md mr-2">
+                    <option value="">Выберите регион</option>
+                    <option value="ady">Адыгея</option>
+                    <option value="alt">Алтай</option>
+                    <option value="bash">Башкортостан</option>
+                    <option value="bury">Бурятия</option>
+                    <option value="dnr">Донецкая народная республика ДНР</option>
+                    <option value="dag">Дагестан</option>
+                    <option value="ing">Ингушетия</option>
+                    <option value="kb">Кабардино-Балкария</option>
+                    <option value="klm">Калмыкия</option>
+                    <option value="kar">Карачаево-Черкесия</option>
+                    <option value="krl">Карелия</option>
+                    <option value="kom">Коми</option>
+                    <option value="cr">Крым</option>
+                    <option value="lnr">Луганская народная республика</option>
+                    <option value="mr">Марий Эл</option>
+                    <option value="mrd">Мордовия</option>
+                    <option value="sak">Саха (Якутия)</option>
+                    <option value="alv">Северная Осетия — Алания</option>
+                    <option value="tat">Татарстан</option>
+                    <option value="tuv">Тыва</option>
+                    <option value="udm">Удмуртия</option>
+                    <option value="khk">Хакасия</option>
+                    <option value="che">Чечня</option>
+                    <option value="chv">Чувашия</option>
+
+                    <option value="altk">Алтайский край</option>
+                    <option value="zbk">Забайкальский край</option>
+                    <option value="kam">Камчатский край</option>
+                    <option value="kras">Краснодарский край</option>
+                    <option value="krd">Красноярский край</option>
+                    <option value="per">Пермский край</option>
+                    <option value="pri">Приморский край</option>
+                    <option value="sta">Ставропольский край</option>
+                    <option value="hab">Хабаровский край</option>
+
+                    <option value="amur">Амурская область</option>
+                    <option value="arh">Архангельская область</option>
+                    <option value="ast">Астраханская область</option>
+                    <option value="bel">Белгородская область</option>
+                    <option value="bry">Брянская область</option>
+                    <option value="vla">Владимирская область</option>
+                    <option value="vlg">Волгоградская область</option>
+                    <option value="vls">Вологодская область</option>
+                    <option value="vrn">Воронежская область</option>
+                    <option value="zpo">Запорожская область</option>
+                    <option value="iva">Ивановская область</option>
+                    <option value="irk">Иркутская область</option>
+                    <option value="klg">Калининградская область</option>
+                    <option value="klz">Калужская область</option>
+                    <option value="kem">Кемеровская область</option>
+                    <option value="kir">Кировская область</option>
+                    <option value="kos">Костромская область</option>
+                    <option value="kur">Курганская область</option>
+                    <option value="kurs">Курская область</option>
+                    <option value="len">Ленинградская область</option>
+                    <option value="lip">Липецкая область</option>
+                    <option value="mag">Магаданская область</option>
+                    <option value="mos">Московская область</option>
+                    <option value="mur">Мурманская область</option>
+                    <option value="nin">Нижегородская область</option>
+                    <option value="nov">Новгородская область</option>
+                    <option value="nvs">Новосибирская область</option>
+                    <option value="oms">Омская область</option>
+                    <option value="oren">Оренбургская область</option>
+                    <option value="orl">Орловская область</option>
+                    <option value="pnz">Пензенская область</option>
+                    <option value="psk">Псковская область</option>
+                    <option value="ros">Ростовская область</option>
+                    <option value="rya">Рязанская область</option>
+                    <option value="sam">Самарская область</option>
+                    <option value="sar">Саратовская область</option>
+                    <option value="sah">Сахалинская область</option>
+                    <option value="sve">Свердловская область</option>
+                    <option value="smo">Смоленская область</option>
+                    <option value="tam">Тамбовская область</option>
+                    <option value="tom">Томская область</option>
+                    <option value="tul">Тульская область</option>
+                    <option value="tyu">Тюменская область</option>
+                    <option value="uly">Ульяновская область</option>
+                    <option value="xobl">Херсонская область</option>
+                    <option value="cheb">Челябинская область</option>
+                    <option value="yar">Ярославская область</option>
+
+                    <option value="msk">Москва</option>
+                    <option value="spb">Санкт-Петербург</option>
+                    <option value="sev">Севастополь</option>
+
+                    <option value="evao">Еврейская АО</option>
+                    <option value="nao">Ненецкий АО</option>
+                    <option value="hmao">Ханты-Мансийский АО</option>
+                    <option value="chao">Чукотский АО</option>
+                    <option value="yamalo">Ямало-Ненецкий АО</option>
+                </select>
+                <input type="text" id="player2Name" class="w-2/3 p-2 border border-gray-300 rounded-md" placeholder="Имя игрока">
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">Счет:</label>
+            <div class="flex items-center">
+                <input type="number" id="player1Score" class="w-1/3 p-2 border border-gray-300 rounded-md mr-2" min="0" max="7">
+                <span class="mx-2">:</span>
+                <input type="number" id="player2Score" class="w-1/3 p-2 border border-gray-300 rounded-md" min="0" max="7">
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">Счет по сетам:</label>
+            <input type="text" id="setSets" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Например: 11-9,9-11,11-7,11-5">
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">Победитель:</label>
+            <select id="matchWinner" class="w-full p-2 border border-gray-300 rounded-md">
+                <option value="">Выберите победителя</option>
+                <option value="player1">Игрок 1</option>
+                <option value="player2">Игрок 2</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">Информация о матче:</label>
+            <input type="text" id="matchDate" class="w-full p-2 border border-gray-300 rounded-md mb-2" placeholder="Дата и время (например, 15.06.2023 14:00)">
+            <input type="text" id="tableNumber" class="w-full p-2 border border-gray-300 rounded-md mb-2" placeholder="Номер стола">
+            <textarea id="matchNotes" class="w-full p-2 border border-gray-300 rounded-md" rows="2" placeholder="Дополнительные комментарии"></textarea>
+        </div>
+
+        <div class="flex justify-end">
+            <button id="cancelMatch" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg mr-2">
+                Отмена
+            </button>
+            <button id="saveMatch" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+                Сохранить
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для редактирования названия турнира -->
+<div id="renameTournamentModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+        <h3 class="text-xl font-bold mb-4">Переименовать турнир</h3>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 mb-2">Новое название:</label>
+            <input type="text" id="newTournamentName" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Введите новое название турнира">
+        </div>
+
+        <div class="flex justify-end">
+            <button id="cancelRename" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg mr-2">
+                Отмена
+            </button>
+            <button id="confirmRename" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+                Сохранить
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Контекстное меню для вкладок -->
+<div id="tabContextMenu" class="tab-context-menu hidden">
+    <div id="renameTab" class="tab-context-menu-item">
+        <i class="fas fa-edit mr-2"></i> Переименовать
+    </div>
+    <div id="deleteTab" class="tab-context-menu-item danger">
+        <i class="fas fa-trash mr-2"></i> Удалить
+    </div>
+</div>
+
+<script>
+    // Глобальные переменные
+    let isAdminMode = true;
+    let tournaments = [];
+    let currentTournamentIndex = 0;
+    let viewSettings = {
+        startRound: 0,
+        endRound: 7
+    };
+    let currentEditingMatch = null;
+    let mouseTimer = null;
+    let isMouseMoving = false;
+    let contextMenuTarget = null;
+    let scrollAnimationActive = false;
+    let scrollInterval = null;
+    let playerPathMap = new Map(); // Карта для хранения путей игроков
+
+    // DOM элементы
+    const tournamentBracket = document.getElementById('tournamentBracket');
+    const adminPanel = document.getElementById('adminPanel');
+    const viewerControls = document.getElementById('viewerControls');
+    const tournamentTabs = document.getElementById('tournamentTabs');
+    const toggleModeBtn = document.getElementById('toggleMode');
+    const createTournamentBtn = document.getElementById('createTournament');
+    const saveTournamentBtn = document.getElementById('saveTournament');
+    const loadTournamentBtn = document.getElementById('loadTournament');
+    const applyViewSettingsBtn = document.getElementById('applyViewSettings');
+    const matchModal = document.getElementById('matchModal');
+    const saveMatchBtn = document.getElementById('saveMatch');
+    const cancelMatchBtn = document.getElementById('cancelMatch');
+    const renameTournamentModal = document.getElementById('renameTournamentModal');
+    const newTournamentNameInput = document.getElementById('newTournamentName');
+    const confirmRenameBtn = document.getElementById('confirmRename');
+    const cancelRenameBtn = document.getElementById('cancelRename');
+    const tabContextMenu = document.getElementById('tabContextMenu');
+    const renameTabBtn = document.getElementById('renameTab');
+    const deleteTabBtn = document.getElementById('deleteTab');
+
+    // Переключение режимов
+    toggleModeBtn.addEventListener('click', () => {
+        isAdminMode = !isAdminMode;
+        toggleModeBtn.textContent = isAdminMode ? 'Режим просмотра' : 'Режим администратора';
+        toggleModeBtn.classList.toggle('bg-blue-600', isAdminMode);
+        toggleModeBtn.classList.toggle('bg-blue-600', !isAdminMode);
+        adminPanel.style.display = isAdminMode ? 'block' : 'none';
+        viewerControls.style.display = isAdminMode ? 'none' : 'block';
+
+        // Если включен режим просмотра, скрываем элементы управления
+        if (!isAdminMode) {
+            hideViewerControls();
+            setupMouseMovementDetection();
+            // Прокручиваем страницу вверх
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            // Запускаем анимацию скроллинга
+            startScrollAnimation();
+        } else {
+            showViewerControls();
+            clearMouseMovementDetection();
+            // Останавливаем анимацию скроллинга
+            stopScrollAnimation();
+        }
+
+        // Перерисовываем турнир с учетом режима
+        if (tournaments.length > 0) {
+            renderTournament(tournaments[currentTournamentIndex]);
+        }
+    });
+
+    // Функции для скрытия/отображения элементов управления в режиме просмотра
+    function hideViewerControls() {
+        document.querySelectorAll('.viewer-controls').forEach(el => {
+            el.classList.add('hidden');
+            el.style.display='none';
+        });
+    }
+
+    function showViewerControls() {
+        document.querySelectorAll('.viewer-controls').forEach(el => {
+            el.classList.remove('hidden');
+            el.style.display='';
+        });
+    }
+
+    // Настройка обнаружения движения мыши
+    function setupMouseMovementDetection() {
+        document.addEventListener('mousemove', handleMouseMove);
+        // Скрываем элементы управления через 3 секунды после загрузки
+        setTimeout(hideViewerControls, 3000);
+    }
+
+    function clearMouseMovementDetection() {
+        document.removeEventListener('mousemove', handleMouseMove);
+        if (mouseTimer) {
+            clearTimeout(mouseTimer);
+            mouseTimer = null;
+        }
+    }
+
+    function handleMouseMove() {
+        showViewerControls();
+        isMouseMoving = true;
+
+        if (mouseTimer) {
+            clearTimeout(mouseTimer);
+        }
+
+        mouseTimer = setTimeout(() => {
+            isMouseMoving = false;
+            hideViewerControls();
+        }, 3000);
+    }
+
+    // Функции для анимации скроллинга
+    function startScrollAnimation() {
+        if (scrollAnimationActive) return;
+
+        scrollAnimationActive = true;
+        tournamentContainer.classList.add('scroll-animation');
+
+        // Дополнительная анимация скроллинга для всей страницы
+        const scrollHeight = Math.max(
+            document.body.scrollHeight,
+            document.documentElement.scrollHeight,
+            document.body.offsetHeight,
+            document.documentElement.offsetHeight
+        ) - window.innerHeight;
+
+        let scrollDirection = 1; // 1 - вниз, -1 - вверх
+        let currentPosition = 0;
+
+        scrollInterval = setInterval(() => {
+            if (isMouseMoving) return; // Не скроллим, если пользователь двигает мышью
+
+            currentPosition += scrollDirection * 0.5; // Медленный скроллинг
+
+            if (currentPosition >= scrollHeight) {
+                scrollDirection = -1;
+            } else if (currentPosition <= 0) {
+                scrollDirection = 1;
+            }
+
+            window.scrollTo({
+                top: currentPosition,
+                behavior: 'auto' // Используем 'auto' для плавного движения
+            });
+        }, 50);
+    }
+
+    function stopScrollAnimation() {
+        if (!scrollAnimationActive) return;
+
+        scrollAnimationActive = false;
+        tournamentContainer.classList.remove('scroll-animation');
+
+        if (scrollInterval) {
+            clearInterval(scrollInterval);
+            scrollInterval = null;
+        }
+    }
+
+    // Создание нового турнира
+    createTournamentBtn.addEventListener('click', () => {
+        const playerCount = parseInt(document.getElementById('playerCount').value);
+        const tournamentName = document.getElementById('tournamentName').value || `Турнир ${tournaments.length + 1}`;
+
+        const newTournament = generateTournament(playerCount, 'single', tournamentName);
+        tournaments.push(newTournament);
+        currentTournamentIndex = tournaments.length - 1;
+
+        updateTournamentTabs();
+        renderTournament(newTournament);
+    });
+
+    // Сохранение турнира
+    saveTournamentBtn.addEventListener('click', async () => {
+        if (tournaments.length === 0) {
+            alert('Сначала создайте турнир!');
+            return;
+        }
+
+        try {
+            // Сохранение через API
+            await fetch('/api/olympic', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(tournaments[currentTournamentIndex])
+            });
+
+            alert('Турнир успешно сохранен!');
+        } catch (error) {
+            console.error('Ошибка при сохранении:', error);
+            // Для демонстрации, если API недоступен
+            alert('Турнир сохранен локально (имитация API)');
+            localStorage.setItem('savedTournaments', JSON.stringify(tournaments));
+        }
+    });
+
+    // Загрузка турнира
+    loadTournamentBtn.addEventListener('click', async () => {
+        try {
+            // Загрузка через API
+            const res = await fetch('/api/olympic');
+            const loadedTournament = await res.json();
+
+            if (loadedTournament) {
+                tournaments.push(loadedTournament);
+                currentTournamentIndex = tournaments.length - 1;
+                updateTournamentTabs();
+                renderTournament(loadedTournament);
+                alert('Турнир успешно загружен!');
+            }
+        } catch (error) {
+            console.error('Ошибка при загрузке:', error);
+
+            // Для демонстрации, если API недоступен
+            // Загружаем тестовый турнир
+            const testTournament = generateTournament(16, 'single', 'Тестовый турнир');
+            populateWithSampleData(testTournament);
+            tournaments.push(testTournament);
+            currentTournamentIndex = tournaments.length - 1;
+            updateTournamentTabs();
+            renderTournament(testTournament);
+            alert('Загружен тестовый турнир (имитация API)');
+        }
+    });
+
+    // Применение настроек просмотра
+    applyViewSettingsBtn.addEventListener('click', () => {
+        viewSettings.startRound = parseInt(document.getElementById('startRound').value);
+        viewSettings.endRound = parseInt(document.getElementById('endRound').value);
+
+        if (viewSettings.startRound > viewSettings.endRound) {
+            alert('Ошибка: начальный раунд не может быть больше конечного');
+            return;
+        }
+
+        if (tournaments.length > 0) {
+            renderTournament(tournaments[currentTournamentIndex]);
+        }
+    });
+
+    // Обработчики модального окна редактирования матча
+    saveMatchBtn.addEventListener('click', () => {
+        if (!currentEditingMatch) return;
+
+        const player1Name = document.getElementById('player1Name').value;
+        const player1Country = document.getElementById('player1Country').value;
+        const player2Name = document.getElementById('player2Name').value;
+        const player2Country = document.getElementById('player2Country').value;
+        const player1Score = document.getElementById('player1Score').value;
+        const player2Score = document.getElementById('player2Score').value;
+        const winner = document.getElementById('matchWinner').value;
+        const matchDate = document.getElementById('matchDate').value;
+        const tableNumber = document.getElementById('tableNumber').value;
+        const matchNotes = document.getElementById('matchNotes').value;
+        const sets = document.getElementById('setSets').value;
+
+        // Обновляем данные матча
+        currentEditingMatch.players[0].name = player1Name;
+        currentEditingMatch.players[0].country = player1Country;
+        currentEditingMatch.players[1].name = player2Name;
+        currentEditingMatch.players[1].country = player2Country;
+
+        if (player1Score !== '' && player2Score !== '') {
+            currentEditingMatch.score = `${player1Score}–${player2Score}`;
+        }
+
+        // Добавляем информацию о сетах
+        if (sets) {
+            currentEditingMatch.sets = sets;
+        }
+
+        if (winner) {
+            currentEditingMatch.winner = winner === 'player1' ? 0 : 1;
+
+            // Продвигаем победителя в следующий раунд
+            const nextRound = currentEditingMatch.round - 1; // Обратный порядок раундов
+            const nextMatchIndex = Math.floor(currentEditingMatch.matchIndex / 2);
+            const nextPlayerIndex = currentEditingMatch.matchIndex % 2;
+
+            const currentTournament = tournaments[currentTournamentIndex];
+            if (nextRound >= 0) {
+                const winnerPlayer = currentEditingMatch.players[currentEditingMatch.winner];
+
+                if (currentTournament.rounds[nextRound][nextMatchIndex]) {
+                    currentTournament.rounds[nextRound][nextMatchIndex].players[nextPlayerIndex] = {
+                        name: winnerPlayer.name,
+                        country: winnerPlayer.country,
+                        seed: winnerPlayer.seed
+                    };
+                }
+            }
+        }
+
+        // Обновляем информацию о матче
+        currentEditingMatch.info = {
+            date: matchDate,
+            table: tableNumber,
+            notes: matchNotes
+        };
+
+        // Закрываем модальное окно и обновляем отображение
+        matchModal.classList.add('hidden');
+        matchModal.classList.remove('flex');
+        currentEditingMatch = null;
+
+        renderTournament(tournaments[currentTournamentIndex]);
+    });
+
+    cancelMatchBtn.addEventListener('click', () => {
+        matchModal.classList.add('hidden');
+        matchModal.classList.remove('flex');
+        currentEditingMatch = null;
+    });
+
+    // Обработчики модального окна переименования турнира
+    confirmRenameBtn.addEventListener('click', () => {
+        const newName = newTournamentNameInput.value.trim();
+        if (newName && contextMenuTarget !== null) {
+            tournaments[contextMenuTarget].name = newName;
+            updateTournamentTabs();
+            renameTournamentModal.classList.add('hidden');
+            renameTournamentModal.classList.remove('flex');
+        }
+    });
+
+    cancelRenameBtn.addEventListener('click', () => {
+        renameTournamentModal.classList.add('hidden');
+        renameTournamentModal.classList.remove('flex');
+    });
+
+    // Обработчики контекстного меню вкладок
+    renameTabBtn.addEventListener('click', () => {
+        if (contextMenuTarget !== null) {
+            newTournamentNameInput.value = tournaments[contextMenuTarget].name;
+            renameTournamentModal.classList.remove('hidden');
+            renameTournamentModal.classList.add('flex');
+            hideContextMenu();
+        }
+    });
+
+    deleteTabBtn.addEventListener('click', () => {
+        if (contextMenuTarget !== null && tournaments.length > 1) {
+            if (confirm(`Вы уверены, что хотите удалить турнир "${tournaments[contextMenuTarget].name}"?`)) {
+                tournaments.splice(contextMenuTarget, 1);
+                if (currentTournamentIndex >= tournaments.length) {
+                    currentTournamentIndex = tournaments.length - 1;
+                }
+                updateTournamentTabs();
+                renderTournament(tournaments[currentTournamentIndex]);
+            }
+            hideContextMenu();
+        } else if (tournaments.length <= 1) {
+            alert('Нельзя удалить единственный турнир');
+            hideContextMenu();
+        }
+    });
+
+    // Функция отображения контекстного меню
+    function showContextMenu(event, index) {
+        event.preventDefault();
+        contextMenuTarget = index;
+
+        const rect = event.target.getBoundingClientRect();
+        tabContextMenu.style.top = `${rect.bottom + window.scrollY}px`;
+        tabContextMenu.style.left = `${rect.left + window.scrollX}px`;
+        tabContextMenu.classList.remove('hidden');
+
+        // Закрываем меню при клике вне его
+        document.addEventListener('click', hideContextMenuOnClick);
+    }
+
+    function hideContextMenu() {
+        tabContextMenu.classList.add('hidden');
+        document.removeEventListener('click', hideContextMenuOnClick);
+    }
+
+    function hideContextMenuOnClick(event) {
+        if (!tabContextMenu.contains(event.target)) {
+            hideContextMenu();
+        }
+    }
+
+    // Функция обновления вкладок турниров
+    function updateTournamentTabs() {
+        tournamentTabs.innerHTML = '';
+
+        tournaments.forEach((tournament, index) => {
+            const tabElement = document.createElement('div');
+            tabElement.className = `tournament-tab ${index === currentTournamentIndex ? 'active' : ''}`;
+            tabElement.textContent = tournament.name;
+            tabElement.addEventListener('click', () => {
+                currentTournamentIndex = index;
+                updateTournamentTabs();
+                renderTournament(tournaments[currentTournamentIndex]);
+            });
+
+            // Добавляем контекстное меню для вкладок в режиме администратора
+            if (isAdminMode) {
+                tabElement.addEventListener('contextmenu', (event) => {
+                    showContextMenu(event, index);
+                });
+
+                // Добавляем кнопку действий
+                const actionsBtn = document.createElement('div');
+                actionsBtn.className = 'tab-actions';
+                actionsBtn.innerHTML = '⋮';
+                actionsBtn.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    showContextMenu(event, index);
+                });
+
+                tabElement.appendChild(actionsBtn);
+            }
+
+            tournamentTabs.appendChild(tabElement);
+        });
+
+        // Добавляем кнопку для создания нового турнира
+        if (isAdminMode) {
+            const newTabElement = document.createElement('div');
+            newTabElement.className = 'tournament-tab';
+            newTabElement.textContent = '+ Новый турнир';
+            newTabElement.addEventListener('click', () => {
+                createTournamentBtn.click();
+            });
+
+            tournamentTabs.appendChild(newTabElement);
+        }
+    }
+
+    // Функция генерации турнира
+    function generateTournament(playerCount, type, name) {
+        const rounds = Math.log2(playerCount);
+        const tournament = {
+            name: name,
+            playerCount,
+            type,
+            rounds: []
+        };
+
+        // Создаем раунды (от финала к первому раунду)
+        for (let r = 0; r < rounds; r++) {
+            const matchesInRound = Math.pow(2, r);
+            const roundMatches = [];
+
+            for (let m = 0; m < matchesInRound; m++) {
+                roundMatches.push({
+                    round: r,
+                    matchIndex: m,
+                    players: [
+                        { name: '', country: 'ru' },
+                        { name: '', country: 'ru' }
+                    ],
+                    score: '',
+                    winner: null,
+                    info: {
+                        date: '',
+                        table: '',
+                        notes: ''
+                    }
+                });
+            }
+
+            tournament.rounds.push(roundMatches);
+        }
+
+        return tournament;
+    }
+
+    // Функция для заполнения турнира тестовыми данными
+    function populateWithSampleData(tournament) {
+        const names = [
+            'Иванов А.', 'Петров С.', 'Сидоров И.', 'Смирнов К.',
+            'Кузнецов Д.', 'Попов М.', 'Васильев Н.', 'Соколов А.',
+            'Михайлов В.', 'Новиков Г.', 'Федоров Е.', 'Морозов Л.',
+            'Волков П.', 'Алексеев Р.', 'Лебедев Т.', 'Семенов Ю.'
+        ];
+
+        const countries = ['ru', 'by', 'kz', 'ua', 'cn', 'jp', 'kr', 'de'];
+
+        // Заполняем первый раунд (самый большой)
+        const firstRoundIndex = tournament.rounds.length - 1;
+        for (let i = 0; i < tournament.rounds[firstRoundIndex].length; i++) {
+            const match = tournament.rounds[firstRoundIndex][i];
+            match.players[0].name = names[i * 2 % names.length];
+            match.players[0].country = countries[Math.floor(Math.random() * countries.length)];
+            match.players[1].name = names[(i * 2 + 1) % names.length];
+            match.players[1].country = countries[Math.floor(Math.random() * countries.length)];
+
+            // Добавляем результаты для некоторых матчей
+            if (i < tournament.rounds[firstRoundIndex].length / 2) {
+                const score1 = Math.floor(Math.random() * 4) + 2;
+                const score2 = Math.floor(Math.random() * 2);
+                match.score = `${score1}–${score2}`;
+                match.winner = 0; // Первый игрок победил
+
+                // Добавляем счет по сетам
+                const setsCount = score1 + score2;
+                const sets = [];
+                for (let s = 0; s < setsCount; s++) {
+                    const player1Points = s < score1 ? 11 : Math.floor(Math.random() * 9) + 1;
+                    const player2Points = s < score1 ? Math.floor(Math.random() * 9) + 1 : 11;
+                    sets.push(`${player1Points}-${player2Points}`);
+                }
+                match.sets = sets.join(',');
+
+                // Информация о матче
+                match.info = {
+                    date: `15.06.2023 ${10 + i}:00`,
+                    table: `Стол ${i + 1}`,
+                    notes: '1/16 финала'
+                };
+
+                // Продвигаем победителя в следующий раунд
+                if (firstRoundIndex > 0) {
+                    const nextRoundIndex = firstRoundIndex - 1;
+                    const nextMatchIndex = Math.floor(i / 2);
+                    const nextPlayerIndex = i % 2;
+                    tournament.rounds[nextRoundIndex][nextMatchIndex].players[nextPlayerIndex] = {
+                        name: match.players[0].name,
+                        country: match.players[0].country
+                    };
+                }
+            }
+        }
+
+        // Заполняем второй раунд (если есть)
+        if (tournament.rounds.length > 1) {
+            const secondRoundIndex = tournament.rounds.length - 2;
+            for (let i = 0; i < tournament.rounds[secondRoundIndex].length / 2; i++) {
+                const match = tournament.rounds[secondRoundIndex][i];
+                if (match.players[0].name && match.players[1].name) {
+                    const score1 = Math.floor(Math.random() * 3) + 3;
+                    const score2 = Math.floor(Math.random() * 2) + 1;
+                    match.score = `${score1}–${score2}`;
+                    match.winner = 0;
+
+                    // Добавляем счет по сетам
+                    const setsCount = score1 + score2;
+                    const sets = [];
+                    for (let s = 0; s < setsCount; s++) {
+                        const player1Points = s < score1 ? 11 : Math.floor(Math.random() * 9) + 1;
+                        const player2Points = s < score1 ? Math.floor(Math.random() * 9) + 1 : 11;
+                        sets.push(`${player1Points}-${player2Points}`);
+                    }
+                    match.sets = sets.join(',');
+
+                    match.info = {
+                        date: `16.06.2023 ${10 + i}:00`,
+                        table: `Стол ${i + 1}`,
+                        notes: '1/8 финала'
+                    };
+
+                    // Продвигаем победителя в следующий раунд
+                    if (secondRoundIndex > 0) {
+                        const nextRoundIndex = secondRoundIndex - 1;
+                        const nextMatchIndex = Math.floor(i / 2);
+                        const nextPlayerIndex = i % 2;
+                        tournament.rounds[nextRoundIndex][nextMatchIndex].players[nextPlayerIndex] = {
+                            name: match.players[0].name,
+                            country: match.players[0].country
+                        };
+                    }
+                }
+            }
+        }
+    }
+
+    // Функция отрисовки турнира
+    function renderTournament(tournament) {
+        if (!tournament || !tournament.rounds) return;
+
+        tournamentBracket.innerHTML = '';
+        playerPathMap.clear(); // Очищаем карту путей игроков
+
+        // Создаем контейнер для соединительных линий
+        const connectorWrapper = document.createElement('div');
+        connectorWrapper.className = 'connector-wrapper';
+
+        // Определяем, какие раунды показывать
+        const startRoundIndex = Math.min(viewSettings.startRound, tournament.rounds.length - 1);
+        console.log(tournament.rounds.length)
+        console.log(viewSettings.endRound)
+        const endRoundIndex = Math.min(viewSettings.endRound, tournament.rounds.length - 1);
+
+        // Создаем раунды в порядке от финала к первому раунду
+        for (let i = startRoundIndex; i <= endRoundIndex; i++) {
+            const roundIndex = tournament.rounds.length - 1 - i;
+            const round = tournament.rounds[roundIndex];
+            console.log(`tournament.rounds[roundIndex] - ${round}`)
+            const roundElement = document.createElement('div');
+            roundElement.className = 'round';
+
+            // Название раунда
+            const roundName = getRoundName(roundIndex, tournament.rounds.length);
+            roundElement.innerHTML = `<h3 class="text-center font-bold mb-4">${roundName}</h3>`;
+
+            // Создаем матчи
+            round.forEach((match, matchIndex) => {
+                const matchElement = document.createElement('div');
+                matchElement.className = 'match';
+                matchElement.dataset.round = roundIndex;
+                matchElement.dataset.match = matchIndex;
+
+                // Создаем элементы для игроков
+                match.players.forEach((player, playerIndex) => {
+                    const isWinner = match.winner === playerIndex;
+                    const playerElement = document.createElement('div');
+                    playerElement.className = `player ${isWinner ? 'winner' : ''}`;
+                    playerElement.dataset.playerName = player.name;
+                    playerElement.dataset.round = roundIndex;
+                    playerElement.dataset.match = matchIndex;
+                    playerElement.dataset.playerIndex = playerIndex;
+
+                    // Флаг страны
+                    const flagElement = document.createElement('img');
+                    flagElement.className = `flag-icon`;
+
+                    let flagSvg = '';
+                    switch (player.country) {
+                        case 'ady':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_adygea_new.jpg";
+                            break;
+                        case 'alt':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_altay_new.jpg";
+                            break;
+                        case 'bash':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_bashkorkostan_res_new.jpg";
+                            break;
+                        case 'bury':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_buryatiya_new.jpg";
+                            break;
+                        case 'dnr':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_dnr.jpg";
+                            break;
+                        case 'dag':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_dagestan_enl.jpg";
+                            break;
+                        case 'ing':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_ingushetiya_enl.jpg";
+                            break;
+                        case 'kb':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kabardino_balkarskoy_pes_enl.jpg";
+                            break;
+                        case 'klm':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kalmyikiya_enl.jpg";
+                            break;
+                        case 'kar':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_karachaevo_cherkesskay_res_new.jpg";
+                            break;
+                        case 'krl':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kareliya_enl.jpg";
+                            break;
+                        case 'kom':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_komi_new.jpg";
+                            break;
+                        case 'cr':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_krym.jpg";
+                            break;
+                        case 'lnr':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_lnr1.jpg";
+                            break;
+                        case 'mr':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_mari_el_new.jpg";
+                            break;
+                        case 'mrd':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_mordovia_enl.jpg";
+                            break;
+                        case 'sak':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_saha_yakuyiya_new.jpg";
+                            break;
+                        case 'alv':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_sev_osetiya_new.jpg";
+                            break;
+                        case 'tat':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tatarstan_new.jpg";
+                            break;
+                        case 'tuv':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tyva_new.jpg";
+                            break;
+                        case 'udm':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_udmurtiya_res_new.jpg";
+                            break;
+                        case 'khk':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_hakasia_new.jpg";
+                            break;
+                        case 'che':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_chechni.jpg";
+                            break;
+                        case 'chv':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_chuvashskaya_res_new.jpg";
+                            break;
+                        case 'altk':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_altay_kray_enl.jpg";
+                            break;
+                        case 'zbk':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_zabaykalskiy_kray_enl.jpg";
+                            break;
+                        case 'kam':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kamchatskiy_kray_new.jpg";
+                            break;
+                        case 'kras':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_krasnodarskiy_kray_new.jpg";
+                            break;
+                        case 'krd':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_krasnoyarskiy_kray_new.jpg";
+                            break;
+                        case 'per':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_permskiy_kray_new.jpg";
+                            break;
+                        case 'pri':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_primorskiy_kray_new.jpg";
+                            break;
+                        case 'sta':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_stavropolskiy_kray_new.jpg";
+                            break;
+                        case 'hab':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_habarovskiy_kray_new.jpg";
+                            break;
+                        case 'amur':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_amurskay_obl_new.jpg";
+                            break;
+                        case 'arh':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_arhangelskaja_obl_new.jpg";
+                            break;
+                        case 'ast':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_astrahanskay_obl_new.jpg";
+                            break;
+                        case 'bel':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_belgorodskay_obl_new_0.jpg";
+                            break;
+                        case 'bry':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_bryanskay_obl_new.jpg";
+                            break;
+                        case 'vla':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_vladim_obl.jpg";
+                            break;
+                        case 'vlg':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_volgograd_obl_enl.jpg";
+                            break;
+                        case 'vls':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_vologodskay_obl_enl_0.jpg";
+                            break;
+                        case 'vrn':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_voronezskay_obl_enl.jpg";
+                            break;
+                        case 'zpo':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_zaporogskaia_obl.jpg";
+                            break;
+                        case 'iva':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_ivanovskay_obl_enl.jpg";
+                            break;
+                        case 'irk':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_irkutskay_obl_new.jpg";
+                            break;
+                        case 'klg':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kaliningradskoy_obl_new.jpg";
+                            break;
+                        case 'klz':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kaluzskay_obl_enl.jpg";
+                            break;
+                        case 'kem':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kemerovskay_obl_new.jpg";
+                            break;
+                        case 'kir':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kirovskay_obl_new.jpg";
+                            break;
+                        case 'kos':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kostromskay_obl_enl.jpg";
+                            break;
+                        case 'kur':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kurganskay_obl_enl.jpg";
+                            break;
+                        case 'kurs':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kurskay_obl_new.jpg";
+                            break;
+                        case 'len':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_leningradskay_obl_new.jpg";
+                            break;
+                        case 'lip':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_lipetskay_obl_enl.jpg";
+                            break;
+                        case 'mag':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_magadanskay_obl_enl.jpg";
+                            break;
+                        case 'mos':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_moskovskay_obl_new.jpg";
+                            break;
+                        case 'mur':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_murmanskay_obl_new.jpg";
+                            break;
+                        case 'nin':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_nizegorodskay_obl_new.jpg";
+                            break;
+                        case 'nov':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_novgorodskay_obl_new.jpg";
+                            break;
+                        case 'nvs':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_novosibirskay_obl_new.jpg";
+                            break;
+                        case 'oms':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_omskay_obl_new.jpg";
+                            break;
+                        case 'oren':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_orenburskay_obl_enl.jpg";
+                            break;
+                        case 'orl':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_orlovskay_obl_enl.jpg";
+                            break;
+                        case 'pnz':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_penza_region_new.jpg";
+                            break;
+                        case 'psk':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_pskovskay_obl_new.jpg";
+                            break;
+                        case 'ros':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_rostovskaya_obl_enl.jpg";
+                            break;
+                        case 'rya':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_ryazanskaya_obl_enl.jpg";
+                            break;
+                        case 'sam':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_samarskaya_obl_new.jpg";
+                            break;
+                        case 'sar':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_saratovskaya_obl_enl_0.jpg";
+                            break;
+                        case 'sah':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_sahalinskaya_obl_enl.jpg";
+                            break;
+                        case 'sve':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_sverdlovskaya_obl_new.jpg";
+                            break;
+                        case 'smo':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_smolenskaya_obl_enl.jpg";
+                            break;
+                        case 'tam':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tambovskaya_obl_new.jpg";
+                            break;
+                        case 'tom':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tomskaya_obl_enl.jpg";
+                            break;
+                        case 'tul':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tulskaya_obl_enl.jpg";
+                            break;
+                        case 'tyu':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tumenskaya_obl_enl.jpg";
+                            break;
+                        case 'uly':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_ulyanovskaya_obl_new.jpg";
+                            break;
+                        case 'xobl':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_hersonskaia_obl.jpg";
+                            break;
+                        case 'cheb':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_chelyabinskaya_obl_enl.jpg";
+                            break;
+                        case 'yar':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_yaroslavskaya_obl_enl.jpg";
+                            break;
+                        case 'msk':
+                            flagSvg = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Moscow%2C_Russia.svg/1280px-Flag_of_Moscow%2C_Russia.svg.png";
+                            break;
+                        case 'spb':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_st_peterburg.jpg";
+                            break;
+                        case 'sev':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_sevastopol.jpg";
+                            break;
+                        case 'evao':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_evrejskaja_ao.jpg";
+                            break;
+                        case 'nao':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_nenetskiy_avt_okrug_enl.jpg";
+                            break;
+                        case 'hmao':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_hanty_mansiyskiy_avt_okr1.jpg";
+                            break;
+                        case 'chao':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_chucotskiy_avt_okr_new.jpg";
+                            break;
+                        case 'yamalo':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_jamalo_neneckogo_avt_okr.jpg";
+                            break;
+                        default:
+                            flagSvg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Olympic_flag.svg/330px-Olympic_flag.svg.png'
+                    }
+
+                    flagElement.src = flagSvg;
+
+
+
+                    // Имя игрока
+                    const nameElement = document.createElement('span');
+                    nameElement.className = 'player-name';
+                    nameElement.textContent = player.name || '—'; // Прочерк, если имя не указано
+
+                    // Счет
+                    const scoreElement = document.createElement('span');
+                    scoreElement.className = 'player-score';
+
+                    if (match.score) {
+                        const scores = match.score.split('–');
+                        scoreElement.textContent = playerIndex === 0 ? scores[0] : scores[1];
+                    }
+
+                    // Создаем всплывающую подсказку с информацией о матче
+                    if (player.name) {
+                        const tooltipElement = document.createElement('div');
+                        tooltipElement.className = 'player-tooltip';
+
+                        // Заголовок подсказки
+                        const tooltipHeader = document.createElement('div');
+                        tooltipHeader.className = 'tooltip-header';
+
+                        const tooltipFlag = document.createElement('img');
+                        tooltipFlag.className = `flag-icon`;
+
+                        let flagSvg = '';
+                        switch (player.country) {
+                            case 'ady':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_adygea_new.jpg";
+                                break;
+                            case 'alt':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_altay_new.jpg";
+                                break;
+                            case 'bash':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_bashkorkostan_res_new.jpg";
+                                break;
+                            case 'bury':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_buryatiya_new.jpg";
+                                break;
+                            case 'dnr':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_dnr.jpg";
+                                break;
+                            case 'dag':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_dagestan_enl.jpg";
+                                break;
+                            case 'ing':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_ingushetiya_enl.jpg";
+                                break;
+                            case 'kb':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kabardino_balkarskoy_pes_enl.jpg";
+                                break;
+                            case 'klm':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kalmyikiya_enl.jpg";
+                                break;
+                            case 'kar':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_karachaevo_cherkesskay_res_new.jpg";
+                                break;
+                            case 'krl':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kareliya_enl.jpg";
+                                break;
+                            case 'kom':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_komi_new.jpg";
+                                break;
+                            case 'cr':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_krym.jpg";
+                                break;
+                            case 'lnr':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_lnr1.jpg";
+                                break;
+                            case 'mr':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_mari_el_new.jpg";
+                                break;
+                            case 'mrd':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_mordovia_enl.jpg";
+                                break;
+                            case 'sak':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_saha_yakuyiya_new.jpg";
+                                break;
+                            case 'alv':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_sev_osetiya_new.jpg";
+                                break;
+                            case 'tat':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tatarstan_new.jpg";
+                                break;
+                            case 'tuv':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tyva_new.jpg";
+                                break;
+                            case 'udm':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_udmurtiya_res_new.jpg";
+                                break;
+                            case 'khk':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_hakasia_new.jpg";
+                                break;
+                            case 'che':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_chechni.jpg";
+                                break;
+                            case 'chv':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_chuvashskaya_res_new.jpg";
+                                break;
+                            case 'altk':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_altay_kray_enl.jpg";
+                                break;
+                            case 'zbk':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_zabaykalskiy_kray_enl.jpg";
+                                break;
+                            case 'kam':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kamchatskiy_kray_new.jpg";
+                                break;
+                            case 'kras':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_krasnodarskiy_kray_new.jpg";
+                                break;
+                            case 'krd':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_krasnoyarskiy_kray_new.jpg";
+                                break;
+                            case 'per':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_permskiy_kray_new.jpg";
+                                break;
+                            case 'pri':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_primorskiy_kray_new.jpg";
+                                break;
+                            case 'sta':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_stavropolskiy_kray_new.jpg";
+                                break;
+                            case 'hab':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_habarovskiy_kray_new.jpg";
+                                break;
+                            case 'amur':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_amurskay_obl_new.jpg";
+                                break;
+                            case 'arh':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_arhangelskaja_obl_new.jpg";
+                                break;
+                            case 'ast':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_astrahanskay_obl_new.jpg";
+                                break;
+                            case 'bel':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_belgorodskay_obl_new_0.jpg";
+                                break;
+                            case 'bry':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_bryanskay_obl_new.jpg";
+                                break;
+                            case 'vla':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_vladim_obl.jpg";
+                                break;
+                            case 'vlg':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_volgograd_obl_enl.jpg";
+                                break;
+                            case 'vls':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_vologodskay_obl_enl_0.jpg";
+                                break;
+                            case 'vrn':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_voronezskay_obl_enl.jpg";
+                                break;
+                            case 'zpo':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_zaporogskaia_obl.jpg";
+                                break;
+                            case 'iva':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_ivanovskay_obl_enl.jpg";
+                                break;
+                            case 'irk':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_irkutskay_obl_new.jpg";
+                                break;
+                            case 'klg':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kaliningradskoy_obl_new.jpg";
+                                break;
+                            case 'klz':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kaluzskay_obl_enl.jpg";
+                                break;
+                            case 'kem':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kemerovskay_obl_new.jpg";
+                                break;
+                            case 'kir':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kirovskay_obl_new.jpg";
+                                break;
+                            case 'kos':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kostromskay_obl_enl.jpg";
+                                break;
+                            case 'kur':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kurganskay_obl_enl.jpg";
+                                break;
+                            case 'kurs':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kurskay_obl_new.jpg";
+                                break;
+                            case 'len':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_leningradskay_obl_new.jpg";
+                                break;
+                            case 'lip':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_lipetskay_obl_enl.jpg";
+                                break;
+                            case 'mag':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_magadanskay_obl_enl.jpg";
+                                break;
+                            case 'mos':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_moskovskay_obl_new.jpg";
+                                break;
+                            case 'mur':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_murmanskay_obl_new.jpg";
+                                break;
+                            case 'nin':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_nizegorodskay_obl_new.jpg";
+                                break;
+                            case 'nov':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_novgorodskay_obl_new.jpg";
+                                break;
+                            case 'nvs':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_novosibirskay_obl_new.jpg";
+                                break;
+                            case 'oms':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_omskay_obl_new.jpg";
+                                break;
+                            case 'oren':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_orenburskay_obl_enl.jpg";
+                                break;
+                            case 'orl':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_orlovskay_obl_enl.jpg";
+                                break;
+                            case 'pnz':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_penza_region_new.jpg";
+                                break;
+                            case 'psk':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_pskovskay_obl_new.jpg";
+                                break;
+                            case 'ros':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_rostovskaya_obl_enl.jpg";
+                                break;
+                            case 'rya':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_ryazanskaya_obl_enl.jpg";
+                                break;
+                            case 'sam':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_samarskaya_obl_new.jpg";
+                                break;
+                            case 'sar':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_saratovskaya_obl_enl_0.jpg";
+                                break;
+                            case 'sah':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_sahalinskaya_obl_enl.jpg";
+                                break;
+                            case 'sve':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_sverdlovskaya_obl_new.jpg";
+                                break;
+                            case 'smo':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_smolenskaya_obl_enl.jpg";
+                                break;
+                            case 'tam':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tambovskaya_obl_new.jpg";
+                                break;
+                            case 'tom':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tomskaya_obl_enl.jpg";
+                                break;
+                            case 'tul':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tulskaya_obl_enl.jpg";
+                                break;
+                            case 'tyu':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tumenskaya_obl_enl.jpg";
+                                break;
+                            case 'uly':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_ulyanovskaya_obl_new.jpg";
+                                break;
+                            case 'xobl':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_hersonskaia_obl.jpg";
+                                break;
+                            case 'cheb':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_chelyabinskaya_obl_enl.jpg";
+                                break;
+                            case 'yar':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_yaroslavskaya_obl_enl.jpg";
+                                break;
+                            case 'msk':
+                                flagSvg = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Moscow%2C_Russia.svg/1280px-Flag_of_Moscow%2C_Russia.svg.png";
+                                break;
+                            case 'spb':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_st_peterburg.jpg";
+                                break;
+                            case 'sev':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_sevastopol.jpg";
+                                break;
+                            case 'evao':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_evrejskaja_ao.jpg";
+                                break;
+                            case 'nao':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_nenetskiy_avt_okrug_enl.jpg";
+                                break;
+                            case 'hmao':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_hanty_mansiyskiy_avt_okr1.jpg";
+                                break;
+                            case 'chao':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_chucotskiy_avt_okr_new.jpg";
+                                break;
+                            case 'yamalo':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_jamalo_neneckogo_avt_okr.jpg";
+                                break;
+                            default:
+                                flagSvg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Olympic_flag.svg/330px-Olympic_flag.svg.png'
+
+                        }
+                        tooltipFlag.src = flagSvg;
+
+                        const tooltipName = document.createElement('span');
+                        tooltipName.className = 'tooltip-name';
+                        tooltipName.textContent = player.name;
+
+                        const tooltipScore = document.createElement('span');
+                        tooltipScore.className = 'tooltip-score';
+                        if (match.score) {
+                            const scores = match.score.split('–');
+                            tooltipScore.textContent = `${scores[0]}:${scores[1]}`;
+                        }
+
+                        tooltipHeader.appendChild(tooltipFlag);
+                        tooltipHeader.appendChild(tooltipName);
+                        tooltipHeader.appendChild(tooltipScore);
+                        tooltipElement.appendChild(tooltipHeader);
+
+                        // Счет по сетам
+                        if (match.sets) {
+                            const tooltipSets = document.createElement('div');
+                            tooltipSets.className = 'tooltip-sets';
+
+                            const sets = match.sets.split(',');
+                            sets.forEach(set => {
+                                const tooltipSet = document.createElement('div');
+                                tooltipSet.className = 'tooltip-set';
+                                tooltipSet.textContent = set;
+                                tooltipSets.appendChild(tooltipSet);
+                            });
+
+                            tooltipElement.appendChild(tooltipSets);
+                        }
+
+                        // Информация о матче
+                        if (match.info && (match.info.date || match.info.table || match.info.notes)) {
+                            const tooltipInfo = document.createElement('div');
+                            tooltipInfo.className = 'tooltip-info';
+
+                            let infoText = '';
+                            if (match.info.date) infoText += `📅 ${match.info.date} `;
+                            if (match.info.table) infoText += `🏓 ${match.info.table} `;
+                            if (match.info.notes) infoText += `📝 ${match.info.notes}`;
+
+                            tooltipInfo.textContent = infoText.trim();
+                            tooltipElement.appendChild(tooltipInfo);
+                        }
+
+                        playerElement.appendChild(tooltipElement);
+
+                        // Добавляем игрока в карту путей
+                        if (player.name) {
+                            if (!playerPathMap.has(player.name)) {
+                                playerPathMap.set(player.name, []);
+                            }
+                            playerPathMap.get(player.name).push({
+                                round: roundIndex,
+                                match: matchIndex,
+                                playerIndex: playerIndex
+                            });
+                        }
+
+                        // Добавляем обработчики для подсветки пути игрока
+                        playerElement.addEventListener('mouseenter', () => {
+                            highlightPlayerPath(player.name);
+                        });
+
+                        playerElement.addEventListener('mouseleave', () => {
+                            clearHighlightedPaths();
+                        });
+                    }
+
+                    playerElement.appendChild(flagElement);
+                    playerElement.appendChild(nameElement);
+                    playerElement.appendChild(scoreElement);
+                    matchElement.appendChild(playerElement);
+                });
+
+                // Информация о матче
+                if (match.info && (match.info.date || match.info.table || match.info.notes)) {
+                    const infoElement = document.createElement('div');
+                    infoElement.className = 'match-info';
+
+                    let infoText = '';
+                    if (match.info.date) infoText += `📅 ${match.info.date} `;
+                    if (match.info.table) infoText += `🏓 ${match.info.table} `;
+                    if (match.info.notes) infoText += `📝 ${match.info.notes}`;
+
+                    infoElement.textContent = infoText.trim();
+                    matchElement.appendChild(infoElement);
+                }
+
+                // Индикатор прогресса
+                if (match.winner !== null) {
+                    const progressElement = document.createElement('div');
+                    progressElement.className = 'progress-indicator';
+                    progressElement.style.width = '100%';
+                    matchElement.appendChild(progressElement);
+                }
+
+                // Добавляем обработчик клика для режима администратора
+                if (isAdminMode) {
+                    matchElement.addEventListener('click', () => {
+                        openMatchModal(match);
+                    });
+                }
+
+                roundElement.appendChild(matchElement);
+            });
+
+            tournamentBracket.appendChild(roundElement);
+        }
+
+        // Добавляем соединительные линии
+        tournamentBracket.appendChild(connectorWrapper);
+        drawConnectors();
+    }
+
+    // Функция для получения названия раунда
+    function getRoundName(roundIndex, totalRounds) {
+        // Финал всегда последний раунд (roundIndex = 0)
+        if (roundIndex === 0) return 'Финал';
+
+        // Для остальных раундов используем формат 1/X финала
+        const denominator = Math.pow(2, roundIndex);
+
+        switch (denominator) {
+            case 2: return '1/2 финала';
+            case 4: return '1/4 финала';
+            case 8: return '1/8 финала';
+            case 16: return '1/16 финала';
+            case 32: return '1/32 финала';
+            case 64: return '1/64 финала';
+            case 128: return '1/128 финала';
+            default: return `1/${denominator} финала`;
+        }
+    }
+
+    // Функция для отрисовки соединительных линий
+    function drawConnectors() {
+        const connectorWrapper = document.querySelector('.connector-wrapper');
+        if (!connectorWrapper) return;
+
+        connectorWrapper.innerHTML = '';
+
+        const rounds = document.querySelectorAll('.round');
+
+        // Для каждого раунда, кроме последнего
+        for (let i = 0; i < rounds.length - 1; i++) {
+            const currentRound = rounds[i];
+            const nextRound = rounds[i + 1];
+            const currentMatches = currentRound.querySelectorAll('.match');
+            const nextMatches = nextRound.querySelectorAll('.match');
+
+            // Для каждого матча в текущем раунде
+            for (let j = 0; j < currentMatches.length; j++) {
+                const currentMatch = currentMatches[j];
+                const nextMatchIndex = Math.floor(j / 2);
+
+                if (nextMatchIndex < nextMatches.length) {
+                    const nextMatch = nextMatches[nextMatchIndex];
+
+                    // Получаем координаты
+                    const currentRect = currentMatch.getBoundingClientRect();
+                    const nextRect = nextMatch.getBoundingClientRect();
+                    const wrapperRect = connectorWrapper.getBoundingClientRect();
+
+                    // Создаем горизонтальную линию
+                    const horizontalConnector = document.createElement('div');
+                    horizontalConnector.className = 'connector connector-horizontal';
+                    horizontalConnector.dataset.from = `${currentRound.dataset.round}-${j}`;
+                    horizontalConnector.dataset.to = `${nextRound.dataset.round}-${nextMatchIndex}`;
+
+                    // Позиционируем горизонтальную линию
+                    const currentMatchCenter = currentRect.top + currentRect.height / 2 - wrapperRect.top;
+                    horizontalConnector.style.top = `${currentMatchCenter}px`;
+                    horizontalConnector.style.left = `${currentRect.right - wrapperRect.left}px`;
+                    horizontalConnector.style.width = `${nextRect.left - currentRect.right}px`;
+
+                    connectorWrapper.appendChild(horizontalConnector);
+
+                    // Если это первый матч из пары, создаем вертикальную линию
+                    if (j % 2 === 0) {
+                        const verticalConnector = document.createElement('div');
+                        verticalConnector.className = 'connector connector-vertical';
+                        verticalConnector.dataset.connects = `${nextRound.dataset.round}-${nextMatchIndex}`;
+
+                        const nextMatchCenter = nextRect.top + nextRect.height / 2 - wrapperRect.top;
+                        const currentMatchCenter1 = currentRect.top + currentRect.height / 2 - wrapperRect.top;
+                        const currentMatchCenter2 = currentMatches[j + 1] ?
+                            currentMatches[j + 1].getBoundingClientRect().top +
+                            currentMatches[j + 1].getBoundingClientRect().height / 2 - wrapperRect.top :
+                            currentMatchCenter1;
+
+                        verticalConnector.style.top = `${Math.min(currentMatchCenter1, currentMatchCenter2)}px`;
+                        verticalConnector.style.left = `${nextRect.left - wrapperRect.left - 2}px`;
+                        verticalConnector.style.height = `${Math.abs(currentMatchCenter2 - currentMatchCenter1)}px`;
+
+                        connectorWrapper.appendChild(verticalConnector);
+                    }
+                }
+            }
+        }
+    }
+
+    // Функция для подсветки пути игрока
+    function highlightPlayerPath(playerName) {
+        if (!playerName) return;
+
+        const playerPath = playerPathMap.get(playerName);
+        if (!playerPath) return;
+
+        // Очищаем предыдущие подсветки
+        clearHighlightedPaths();
+
+        // Подсвечиваем все элементы пути игрока
+        playerPath.forEach(position => {
+            // Подсвечиваем игрока
+            const playerSelector = `.player[data-player-name="${playerName}"][data-round="${position.round}"][data-match="${position.match}"][data-player-index="${position.playerIndex}"]`;
+            const playerElement = document.querySelector(playerSelector);
+            if (playerElement) {
+                playerElement.classList.add('winner');
+            }
+
+            // Подсвечиваем соединительные линии
+            if (position.round < tournaments[currentTournamentIndex].rounds.length - 1) {
+                const nextRound = position.round + 1;
+                const nextMatch = position.match * 2 + (position.playerIndex === 0 ? 0 : 1);
+
+                // Горизонтальная линия
+                const horizontalConnector = document.querySelector(`.connector-horizontal[data-from="${nextRound}-${nextMatch}"]`);
+                if (horizontalConnector) {
+                    horizontalConnector.classList.add('highlight');
+                }
+
+                // Вертикальная линия (если это первый игрок в паре)
+                if (nextMatch % 2 === 0) {
+                    const verticalConnector = document.querySelector(`.connector-vertical[data-connects="${position.round}-${Math.floor(nextMatch/2)}"]`);
+                    if (verticalConnector) {
+                        verticalConnector.classList.add('highlight');
+                    }
+                }
+            }
+        });
+    }
+
+    // Функция для очистки подсвеченных путей
+    function clearHighlightedPaths() {
+        document.querySelectorAll('.connector.highlight').forEach(connector => {
+            connector.classList.remove('highlight');
+        });
+
+        document.querySelectorAll('.player.winner:not(.winner)').forEach(player => {
+            player.classList.remove('winner');
+        });
+    }
+
+    // Функция открытия модального окна для редактирования матча
+    function openMatchModal(match) {
+        currentEditingMatch = match;
+
+        document.getElementById('player1Name').value = match.players[0].name || '';
+        document.getElementById('player1Country').value = match.players[0].country || 'ru';
+        document.getElementById('player2Name').value = match.players[1].name || '';
+        document.getElementById('player2Country').value = match.players[1].country || 'ru';
+
+        if (match.score) {
+            const scores = match.score.split('–');
+            document.getElementById('player1Score').value = scores[0];
+            document.getElementById('player2Score').value = scores[1];
+        } else {
+            document.getElementById('player1Score').value = '';
+            document.getElementById('player2Score').value = '';
+        }
+
+        document.getElementById('setSets').value = match.sets || '';
+        document.getElementById('matchWinner').value = match.winner === 0 ? 'player1' : match.winner === 1 ? 'player2' : '';
+        document.getElementById('matchDate').value = match.info?.date || '';
+        document.getElementById('tableNumber').value = match.info?.table || '';
+        document.getElementById('matchNotes').value = match.info?.notes || '';
+
+        matchModal.classList.remove('hidden');
+        matchModal.classList.add('flex');
+    }
+
+    // Обработчик изменения размера окна для перерисовки соединительных линий
+    window.addEventListener('resize', () => {
+        if (tournaments.length > 0) {
+            drawConnectors();
+        }
+    });
+
+    // Инициализация с тестовыми данными
+    window.addEventListener('DOMContentLoaded', () => {
+        // Создаем первый тестовый турнир
+        const testTournament1 = generateTournament(64, 'single', 'Чемпионат города');
+        populateWithSampleData(testTournament1);
+        tournaments.push(testTournament1);
+
+        // Создаем второй тестовый турнир
+        const testTournament2 = generateTournament(128, 'single', 'Кубок области');
+        populateWithSampleData(testTournament2);
+        tournaments.push(testTournament2);
+
+        currentTournamentIndex = 0;
+        updateTournamentTabs();
+        renderTournament(tournaments[currentTournamentIndex]);
+
+        // Настраиваем селекторы раундов
+        const startRoundSelect = document.getElementById('startRound');
+        const endRoundSelect = document.getElementById('endRound');
+
+        // Ограничиваем доступные раунды в зависимости от количества участников
+        const maxRounds = Math.log2(testTournament1.playerCount);
+        let playerCounts = testTournament1.playerCount;
+        let playerCountsText;
+        for (let i = 0; i < startRoundSelect.options.length; i++) {
+            playerCounts/=2;
+            switch (playerCounts) {
+                case 2: {
+                    playerCountsText = '1/2 финала';
+                    break;
+                }
+                case 4: {
+                    playerCountsText = '1/4 финала';
+                    break;
+                }
+                case 8: {
+                    playerCountsText = '1/8 финала';
+                    break;
+                }
+                case 16: {
+                    playerCountsText = '1/16 финала';
+                    break;
+                }
+                case 32: {
+                    playerCountsText = '1/32 финала';
+                    break;
+                }
+                case 64: {
+                    playerCountsText = '1/64 финала';
+                    break;
+                }
+                case 128: {
+                    playerCountsText = '1/128 финала';
+                    break;
+                }
+                default: playerCountsText = `Финал`;
+            }
+            if(i >= maxRounds){
+                startRoundSelect.options[i].disabled = true;
+                startRoundSelect.options[i].textContent =' ';
+                endRoundSelect.options[i].disabled = true;
+                endRoundSelect.options[i].textContent = '';
+            }else{
+                startRoundSelect.options[i].disabled = false;
+                startRoundSelect.options[i].textContent = playerCountsText;
+                endRoundSelect.options[i].disabled = false;
+                if(playerCountsText === `Финал`){
+                    endRoundSelect.options[i].selected = true;
+                }
+                endRoundSelect.options[i].textContent = playerCountsText;
+            }
+
+
+
+            // startRoundSelect.options[i].disabled = i < maxRounds;
+            // endRoundSelect.options[i].disabled = i <= maxRounds;
+        }
+
+
+    });
+</script>
+
+</body></html>

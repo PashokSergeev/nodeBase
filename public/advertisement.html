@@ -278,7 +278,7 @@
     Админ
 </button>
 
-<div id="adminPanel" class="admin-panel active">
+<div id="adminPanel" class="admin-panel">
     <div class="p-6">
         <h2 class="text-2xl font-bold mb-4 text-center">Панель администратора</h2>
 
@@ -1118,6 +1118,7 @@
         const bgColor = settings.background.color;
         const bgOpacity = settings.background.opacity / 100;
         const rgbColor = hexToRgb(bgColor);
+        viewerMode.style.display = 'flex';
         viewerMode.style.backgroundColor = `rgba(${rgbColor.r}, ${rgbColor.g}, ${rgbColor.b}, ${bgOpacity})`;
 
         // Обновление фонового изображения
@@ -1220,6 +1221,7 @@
                 viewerMode.classList.add('transparent-mode');
                 announcementText.textContent = '';
                 timerContainer.classList.add('hidden');
+                viewerMode.style.display = 'none';
             }
         }, 1000);
     }

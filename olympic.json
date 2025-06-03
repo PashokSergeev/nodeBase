@@ -1,0 +1,669 @@
+{
+  "name": "Турнир по настольному теннису",
+  "playerCount": 32,
+  "type": "single",
+  "rounds": [
+    [
+      {
+        "round": 0,
+        "matchIndex": 0,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      }
+    ],
+    [
+      {
+        "round": 1,
+        "matchIndex": 0,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 1,
+        "matchIndex": 1,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      }
+    ],
+    [
+      {
+        "round": 2,
+        "matchIndex": 0,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 2,
+        "matchIndex": 1,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 2,
+        "matchIndex": 2,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 2,
+        "matchIndex": 3,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      }
+    ],
+    [
+      {
+        "round": 3,
+        "matchIndex": 0,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 3,
+        "matchIndex": 1,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 3,
+        "matchIndex": 2,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 3,
+        "matchIndex": 3,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 3,
+        "matchIndex": 4,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 3,
+        "matchIndex": 5,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 3,
+        "matchIndex": 6,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 3,
+        "matchIndex": 7,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      }
+    ],
+    [
+      {
+        "round": 4,
+        "matchIndex": 0,
+        "players": [
+          {
+            "name": "Pavel1",
+            "country": "ady"
+          },
+          {
+            "name": "Pavel1",
+            "country": "bury"
+          }
+        ],
+        "score": "3–1",
+        "winner": null,
+        "info": {
+          "date": "15:00",
+          "table": "1",
+          "notes": ""
+        },
+        "sets": "11:2, 11:3, 5:4"
+      },
+      {
+        "round": 4,
+        "matchIndex": 1,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 4,
+        "matchIndex": 2,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 4,
+        "matchIndex": 3,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 4,
+        "matchIndex": 4,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 4,
+        "matchIndex": 5,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 4,
+        "matchIndex": 6,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 4,
+        "matchIndex": 7,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 4,
+        "matchIndex": 8,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 4,
+        "matchIndex": 9,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 4,
+        "matchIndex": 10,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 4,
+        "matchIndex": 11,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 4,
+        "matchIndex": 12,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 4,
+        "matchIndex": 13,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 4,
+        "matchIndex": 14,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      },
+      {
+        "round": 4,
+        "matchIndex": 15,
+        "players": [
+          {
+            "name": "",
+            "country": "ru"
+          },
+          {
+            "name": "",
+            "country": "ru"
+          }
+        ],
+        "score": "",
+        "winner": null,
+        "info": {
+          "date": "",
+          "table": "",
+          "notes": ""
+        }
+      }
+    ]
+  ]
+}
