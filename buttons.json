@@ -1,15 +1,15 @@
 [
   {
-    "id": 1748883783032,
-    "name": "Текстовое объявление",
-    "url": "advertisement.html",
-    "color": "bg-blue-500 hover:bg-blue-600"
-  },
-  {
     "id": 1748883811905,
     "name": "Видеопроигрыватель повторов",
     "url": "videos.html",
     "color": "bg-green-500 hover:bg-green-600"
+  },
+  {
+    "id": 1748883783032,
+    "name": "Текстовое объявление",
+    "url": "advertisement.html",
+    "color": "bg-blue-500 hover:bg-blue-600"
   },
   {
     "id": 1748883835337,
@@ -18,16 +18,16 @@
     "color": "bg-purple-500 hover:bg-purple-600"
   },
   {
-    "id": 1748883851105,
-    "name": "Группы",
-    "url": "net.html",
-    "color": "bg-red-500 hover:bg-red-600"
-  },
-  {
     "id": 1748883872480,
     "name": "Командное представление",
     "url": "teams.html",
     "color": "bg-yellow-500 hover:bg-yellow-600"
+  },
+  {
+    "id": 1748883851105,
+    "name": "Группы",
+    "url": "net.html",
+    "color": "bg-red-500 hover:bg-red-600"
   },
   {
     "id": 1748948912127,

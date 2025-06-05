@@ -17,7 +17,7 @@
             font-family: "Oswald", sans-serif;
             font-optical-sizing: auto;
             font-weight: 600;
-            background: linear-gradient(135deg, rgb(10, 36, 99), rgba(30, 58, 138, 0.8));
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
             color: white;
             height: 100vh;
             display: flex;
@@ -36,7 +36,7 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 38, 77, 0.67);
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 
@@ -56,7 +56,7 @@
         #date {
             font-size: 1.2rem;
             text-align: center;
-            background-color: #e63946;
+            background: linear-gradient(-177deg, #0558c3 0%, #C8102E 100%);
             padding: 0.3rem 1rem;
             border-radius: 4px;
             display: inline-block;
@@ -91,7 +91,7 @@
         }
 
         .match-header {
-            background: #e63946;
+            background: linear-gradient(-177deg, #0558c3 0%, #C8102E 100%);
             color: white;
             padding: 0.5rem 1rem;
             font-size: 1.2rem;
@@ -117,12 +117,12 @@
             position: relative;
             overflow: hidden;
             margin-bottom: 1.5rem;
-            border-left: 4px solid #ff9500;
+            border-left: 4px solid #C8102E;
             animation: pulse 2s infinite;
         }
 
         #next-match .match-header {
-            background: #ff9500;
+            background: linear-gradient(-177deg, #003366 20%, #808080 100%);
             display: inline-block;
             margin-bottom: 0.5rem;
             border-radius: 4px;
@@ -163,7 +163,7 @@
 
         .time-display {
             font-weight: bold;
-            color: #ff9500;
+            color: #d6d6d6;
             margin-right: 0.5rem;
             display: inline-block;
         }
@@ -191,13 +191,13 @@
 
         @keyframes pulse {
             0% {
-                box-shadow: 0 0 0 0 rgba(255, 149, 0, 0.7);
+                box-shadow: 0 0 0 0 rgba(200, 16, 46, 0.7);
             }
             70% {
-                box-shadow: 0 0 0 10px rgba(255, 149, 0, 0);
+                box-shadow: 0 0 0 10px rgba(200, 16, 46, 0);
             }
             100% {
-                box-shadow: 0 0 0 0 rgba(255, 149, 0, 0);
+                box-shadow: 0 0 0 0 rgba(200, 16, 46, 0);
             }
         }
 
@@ -215,6 +215,16 @@
                 width: 60px;
                 height: 60px;
             }
+        }
+        .admin-button{
+            opacity: 0;
+        }
+        body:hover .admin-button {
+            opacity: 0.3;
+        }
+
+        body:hover .admin-button:hover {
+            opacity: 1;
         }
 
         #admin-panel {
@@ -278,7 +288,7 @@
         <img src="images/slntr.png">
     </div>
 
-    <div class="match-header">Следующий матч</div>
+    <div class="match-header">Предстоящий матч</div>
     <div class="match-block" id="next-match">
         <div class="match-header"></div>
         <span class="time-display"></span>
@@ -363,7 +373,7 @@
     </div>
 
 </div>
-<button class="button button-back" onclick="location.href='schedule.html?mode=admin'" style="">Админ панель</button>
+<button class="button button-back admin-button" onclick="location.href='schedule.html?mode=admin'" style="">Админ панель</button>
 <div class="panel" id="admin-panel">
     <label>Название турнира:</label>
     <input type="text" id="input-title" placeholder="Event Title"/>

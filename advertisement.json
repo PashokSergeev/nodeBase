@@ -27,9 +27,9 @@
     "patternSpacingY": 0
   },
   "timer": {
-    "type": "countdown",
+    "type": "alarm",
     "minutes": 1,
-    "alarmTime": "22:17",
+    "alarmTime": "10:00",
     "fontFamily": "'Roboto', sans-serif",
     "fontSize": "text-6xl",
     "fontWeight": "font-bold",

@@ -6,16 +6,13 @@
       "players": [
         {
           "id": "1748806330348o68tm",
-          "name": "Сергеев П.А.",
-          "rating": "345",
+          "name": "ЧУВАШИЯ",
+          "rating": "2100",
           "regionCode": "chv",
           "matches": {
-            "1748806330348hiltn": "2:4",
+            "1748806330348hiltn": null,
             "1748806330349y1aro": null,
-            "17488063507975niqm": null,
-            "1748806350797fqwnt": null,
-            "1748806350797nn2kf": null,
-            "1748806350797al9tm": null
+            "17488063507975niqm": null
           },
           "games": 2,
           "sets": 1,
@@ -24,16 +21,13 @@
         },
         {
           "id": "1748806330348hiltn",
-          "name": "Сергеев П.А.",
-          "rating": "34",
-          "regionCode": "chv",
+          "name": "НОВОСИБИРСКАЯ",
+          "rating": "2050",
+          "regionCode": "nvs",
           "matches": {
             "1748806330348o68tm": null,
-            "1748806330349y1aro": "2:4",
-            "17488063507975niqm": "2:4",
-            "1748806350797fqwnt": null,
-            "1748806350797nn2kf": null,
-            "1748806350797al9tm": null
+            "1748806330349y1aro": null,
+            "17488063507975niqm": null
           },
           "games": 0,
           "sets": 1,
@@ -42,16 +36,13 @@
         },
         {
           "id": "1748806330349y1aro",
-          "name": "Сергеев П.А.",
-          "rating": "533",
-          "regionCode": "udm",
+          "name": "МОСКВА",
+          "rating": "1960",
+          "regionCode": "msk",
           "matches": {
             "1748806330348o68tm": null,
             "1748806330348hiltn": null,
-            "17488063507975niqm": "2:4",
-            "1748806350797fqwnt": null,
-            "1748806350797nn2kf": null,
-            "1748806350797al9tm": null
+            "17488063507975niqm": null
           },
           "games": 0,
           "sets": 0,
@@ -60,75 +51,18 @@
         },
         {
           "id": "17488063507975niqm",
-          "name": "Сергеев П.А.",
-          "rating": "534",
-          "regionCode": "mrd",
+          "name": "БРЯНСКАЯ",
+          "rating": "1670",
+          "regionCode": "bry",
           "matches": {
-            "1748806330348o68tm": "2:4",
+            "1748806330348o68tm": null,
             "1748806330348hiltn": null,
-            "1748806330349y1aro": null,
-            "1748806350797fqwnt": null,
-            "1748806350797nn2kf": "2:4",
-            "1748806350797al9tm": null
+            "1748806330349y1aro": null
           },
           "games": 0,
           "sets": 5,
           "points": 0,
           "position": 3
-        },
-        {
-          "id": "1748806350797fqwnt",
-          "name": "Сергеев П.А.",
-          "rating": "354",
-          "regionCode": "bry",
-          "matches": {
-            "1748806330348o68tm": null,
-            "1748806330348hiltn": "2:4",
-            "1748806330349y1aro": null,
-            "17488063507975niqm": null,
-            "1748806350797nn2kf": null,
-            "1748806350797al9tm": null
-          },
-          "games": 0,
-          "sets": 0,
-          "points": 0,
-          "position": 4
-        },
-        {
-          "id": "1748806350797nn2kf",
-          "name": "Сергеев П.А.",
-          "rating": "345",
-          "regionCode": "hab",
-          "matches": {
-            "1748806330348o68tm": null,
-            "1748806330348hiltn": "2:4",
-            "1748806330349y1aro": "2:4",
-            "17488063507975niqm": null,
-            "1748806350797fqwnt": null,
-            "1748806350797al9tm": null
-          },
-          "games": 0,
-          "sets": 0,
-          "points": 0,
-          "position": 5
-        },
-        {
-          "id": "1748806350797al9tm",
-          "name": "Сергеев П.А.",
-          "rating": "435",
-          "regionCode": "zpo",
-          "matches": {
-            "1748806330348o68tm": "2:4",
-            "1748806330348hiltn": null,
-            "1748806330349y1aro": "2:4",
-            "17488063507975niqm": null,
-            "1748806350797fqwnt": null,
-            "1748806350797nn2kf": null
-          },
-          "games": 0,
-          "sets": 0,
-          "points": 0,
-          "position": 6
         }
       ]
     },
@@ -144,10 +78,7 @@
           "matches": {
             "1748806393412nweqs": null,
             "1748806393412j4c4w": null,
-            "1748806393412wowoh": null,
-            "17488064100840bqxn": null,
-            "1748806410084qm6zh": null,
-            "17488064100847etii": null
+            "1748806393412wowoh": null
           },
           "games": 0,
           "sets": 0,
@@ -162,10 +93,7 @@
           "matches": {
             "1748806393412lttwr": null,
             "1748806393412j4c4w": null,
-            "1748806393412wowoh": null,
-            "17488064100840bqxn": null,
-            "1748806410084qm6zh": null,
-            "17488064100847etii": null
+            "1748806393412wowoh": null
           },
           "games": 0,
           "sets": 0,
@@ -180,10 +108,7 @@
           "matches": {
             "1748806393412lttwr": null,
             "1748806393412nweqs": null,
-            "1748806393412wowoh": null,
-            "17488064100840bqxn": null,
-            "1748806410084qm6zh": null,
-            "17488064100847etii": null
+            "1748806393412wowoh": null
           },
           "games": 0,
           "sets": 0,
@@ -198,64 +123,7 @@
           "matches": {
             "1748806393412lttwr": null,
             "1748806393412nweqs": null,
-            "1748806393412j4c4w": null,
-            "17488064100840bqxn": null,
-            "1748806410084qm6zh": null,
-            "17488064100847etii": null
-          },
-          "games": 0,
-          "sets": 0,
-          "points": 0,
-          "position": 0
-        },
-        {
-          "id": "17488064100840bqxn",
-          "name": "Сергеев П.А.",
-          "rating": "534",
-          "regionCode": "lnr",
-          "matches": {
-            "1748806393412lttwr": null,
-            "1748806393412nweqs": null,
-            "1748806393412j4c4w": null,
-            "1748806393412wowoh": null,
-            "1748806410084qm6zh": null,
-            "17488064100847etii": null
-          },
-          "games": 0,
-          "sets": 0,
-          "points": 0,
-          "position": 0
-        },
-        {
-          "id": "1748806410084qm6zh",
-          "name": "Сергеев П.А.",
-          "rating": "435",
-          "regionCode": "sah",
-          "matches": {
-            "1748806393412lttwr": null,
-            "1748806393412nweqs": null,
-            "1748806393412j4c4w": null,
-            "1748806393412wowoh": null,
-            "17488064100840bqxn": null,
-            "17488064100847etii": null
-          },
-          "games": 0,
-          "sets": 0,
-          "points": 0,
-          "position": 0
-        },
-        {
-          "id": "17488064100847etii",
-          "name": "Сергеев П.А.",
-          "rating": "543",
-          "regionCode": "bry",
-          "matches": {
-            "1748806393412lttwr": null,
-            "1748806393412nweqs": null,
-            "1748806393412j4c4w": null,
-            "1748806393412wowoh": null,
-            "17488064100840bqxn": null,
-            "1748806410084qm6zh": null
+            "1748806393412j4c4w": null
           },
           "games": 0,
           "sets": 0,
@@ -275,7 +143,8 @@
           "regionCode": "sak",
           "matches": {
             "17488071896778z7nt": null,
-            "1748807189677xlz9r": null
+            "1748807189677xlz9r": null,
+            "1749041593415pt0nk": null
           },
           "games": 0,
           "sets": 0,
@@ -289,7 +158,8 @@
           "regionCode": "hab",
           "matches": {
             "1748807189677c46cs": null,
-            "1748807189677xlz9r": null
+            "1748807189677xlz9r": null,
+            "1749041593415pt0nk": null
           },
           "games": 0,
           "sets": 0,
@@ -303,7 +173,617 @@
           "regionCode": "zbk",
           "matches": {
             "1748807189677c46cs": null,
-            "17488071896778z7nt": null
+            "17488071896778z7nt": null,
+            "1749041593415pt0nk": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041593415pt0nk",
+          "name": "ЧУВАШИЯ",
+          "rating": "323",
+          "regionCode": "bash",
+          "matches": {
+            "1748807189677c46cs": null,
+            "17488071896778z7nt": null,
+            "1748807189677xlz9r": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
+    },
+    {
+      "id": "1749041142486",
+      "name": "Группа-4",
+      "players": [
+        {
+          "id": "1749041165118fkk73",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "dnr",
+          "matches": {
+            "1749041165118yzumj": null,
+            "1749041165118k9ue1": null,
+            "1749041165118aon1o": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041165118yzumj",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "vls",
+          "matches": {
+            "1749041165118fkk73": null,
+            "1749041165118k9ue1": null,
+            "1749041165118aon1o": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041165118k9ue1",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "ady",
+          "matches": {
+            "1749041165118fkk73": null,
+            "1749041165118yzumj": null,
+            "1749041165118aon1o": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041165118aon1o",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "vla",
+          "matches": {
+            "1749041165118fkk73": null,
+            "1749041165118yzumj": null,
+            "1749041165118k9ue1": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
+    },
+    {
+      "id": "1749041167630",
+      "name": "Группа-5",
+      "players": [
+        {
+          "id": "174904118666260bqe",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "cr",
+          "matches": {
+            "1749041186662p2ii7": null,
+            "1749041186662wq699": null,
+            "1749041186662g2q9r": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041186662p2ii7",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "lnr",
+          "matches": {
+            "174904118666260bqe": null,
+            "1749041186662wq699": null,
+            "1749041186662g2q9r": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041186662wq699",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "altk",
+          "matches": {
+            "174904118666260bqe": null,
+            "1749041186662p2ii7": null,
+            "1749041186662g2q9r": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041186662g2q9r",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "tuv",
+          "matches": {
+            "174904118666260bqe": null,
+            "1749041186662p2ii7": null,
+            "1749041186662wq699": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
+    },
+    {
+      "id": "1749041188022",
+      "name": "Группа-6",
+      "players": [
+        {
+          "id": "1749041210303dzq4w",
+          "name": "ЧУВАШИЯ",
+          "rating": "432",
+          "regionCode": "amur",
+          "matches": {
+            "17490412103034ol6v": null,
+            "1749041210303tw3fv": null,
+            "17490412103034vg40": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "17490412103034ol6v",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "kom",
+          "matches": {
+            "1749041210303dzq4w": null,
+            "1749041210303tw3fv": null,
+            "17490412103034vg40": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041210303tw3fv",
+          "name": "ЧУВАШИЯ",
+          "rating": "4",
+          "regionCode": "per",
+          "matches": {
+            "1749041210303dzq4w": null,
+            "17490412103034ol6v": null,
+            "17490412103034vg40": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "17490412103034vg40",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "tom",
+          "matches": {
+            "1749041210303dzq4w": null,
+            "17490412103034ol6v": null,
+            "1749041210303tw3fv": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
+    },
+    {
+      "id": "1749041564495",
+      "name": "Группа-7",
+      "players": [
+        {
+          "id": "1749041571558w16d7",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "",
+          "matches": {
+            "1749041571558o4i6o": null,
+            "1749041582078igc7f": null,
+            "17490415820787hl33": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041571558o4i6o",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "",
+          "matches": {
+            "1749041571558w16d7": null,
+            "1749041582078igc7f": null,
+            "17490415820787hl33": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041582078igc7f",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "bash",
+          "matches": {
+            "1749041571558w16d7": null,
+            "1749041571558o4i6o": null,
+            "17490415820787hl33": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "17490415820787hl33",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "bash",
+          "matches": {
+            "1749041571558w16d7": null,
+            "1749041571558o4i6o": null,
+            "1749041582078igc7f": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
+    },
+    {
+      "id": "1749041597582",
+      "name": "Группа-8",
+      "players": [
+        {
+          "id": "1749041607454ryhan",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "sak",
+          "matches": {
+            "1749041607454zy0ee": null,
+            "17490416074542mye1": null,
+            "1749041607454dc70g": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041607454zy0ee",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "mr",
+          "matches": {
+            "1749041607454ryhan": null,
+            "17490416074542mye1": null,
+            "1749041607454dc70g": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "17490416074542mye1",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "tam",
+          "matches": {
+            "1749041607454ryhan": null,
+            "1749041607454zy0ee": null,
+            "1749041607454dc70g": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041607454dc70g",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "orl",
+          "matches": {
+            "1749041607454ryhan": null,
+            "1749041607454zy0ee": null,
+            "17490416074542mye1": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
+    },
+    {
+      "id": "1749041609623",
+      "name": "Группа-9",
+      "players": [
+        {
+          "id": "1749041620766f2jgh",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "mrd",
+          "matches": {
+            "1749041620766e9az6": null,
+            "1749041620766ubamy": null,
+            "1749041620766xad8r": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041620766e9az6",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "cr",
+          "matches": {
+            "1749041620766f2jgh": null,
+            "1749041620766ubamy": null,
+            "1749041620766xad8r": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041620766ubamy",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "vrn",
+          "matches": {
+            "1749041620766f2jgh": null,
+            "1749041620766e9az6": null,
+            "1749041620766xad8r": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041620766xad8r",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "cr",
+          "matches": {
+            "1749041620766f2jgh": null,
+            "1749041620766e9az6": null,
+            "1749041620766ubamy": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
+    },
+    {
+      "id": "1749041622415",
+      "name": "Группа-10",
+      "players": [
+        {
+          "id": "1749041633399wgjy2",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "tul",
+          "matches": {
+            "1749041633399a6lcw": null,
+            "1749041633399w34ur": null,
+            "17490416333994txmc": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041633399a6lcw",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "tom",
+          "matches": {
+            "1749041633399wgjy2": null,
+            "1749041633399w34ur": null,
+            "17490416333994txmc": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041633399w34ur",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "yar",
+          "matches": {
+            "1749041633399wgjy2": null,
+            "1749041633399a6lcw": null,
+            "17490416333994txmc": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "17490416333994txmc",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "rya",
+          "matches": {
+            "1749041633399wgjy2": null,
+            "1749041633399a6lcw": null,
+            "1749041633399w34ur": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
+    },
+    {
+      "id": "1749041634440",
+      "name": "Группа-11",
+      "players": [
+        {
+          "id": "1749041648591q3nj0",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "nin",
+          "matches": {
+            "17490416485911retl": null,
+            "1749041648591srlvg": null,
+            "1749041648591up4f7": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "17490416485911retl",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "tyu",
+          "matches": {
+            "1749041648591q3nj0": null,
+            "1749041648591srlvg": null,
+            "1749041648591up4f7": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041648591srlvg",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "tam",
+          "matches": {
+            "1749041648591q3nj0": null,
+            "17490416485911retl": null,
+            "1749041648591up4f7": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041648591up4f7",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "pnz",
+          "matches": {
+            "1749041648591q3nj0": null,
+            "17490416485911retl": null,
+            "1749041648591srlvg": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
+    },
+    {
+      "id": "1749041650862",
+      "name": "Группа-12",
+      "players": [
+        {
+          "id": "1749041663945khs7y",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "sve",
+          "matches": {
+            "1749041663945qfbl5": null,
+            "1749041663945j5gos": null,
+            "17490416639452fyd6": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041663945qfbl5",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "tul",
+          "matches": {
+            "1749041663945khs7y": null,
+            "1749041663945j5gos": null,
+            "17490416639452fyd6": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1749041663945j5gos",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "tom",
+          "matches": {
+            "1749041663945khs7y": null,
+            "1749041663945qfbl5": null,
+            "17490416639452fyd6": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "17490416639452fyd6",
+          "name": "ЧУВАШИЯ",
+          "rating": "0",
+          "regionCode": "orl",
+          "matches": {
+            "1749041663945khs7y": null,
+            "1749041663945qfbl5": null,
+            "1749041663945j5gos": null
           },
           "games": 0,
           "sets": 0,
@@ -313,5 +793,5 @@
       ]
     }
   ],
-  "tournamentTitle": "ПЕРВЕНСТВО РОССИИ ПО НАСТОЛЬНОМУ ТЕННИСУ СРЕДИ МАЛЬЧИКОВ И ДЕВОЧЕК ДО 12 ЛЕТ"
+  "tournamentTitle": "КОМАНДНЫЙ ЧЕМПИОНАТ СЛНТР СРЕДИ МУЖЧИН-2025"
 }

@@ -5,7 +5,7 @@
     "location": "г. Москва, СК \"Олимпийский\", 10-15 июня 2025 г."
   },
   "team1": {
-    "name": "Иванов Петр",
+    "name": "Команда \"Динамо\"",
     "flag": "chv",
     "players": [
       "Сет 1",
@@ -14,11 +14,11 @@
       "Сет 4",
       "Сет 5"
     ],
-    "reserves": "\n",
+    "reserves": "Сет 3\nСет 4\nСет 5\n",
     "playersvalue": "Сет 1\nСет 2\nСет 3\nСет 4\nСет 5"
   },
   "team2": {
-    "name": "Исаков Валентин",
+    "name": "Команда \"Спартак\"",
     "flag": "spb",
     "players": [
       "Сет 1",
@@ -27,31 +27,31 @@
       "Сет 4",
       "Сет 5"
     ],
-    "reserves": "",
+    "reserves": "Сет 3\nСет 4\nСет 5",
     "playersvalue": "Сет 1\nСет 2\nСет 3\nСет 4\nСет 5"
   },
   "matche1": {
-    "score": "11:8",
+    "score": "1:2",
     "point": ""
   },
   "matche2": {
-    "score": "11:8",
+    "score": "0:0",
     "point": ""
   },
   "matche3": {
-    "score": "11:8",
+    "score": "0:0",
     "point": ""
   },
   "matche4": {
-    "score": "11:8",
+    "score": "0:0",
     "point": ""
   },
   "matche5": {
-    "score": "",
+    "score": "0:0",
     "point": ""
   },
   "match_score": {
     "team1": 0,
-    "team2": 4
+    "team2": 0
   }
 }

@@ -18,6 +18,17 @@
         body::-webkit-scrollbar , .tournament-bracket::-webkit-scrollbar{
             width: 0;
         }
+        .racket-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image: url("/images/bg-image.png");
+            background-repeat: repeat;
+            background-position: center;
+            z-index: -1;
+            opacity: 0.15;
+            transform: rotate(-10deg);
+        }
 
         .tournament-header {
             background: linear-gradient(90deg, #002F6C 0%, #C8102E 100%);
@@ -109,7 +120,7 @@
         }
 
         .winner {
-            background-color: #065ed8;
+            background: linear-gradient(-177deg, #002F6C 0%, #C8102E 100%);
             color: white;font-weight: bold;
         }
 
@@ -125,7 +136,7 @@
 
         .connector {
             position: absolute;
-            border: 2px solid #ccc;
+            border: 2px solid #065ed8;
             z-index: 1;
             transition: border-color 0.3s ease;
         }
@@ -175,7 +186,7 @@
 
         .progress-indicator {
             height: 6px;
-            background: linear-gradient(to right, #002F6C, #0052ba);
+            background: linear-gradient(-177deg, #002F6C 0%, #C8102E 100%);
             position: absolute;
             bottom: 0;
             left: 0;
@@ -395,7 +406,10 @@
         }
     </style>
     <style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.fixed{position:fixed}.relative{position:relative}.inset-0{inset:0px}.z-50{z-index:50}.mx-2{margin-left:0.5rem;margin-right:0.5rem}.mx-auto{margin-left:auto;margin-right:auto}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-8{margin-bottom:2rem}.mr-2{margin-right:0.5rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.block{display:block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.min-h-screen{min-height:100vh}.w-1\/3{width:33.333333%}.w-2\/3{width:66.666667%}.w-full{width:100%}.max-w-md{max-width:28rem}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.items-center{align-items:center}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-6{gap:1.5rem}.overflow-hidden{overflow:hidden}.rounded-lg{border-radius:0.5rem}.rounded-md{border-radius:0.375rem}.border{border-width:1px}.border-gray-300{--tw-border-opacity:1;border-color:rgb(209 213 219 / var(--tw-border-opacity, 1))}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-blue-600{--tw-bg-opacity:1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.bg-gray-500{--tw-bg-opacity:1;background-color:rgb(107 114 128 / var(--tw-bg-opacity, 1))}.bg-gray-600{--tw-bg-opacity:1;background-color:rgb(75 85 99 / var(--tw-bg-opacity, 1))}.bg-green-600{--tw-bg-opacity:1;background-color:rgb(22 163 74 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-opacity-50{--tw-bg-opacity:0.5}.p-2{padding:0.5rem}.p-6{padding:1.5rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-8{padding-top:2rem;padding-bottom:2rem}.text-center{text-align:center}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.font-semibold{font-weight:600}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}.text-gray-700{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity, 1))}.text-gray-800{--tw-text-opacity:1;color:rgb(31 41 55 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.shadow{--tw-shadow:0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-md{--tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.hover\:bg-blue-700:hover{--tw-bg-opacity:1;background-color:rgb(29 78 216 / var(--tw-bg-opacity, 1))}.hover\:bg-gray-600:hover{--tw-bg-opacity:1;background-color:rgb(75 85 99 / var(--tw-bg-opacity, 1))}.hover\:bg-gray-700:hover{--tw-bg-opacity:1;background-color:rgb(55 65 81 / var(--tw-bg-opacity, 1))}.hover\:bg-green-700:hover{--tw-bg-opacity:1;background-color:rgb(21 128 61 / var(--tw-bg-opacity, 1))}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}</style></head>
-<body class="min-h-screen" style="background-color: rgba(13, 25, 42, 0.7)">
+<body class="min-h-screen" style=" background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);">
+<!-- Background elements -->
+<div class="racket-bg"></div>
+
 <div class="container mx-auto px-4 py-8">
 <!--    <header class="tournament-header text-white shadow-lg">-->
 <!--        <div class="container mx-auto py-8 flex justify-between items-center gap-16">-->
@@ -497,7 +511,388 @@
     <div id="tournamentTabs" class="tournament-tabs viewer-controls"><div class="tournament-tab active">Чемпионат города<div class="tab-actions">⋮</div></div><div class="tournament-tab ">Кубок области<div class="tab-actions">⋮</div></div><div class="tournament-tab">+ Новый турнир</div></div>
 
     <div id="tournamentContainer" class="relative overflow-hidden">
-        <div id="tournamentBracket" class="tournament-bracket classic-bracket"><div class="round"><h3 class="text-center font-bold mb-4">1/8 финала</h3><div class="match" data-round="3" data-match="0"><div class="player winner" data-player-name="Иванов А." data-round="3" data-match="0" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span class="tooltip-name">Иванов А.</span><span class="tooltip-score">3:0</span></div><div class="tooltip-sets"><div class="tooltip-set">11-1</div><div class="tooltip-set">11-4</div><div class="tooltip-set">11-5</div></div><div class="tooltip-info">📅 15.06.2023 10:00 🏓 Стол 1 📝 1/16 финала</div></div><span class="flag-icon flag-icon-kr"></span><span class="player-name">Иванов А.</span><span class="player-score">3</span></div><div class="player " data-player-name="Петров С." data-round="3" data-match="0" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-jp"></span><span class="tooltip-name">Петров С.</span><span class="tooltip-score">3:0</span></div><div class="tooltip-sets"><div class="tooltip-set">11-1</div><div class="tooltip-set">11-4</div><div class="tooltip-set">11-5</div></div><div class="tooltip-info">📅 15.06.2023 10:00 🏓 Стол 1 📝 1/16 финала</div></div><span class="flag-icon flag-icon-jp"></span><span class="player-name">Петров С.</span><span class="player-score">0</span></div><div class="match-info">📅 15.06.2023 10:00 🏓 Стол 1 📝 1/16 финала</div><div class="progress-indicator" style="width: 100%;"></div></div><div class="match" data-round="3" data-match="1"><div class="player winner" data-player-name="Сидоров И." data-round="3" data-match="1" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-jp"></span><span class="tooltip-name">Сидоров И.</span><span class="tooltip-score">3:0</span></div><div class="tooltip-sets"><div class="tooltip-set">11-1</div><div class="tooltip-set">11-7</div><div class="tooltip-set">11-7</div></div><div class="tooltip-info">📅 15.06.2023 11:00 🏓 Стол 2 📝 1/16 финала</div></div><span class="flag-icon flag-icon-jp"></span><span class="player-name">Сидоров И.</span><span class="player-score">3</span></div><div class="player " data-player-name="Смирнов К." data-round="3" data-match="1" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span class="tooltip-name">Смирнов К.</span><span class="tooltip-score">3:0</span></div><div class="tooltip-sets"><div class="tooltip-set">11-1</div><div class="tooltip-set">11-7</div><div class="tooltip-set">11-7</div></div><div class="tooltip-info">📅 15.06.2023 11:00 🏓 Стол 2 📝 1/16 финала</div></div><span class="flag-icon flag-icon-kr"></span><span class="player-name">Смирнов К.</span><span class="player-score">0</span></div><div class="match-info">📅 15.06.2023 11:00 🏓 Стол 2 📝 1/16 финала</div><div class="progress-indicator" style="width: 100%;"></div></div><div class="match" data-round="3" data-match="2"><div class="player winner" data-player-name="Кузнецов Д." data-round="3" data-match="2" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span class="tooltip-name">Кузнецов Д.</span><span class="tooltip-score">4:0</span></div><div class="tooltip-sets"><div class="tooltip-set">11-3</div><div class="tooltip-set">11-7</div><div class="tooltip-set">11-4</div><div class="tooltip-set">11-5</div></div><div class="tooltip-info">📅 15.06.2023 12:00 🏓 Стол 3 📝 1/16 финала</div></div><span class="flag-icon flag-icon-de"></span><span class="player-name">Кузнецов Д.</span><span class="player-score">4</span></div><div class="player winner" data-player-name="Попов М." data-round="3" data-match="2" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span class="tooltip-name">Попов М.</span><span class="tooltip-score">4:0</span></div><div class="tooltip-sets"><div class="tooltip-set">11-3</div><div class="tooltip-set">11-7</div><div class="tooltip-set">11-4</div><div class="tooltip-set">11-5</div></div><div class="tooltip-info">📅 15.06.2023 12:00 🏓 Стол 3 📝 1/16 финала</div></div><span class="flag-icon flag-icon-de"></span><span class="player-name">Попов М.</span><span class="player-score">0</span></div><div class="match-info">📅 15.06.2023 12:00 🏓 Стол 3 📝 1/16 финала</div><div class="progress-indicator" style="width: 100%;"></div></div><div class="match" data-round="3" data-match="3"><div class="player winner" data-player-name="Васильев Н." data-round="3" data-match="3" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-jp"></span><span class="tooltip-name">Васильев Н.</span><span class="tooltip-score">4:1</span></div><div class="tooltip-sets"><div class="tooltip-set">11-8</div><div class="tooltip-set">11-5</div><div class="tooltip-set">11-6</div><div class="tooltip-set">11-5</div><div class="tooltip-set">9-11</div></div><div class="tooltip-info">📅 15.06.2023 13:00 🏓 Стол 4 📝 1/16 финала</div></div><span class="flag-icon flag-icon-jp"></span><span class="player-name">Васильев Н.</span><span class="player-score">4</span></div><div class="player " data-player-name="Соколов А." data-round="3" data-match="3" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span class="tooltip-name">Соколов А.</span><span class="tooltip-score">4:1</span></div><div class="tooltip-sets"><div class="tooltip-set">11-8</div><div class="tooltip-set">11-5</div><div class="tooltip-set">11-6</div><div class="tooltip-set">11-5</div><div class="tooltip-set">9-11</div></div><div class="tooltip-info">📅 15.06.2023 13:00 🏓 Стол 4 📝 1/16 финала</div></div><span class="flag-icon flag-icon-de"></span><span class="player-name">Соколов А.</span><span class="player-score">1</span></div><div class="match-info">📅 15.06.2023 13:00 🏓 Стол 4 📝 1/16 финала</div><div class="progress-indicator" style="width: 100%;"></div></div><div class="match" data-round="3" data-match="4"><div class="player " data-player-name="Михайлов В." data-round="3" data-match="4" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-cn"></span><span class="tooltip-name">Михайлов В.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-cn"></span><span class="player-name">Михайлов В.</span><span class="player-score"></span></div><div class="player " data-player-name="Новиков Г." data-round="3" data-match="4" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span class="tooltip-name">Новиков Г.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-kr"></span><span class="player-name">Новиков Г.</span><span class="player-score"></span></div></div><div class="match" data-round="3" data-match="5"><div class="player " data-player-name="Федоров Е." data-round="3" data-match="5" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-kz"></span><span class="tooltip-name">Федоров Е.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-kz"></span><span class="player-name">Федоров Е.</span><span class="player-score"></span></div><div class="player " data-player-name="Морозов Л." data-round="3" data-match="5" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-ua"></span><span class="tooltip-name">Морозов Л.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-ua"></span><span class="player-name">Морозов Л.</span><span class="player-score"></span></div></div><div class="match" data-round="3" data-match="6"><div class="player " data-player-name="Волков П." data-round="3" data-match="6" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span class="tooltip-name">Волков П.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-de"></span><span class="player-name">Волков П.</span><span class="player-score"></span></div><div class="player " data-player-name="Алексеев Р." data-round="3" data-match="6" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-kz"></span><span class="tooltip-name">Алексеев Р.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-kz"></span><span class="player-name">Алексеев Р.</span><span class="player-score"></span></div></div><div class="match" data-round="3" data-match="7"><div class="player " data-player-name="Лебедев Т." data-round="3" data-match="7" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span class="tooltip-name">Лебедев Т.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-kr"></span><span class="player-name">Лебедев Т.</span><span class="player-score"></span></div><div class="player " data-player-name="Семенов Ю." data-round="3" data-match="7" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-by"></span><span class="tooltip-name">Семенов Ю.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-by"></span><span class="player-name">Семенов Ю.</span><span class="player-score"></span></div></div></div><div class="round"><h3 class="text-center font-bold mb-4">1/4 финала</h3><div class="match" data-round="2" data-match="0"><div class="player winner" data-player-name="Иванов А." data-round="2" data-match="0" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span class="tooltip-name">Иванов А.</span><span class="tooltip-score">3:2</span></div><div class="tooltip-sets"><div class="tooltip-set">11-8</div><div class="tooltip-set">11-8</div><div class="tooltip-set">11-6</div><div class="tooltip-set">1-11</div><div class="tooltip-set">6-11</div></div><div class="tooltip-info">📅 16.06.2023 10:00 🏓 Стол 1 📝 1/8 финала</div></div><span class="flag-icon flag-icon-kr"></span><span class="player-name">Иванов А.</span><span class="player-score">3</span></div><div class="player " data-player-name="Сидоров И." data-round="2" data-match="0" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-jp"></span><span class="tooltip-name">Сидоров И.</span><span class="tooltip-score">3:2</span></div><div class="tooltip-sets"><div class="tooltip-set">11-8</div><div class="tooltip-set">11-8</div><div class="tooltip-set">11-6</div><div class="tooltip-set">1-11</div><div class="tooltip-set">6-11</div></div><div class="tooltip-info">📅 16.06.2023 10:00 🏓 Стол 1 📝 1/8 финала</div></div><span class="flag-icon flag-icon-jp"></span><span class="player-name">Сидоров И.</span><span class="player-score">2</span></div><div class="match-info">📅 16.06.2023 10:00 🏓 Стол 1 📝 1/8 финала</div><div class="progress-indicator" style="width: 100%;"></div></div><div class="match" data-round="2" data-match="1"><div class="player winner" data-player-name="Кузнецов Д." data-round="2" data-match="1" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span class="tooltip-name">Кузнецов Д.</span><span class="tooltip-score">3:2</span></div><div class="tooltip-sets"><div class="tooltip-set">11-1</div><div class="tooltip-set">11-4</div><div class="tooltip-set">11-9</div><div class="tooltip-set">1-11</div><div class="tooltip-set">4-11</div></div><div class="tooltip-info">📅 16.06.2023 11:00 🏓 Стол 2 📝 1/8 финала</div></div><span class="flag-icon flag-icon-de"></span><span class="player-name">Кузнецов Д.</span><span class="player-score">3</span></div><div class="player " data-player-name="Васильев Н." data-round="2" data-match="1" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-jp"></span><span class="tooltip-name">Васильев Н.</span><span class="tooltip-score">3:2</span></div><div class="tooltip-sets"><div class="tooltip-set">11-1</div><div class="tooltip-set">11-4</div><div class="tooltip-set">11-9</div><div class="tooltip-set">1-11</div><div class="tooltip-set">4-11</div></div><div class="tooltip-info">📅 16.06.2023 11:00 🏓 Стол 2 📝 1/8 финала</div></div><span class="flag-icon flag-icon-jp"></span><span class="player-name">Васильев Н.</span><span class="player-score">2</span></div><div class="match-info">📅 16.06.2023 11:00 🏓 Стол 2 📝 1/8 финала</div><div class="progress-indicator" style="width: 100%;"></div></div><div class="match" data-round="2" data-match="2"><div class="player " data-player-name="" data-round="2" data-match="2" data-player-index="0"><span class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span class="player-score"></span></div><div class="player " data-player-name="" data-round="2" data-match="2" data-player-index="1"><span class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span class="player-score"></span></div></div><div class="match" data-round="2" data-match="3"><div class="player " data-player-name="" data-round="2" data-match="3" data-player-index="0"><span class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span class="player-score"></span></div><div class="player " data-player-name="" data-round="2" data-match="3" data-player-index="1"><span class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span class="player-score"></span></div></div></div><div class="round"><h3 class="text-center font-bold mb-4">1/2 финала</h3><div class="match" data-round="1" data-match="0"><div class="player winner" data-player-name="Иванов А." data-round="1" data-match="0" data-player-index="0"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span class="tooltip-name">Иванов А.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-kr"></span><span class="player-name">Иванов А.</span><span class="player-score"></span></div><div class="player winner" data-player-name="Кузнецов Д." data-round="1" data-match="0" data-player-index="1"><div class="player-tooltip"><div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span class="tooltip-name">Кузнецов Д.</span><span class="tooltip-score"></span></div></div><span class="flag-icon flag-icon-de"></span><span class="player-name">Кузнецов Д.</span><span class="player-score"></span></div></div><div class="match" data-round="1" data-match="1"><div class="player " data-player-name="" data-round="1" data-match="1" data-player-index="0"><span class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span class="player-score"></span></div><div class="player " data-player-name="" data-round="1" data-match="1" data-player-index="1"><span class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span class="player-score"></span></div></div></div><div class="round"><h3 class="text-center font-bold mb-4">Финал</h3><div class="match" data-round="0" data-match="0"><div class="player " data-player-name="" data-round="0" data-match="0" data-player-index="0"><span class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span class="player-score"></span></div><div class="player " data-player-name="" data-round="0" data-match="0" data-player-index="1"><span class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span class="player-score"></span></div></div></div><div class="connector-wrapper"><div class="connector connector-horizontal" data-from="undefined-0" data-to="undefined-0" style="top: 568.094px; left: 675.5px;"></div><div class="connector connector-vertical" data-connects="undefined-0" style="top: 568.094px; left: 65.5px; height: 144.188px;"></div><div class="connector connector-horizontal" data-from="undefined-1" data-to="undefined-0" style="top: 712.281px; left: 675.5px;"></div><div class="connector connector-horizontal" data-from="undefined-2" data-to="undefined-1" style="top: 856.469px; left: 675.5px;"></div><div class="connector connector-vertical" data-connects="undefined-1" style="top: 856.469px; left: 65.5px; height: 144.188px;"></div><div class="connector connector-horizontal" data-from="undefined-3" data-to="undefined-1" style="top: 1000.66px; left: 675.5px;"></div><div class="connector connector-horizontal" data-from="undefined-4" data-to="undefined-2" style="top: 1126.25px; left: 675.5px;"></div><div class="connector connector-vertical" data-connects="undefined-2" style="top: 1126.25px; left: 65.5px; height: 107px;"></div><div class="connector connector-horizontal" data-from="undefined-5" data-to="undefined-2" style="top: 1233.25px; left: 675.5px;"></div><div class="connector connector-horizontal" data-from="undefined-6" data-to="undefined-3" style="top: 1340.25px; left: 675.5px;"></div><div class="connector connector-vertical" data-connects="undefined-3" style="top: 1340.25px; left: 65.5px; height: 107px;"></div><div class="connector connector-horizontal" data-from="undefined-7" data-to="undefined-3" style="top: 1447.25px; left: 675.5px;"></div><div class="connector connector-horizontal" data-from="undefined-0" data-to="undefined-0" style="top: 1647.84px; left: 675.5px;"></div><div class="connector connector-vertical" data-connects="undefined-0" style="top: 1647.84px; left: 65.5px; height: 174.188px;"></div><div class="connector connector-horizontal" data-from="undefined-1" data-to="undefined-0" style="top: 1822.03px; left: 675.5px;"></div><div class="connector connector-horizontal" data-from="undefined-2" data-to="undefined-1" style="top: 1977.62px; left: 675.5px;"></div><div class="connector connector-vertical" data-connects="undefined-1" style="top: 1977.62px; left: 65.5px; height: 137px;"></div><div class="connector connector-horizontal" data-from="undefined-3" data-to="undefined-1" style="top: 2114.62px; left: 675.5px;"></div><div class="connector connector-horizontal" data-from="undefined-0" data-to="undefined-0" style="top: 2341.62px; left: 675.5px;"></div><div class="connector connector-vertical" data-connects="undefined-0" style="top: 2341.62px; left: 65.5px; height: 197px;"></div><div class="connector connector-horizontal" data-from="undefined-1" data-to="undefined-0" style="top: 2538.62px; left: 675.5px;"></div></div></div>
+        <div id="tournamentBracket" class="tournament-bracket classic-bracket">
+<!--            <div class="round"><h3 class="text-center font-bold mb-4">1/8 финала</h3>-->
+<!--                <div class="match" data-round="3" data-match="0">-->
+<!--                    <div class="player winner" data-player-name="Иванов А." data-round="3" data-match="0"-->
+<!--                         data-player-index="0">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span-->
+<!--                                    class="tooltip-name">Иванов А.</span><span class="tooltip-score">3:0</span></div>-->
+<!--                            <div class="tooltip-sets">-->
+<!--                                <div class="tooltip-set">11-1</div>-->
+<!--                                <div class="tooltip-set">11-4</div>-->
+<!--                                <div class="tooltip-set">11-5</div>-->
+<!--                            </div>-->
+<!--                            <div class="tooltip-info">📅 15.06.2023 10:00 🏓 Стол 1 📝 1/16 финала</div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-kr"></span><span class="player-name">Иванов А.</span><span-->
+<!--                            class="player-score">3</span></div>-->
+<!--                    <div class="player " data-player-name="Петров С." data-round="3" data-match="0"-->
+<!--                         data-player-index="1">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-jp"></span><span-->
+<!--                                    class="tooltip-name">Петров С.</span><span class="tooltip-score">3:0</span></div>-->
+<!--                            <div class="tooltip-sets">-->
+<!--                                <div class="tooltip-set">11-1</div>-->
+<!--                                <div class="tooltip-set">11-4</div>-->
+<!--                                <div class="tooltip-set">11-5</div>-->
+<!--                            </div>-->
+<!--                            <div class="tooltip-info">📅 15.06.2023 10:00 🏓 Стол 1 📝 1/16 финала</div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-jp"></span><span class="player-name">Петров С.</span><span-->
+<!--                            class="player-score">0</span></div>-->
+<!--                    <div class="match-info">📅 15.06.2023 10:00 🏓 Стол 1 📝 1/16 финала</div>-->
+<!--                    <div class="progress-indicator" style="width: 100%;"></div>-->
+<!--                </div>-->
+<!--                <div class="match" data-round="3" data-match="1">-->
+<!--                    <div class="player winner" data-player-name="Сидоров И." data-round="3" data-match="1"-->
+<!--                         data-player-index="0">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-jp"></span><span-->
+<!--                                    class="tooltip-name">Сидоров И.</span><span class="tooltip-score">3:0</span></div>-->
+<!--                            <div class="tooltip-sets">-->
+<!--                                <div class="tooltip-set">11-1</div>-->
+<!--                                <div class="tooltip-set">11-7</div>-->
+<!--                                <div class="tooltip-set">11-7</div>-->
+<!--                            </div>-->
+<!--                            <div class="tooltip-info">📅 15.06.2023 11:00 🏓 Стол 2 📝 1/16 финала</div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-jp"></span><span class="player-name">Сидоров И.</span><span-->
+<!--                            class="player-score">3</span></div>-->
+<!--                    <div class="player " data-player-name="Смирнов К." data-round="3" data-match="1"-->
+<!--                         data-player-index="1">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span-->
+<!--                                    class="tooltip-name">Смирнов К.</span><span class="tooltip-score">3:0</span></div>-->
+<!--                            <div class="tooltip-sets">-->
+<!--                                <div class="tooltip-set">11-1</div>-->
+<!--                                <div class="tooltip-set">11-7</div>-->
+<!--                                <div class="tooltip-set">11-7</div>-->
+<!--                            </div>-->
+<!--                            <div class="tooltip-info">📅 15.06.2023 11:00 🏓 Стол 2 📝 1/16 финала</div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-kr"></span><span class="player-name">Смирнов К.</span><span-->
+<!--                            class="player-score">0</span></div>-->
+<!--                    <div class="match-info">📅 15.06.2023 11:00 🏓 Стол 2 📝 1/16 финала</div>-->
+<!--                    <div class="progress-indicator" style="width: 100%;"></div>-->
+<!--                </div>-->
+<!--                <div class="match" data-round="3" data-match="2">-->
+<!--                    <div class="player winner" data-player-name="Кузнецов Д." data-round="3" data-match="2"-->
+<!--                         data-player-index="0">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span-->
+<!--                                    class="tooltip-name">Кузнецов Д.</span><span class="tooltip-score">4:0</span></div>-->
+<!--                            <div class="tooltip-sets">-->
+<!--                                <div class="tooltip-set">11-3</div>-->
+<!--                                <div class="tooltip-set">11-7</div>-->
+<!--                                <div class="tooltip-set">11-4</div>-->
+<!--                                <div class="tooltip-set">11-5</div>-->
+<!--                            </div>-->
+<!--                            <div class="tooltip-info">📅 15.06.2023 12:00 🏓 Стол 3 📝 1/16 финала</div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-de"></span><span class="player-name">Кузнецов Д.</span><span-->
+<!--                            class="player-score">4</span></div>-->
+<!--                    <div class="player winner" data-player-name="Попов М." data-round="3" data-match="2"-->
+<!--                         data-player-index="1">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span-->
+<!--                                    class="tooltip-name">Попов М.</span><span class="tooltip-score">4:0</span></div>-->
+<!--                            <div class="tooltip-sets">-->
+<!--                                <div class="tooltip-set">11-3</div>-->
+<!--                                <div class="tooltip-set">11-7</div>-->
+<!--                                <div class="tooltip-set">11-4</div>-->
+<!--                                <div class="tooltip-set">11-5</div>-->
+<!--                            </div>-->
+<!--                            <div class="tooltip-info">📅 15.06.2023 12:00 🏓 Стол 3 📝 1/16 финала</div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-de"></span><span class="player-name">Попов М.</span><span-->
+<!--                            class="player-score">0</span></div>-->
+<!--                    <div class="match-info">📅 15.06.2023 12:00 🏓 Стол 3 📝 1/16 финала</div>-->
+<!--                    <div class="progress-indicator" style="width: 100%;"></div>-->
+<!--                </div>-->
+<!--                <div class="match" data-round="3" data-match="3">-->
+<!--                    <div class="player winner" data-player-name="Васильев Н." data-round="3" data-match="3"-->
+<!--                         data-player-index="0">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-jp"></span><span-->
+<!--                                    class="tooltip-name">Васильев Н.</span><span class="tooltip-score">4:1</span></div>-->
+<!--                            <div class="tooltip-sets">-->
+<!--                                <div class="tooltip-set">11-8</div>-->
+<!--                                <div class="tooltip-set">11-5</div>-->
+<!--                                <div class="tooltip-set">11-6</div>-->
+<!--                                <div class="tooltip-set">11-5</div>-->
+<!--                                <div class="tooltip-set">9-11</div>-->
+<!--                            </div>-->
+<!--                            <div class="tooltip-info">📅 15.06.2023 13:00 🏓 Стол 4 📝 1/16 финала</div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-jp"></span><span class="player-name">Васильев Н.</span><span-->
+<!--                            class="player-score">4</span></div>-->
+<!--                    <div class="player " data-player-name="Соколов А." data-round="3" data-match="3"-->
+<!--                         data-player-index="1">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span-->
+<!--                                    class="tooltip-name">Соколов А.</span><span class="tooltip-score">4:1</span></div>-->
+<!--                            <div class="tooltip-sets">-->
+<!--                                <div class="tooltip-set">11-8</div>-->
+<!--                                <div class="tooltip-set">11-5</div>-->
+<!--                                <div class="tooltip-set">11-6</div>-->
+<!--                                <div class="tooltip-set">11-5</div>-->
+<!--                                <div class="tooltip-set">9-11</div>-->
+<!--                            </div>-->
+<!--                            <div class="tooltip-info">📅 15.06.2023 13:00 🏓 Стол 4 📝 1/16 финала</div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-de"></span><span class="player-name">Соколов А.</span><span-->
+<!--                            class="player-score">1</span></div>-->
+<!--                    <div class="match-info">📅 15.06.2023 13:00 🏓 Стол 4 📝 1/16 финала</div>-->
+<!--                    <div class="progress-indicator" style="width: 100%;"></div>-->
+<!--                </div>-->
+<!--                <div class="match" data-round="3" data-match="4">-->
+<!--                    <div class="player " data-player-name="Михайлов В." data-round="3" data-match="4"-->
+<!--                         data-player-index="0">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-cn"></span><span-->
+<!--                                    class="tooltip-name">Михайлов В.</span><span class="tooltip-score"></span></div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-cn"></span><span class="player-name">Михайлов В.</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                    <div class="player " data-player-name="Новиков Г." data-round="3" data-match="4"-->
+<!--                         data-player-index="1">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span-->
+<!--                                    class="tooltip-name">Новиков Г.</span><span class="tooltip-score"></span></div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-kr"></span><span class="player-name">Новиков Г.</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                </div>-->
+<!--                <div class="match" data-round="3" data-match="5">-->
+<!--                    <div class="player " data-player-name="Федоров Е." data-round="3" data-match="5"-->
+<!--                         data-player-index="0">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-kz"></span><span-->
+<!--                                    class="tooltip-name">Федоров Е.</span><span class="tooltip-score"></span></div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-kz"></span><span class="player-name">Федоров Е.</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                    <div class="player " data-player-name="Морозов Л." data-round="3" data-match="5"-->
+<!--                         data-player-index="1">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-ua"></span><span-->
+<!--                                    class="tooltip-name">Морозов Л.</span><span class="tooltip-score"></span></div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-ua"></span><span class="player-name">Морозов Л.</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                </div>-->
+<!--                <div class="match" data-round="3" data-match="6">-->
+<!--                    <div class="player " data-player-name="Волков П." data-round="3" data-match="6"-->
+<!--                         data-player-index="0">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span-->
+<!--                                    class="tooltip-name">Волков П.</span><span class="tooltip-score"></span></div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-de"></span><span class="player-name">Волков П.</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                    <div class="player " data-player-name="Алексеев Р." data-round="3" data-match="6"-->
+<!--                         data-player-index="1">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-kz"></span><span-->
+<!--                                    class="tooltip-name">Алексеев Р.</span><span class="tooltip-score"></span></div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-kz"></span><span class="player-name">Алексеев Р.</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                </div>-->
+<!--                <div class="match" data-round="3" data-match="7">-->
+<!--                    <div class="player " data-player-name="Лебедев Т." data-round="3" data-match="7"-->
+<!--                         data-player-index="0">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span-->
+<!--                                    class="tooltip-name">Лебедев Т.</span><span class="tooltip-score"></span></div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-kr"></span><span class="player-name">Лебедев Т.</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                    <div class="player " data-player-name="Семенов Ю." data-round="3" data-match="7"-->
+<!--                         data-player-index="1">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-by"></span><span-->
+<!--                                    class="tooltip-name">Семенов Ю.</span><span class="tooltip-score"></span></div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-by"></span><span class="player-name">Семенов Ю.</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="round"><h3 class="text-center font-bold mb-4">1/4 финала</h3>-->
+<!--                <div class="match" data-round="2" data-match="0">-->
+<!--                    <div class="player winner" data-player-name="Иванов А." data-round="2" data-match="0"-->
+<!--                         data-player-index="0">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span-->
+<!--                                    class="tooltip-name">Иванов А.</span><span class="tooltip-score">3:2</span></div>-->
+<!--                            <div class="tooltip-sets">-->
+<!--                                <div class="tooltip-set">11-8</div>-->
+<!--                                <div class="tooltip-set">11-8</div>-->
+<!--                                <div class="tooltip-set">11-6</div>-->
+<!--                                <div class="tooltip-set">1-11</div>-->
+<!--                                <div class="tooltip-set">6-11</div>-->
+<!--                            </div>-->
+<!--                            <div class="tooltip-info">📅 16.06.2023 10:00 🏓 Стол 1 📝 1/8 финала</div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-kr"></span><span class="player-name">Иванов А.</span><span-->
+<!--                            class="player-score">3</span></div>-->
+<!--                    <div class="player " data-player-name="Сидоров И." data-round="2" data-match="0"-->
+<!--                         data-player-index="1">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-jp"></span><span-->
+<!--                                    class="tooltip-name">Сидоров И.</span><span class="tooltip-score">3:2</span></div>-->
+<!--                            <div class="tooltip-sets">-->
+<!--                                <div class="tooltip-set">11-8</div>-->
+<!--                                <div class="tooltip-set">11-8</div>-->
+<!--                                <div class="tooltip-set">11-6</div>-->
+<!--                                <div class="tooltip-set">1-11</div>-->
+<!--                                <div class="tooltip-set">6-11</div>-->
+<!--                            </div>-->
+<!--                            <div class="tooltip-info">📅 16.06.2023 10:00 🏓 Стол 1 📝 1/8 финала</div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-jp"></span><span class="player-name">Сидоров И.</span><span-->
+<!--                            class="player-score">2</span></div>-->
+<!--                    <div class="match-info">📅 16.06.2023 10:00 🏓 Стол 1 📝 1/8 финала</div>-->
+<!--                    <div class="progress-indicator" style="width: 100%;"></div>-->
+<!--                </div>-->
+<!--                <div class="match" data-round="2" data-match="1">-->
+<!--                    <div class="player winner" data-player-name="Кузнецов Д." data-round="2" data-match="1"-->
+<!--                         data-player-index="0">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span-->
+<!--                                    class="tooltip-name">Кузнецов Д.</span><span class="tooltip-score">3:2</span></div>-->
+<!--                            <div class="tooltip-sets">-->
+<!--                                <div class="tooltip-set">11-1</div>-->
+<!--                                <div class="tooltip-set">11-4</div>-->
+<!--                                <div class="tooltip-set">11-9</div>-->
+<!--                                <div class="tooltip-set">1-11</div>-->
+<!--                                <div class="tooltip-set">4-11</div>-->
+<!--                            </div>-->
+<!--                            <div class="tooltip-info">📅 16.06.2023 11:00 🏓 Стол 2 📝 1/8 финала</div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-de"></span><span class="player-name">Кузнецов Д.</span><span-->
+<!--                            class="player-score">3</span></div>-->
+<!--                    <div class="player " data-player-name="Васильев Н." data-round="2" data-match="1"-->
+<!--                         data-player-index="1">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-jp"></span><span-->
+<!--                                    class="tooltip-name">Васильев Н.</span><span class="tooltip-score">3:2</span></div>-->
+<!--                            <div class="tooltip-sets">-->
+<!--                                <div class="tooltip-set">11-1</div>-->
+<!--                                <div class="tooltip-set">11-4</div>-->
+<!--                                <div class="tooltip-set">11-9</div>-->
+<!--                                <div class="tooltip-set">1-11</div>-->
+<!--                                <div class="tooltip-set">4-11</div>-->
+<!--                            </div>-->
+<!--                            <div class="tooltip-info">📅 16.06.2023 11:00 🏓 Стол 2 📝 1/8 финала</div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-jp"></span><span class="player-name">Васильев Н.</span><span-->
+<!--                            class="player-score">2</span></div>-->
+<!--                    <div class="match-info">📅 16.06.2023 11:00 🏓 Стол 2 📝 1/8 финала</div>-->
+<!--                    <div class="progress-indicator" style="width: 100%;"></div>-->
+<!--                </div>-->
+<!--                <div class="match" data-round="2" data-match="2">-->
+<!--                    <div class="player " data-player-name="" data-round="2" data-match="2" data-player-index="0"><span-->
+<!--                            class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                    <div class="player " data-player-name="" data-round="2" data-match="2" data-player-index="1"><span-->
+<!--                            class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                </div>-->
+<!--                <div class="match" data-round="2" data-match="3">-->
+<!--                    <div class="player " data-player-name="" data-round="2" data-match="3" data-player-index="0"><span-->
+<!--                            class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                    <div class="player " data-player-name="" data-round="2" data-match="3" data-player-index="1"><span-->
+<!--                            class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="round"><h3 class="text-center font-bold mb-4">1/2 финала</h3>-->
+<!--                <div class="match" data-round="1" data-match="0">-->
+<!--                    <div class="player winner" data-player-name="Иванов А." data-round="1" data-match="0"-->
+<!--                         data-player-index="0">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-kr"></span><span-->
+<!--                                    class="tooltip-name">Иванов А.</span><span class="tooltip-score"></span></div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-kr"></span><span class="player-name">Иванов А.</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                    <div class="player winner" data-player-name="Кузнецов Д." data-round="1" data-match="0"-->
+<!--                         data-player-index="1">-->
+<!--                        <div class="player-tooltip">-->
+<!--                            <div class="tooltip-header"><span class="flag-icon flag-icon-de"></span><span-->
+<!--                                    class="tooltip-name">Кузнецов Д.</span><span class="tooltip-score"></span></div>-->
+<!--                        </div>-->
+<!--                        <span class="flag-icon flag-icon-de"></span><span class="player-name">Кузнецов Д.</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                </div>-->
+<!--                <div class="match" data-round="1" data-match="1">-->
+<!--                    <div class="player " data-player-name="" data-round="1" data-match="1" data-player-index="0"><span-->
+<!--                            class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                    <div class="player " data-player-name="" data-round="1" data-match="1" data-player-index="1"><span-->
+<!--                            class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="round"><h3 class="text-center font-bold mb-4">Финал</h3>-->
+<!--                <div class="match" data-round="0" data-match="0">-->
+<!--                    <div class="player " data-player-name="" data-round="0" data-match="0" data-player-index="0"><span-->
+<!--                            class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                    <div class="player " data-player-name="" data-round="0" data-match="0" data-player-index="1"><span-->
+<!--                            class="flag-icon flag-icon-ru"></span><span class="player-name">—</span><span-->
+<!--                            class="player-score"></span></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="connector-wrapper">-->
+<!--                <div class="connector connector-horizontal" data-from="undefined-0" data-to="undefined-0"-->
+<!--                     style="top: 568.094px; left: 675.5px;"></div>-->
+<!--                <div class="connector connector-vertical" data-connects="undefined-0"-->
+<!--                     style="top: 568.094px; left: 65.5px; height: 144.188px;"></div>-->
+<!--                <div class="connector connector-horizontal" data-from="undefined-1" data-to="undefined-0"-->
+<!--                     style="top: 712.281px; left: 675.5px;"></div>-->
+<!--                <div class="connector connector-horizontal" data-from="undefined-2" data-to="undefined-1"-->
+<!--                     style="top: 856.469px; left: 675.5px;"></div>-->
+<!--                <div class="connector connector-vertical" data-connects="undefined-1"-->
+<!--                     style="top: 856.469px; left: 65.5px; height: 144.188px;"></div>-->
+<!--                <div class="connector connector-horizontal" data-from="undefined-3" data-to="undefined-1"-->
+<!--                     style="top: 1000.66px; left: 675.5px;"></div>-->
+<!--                <div class="connector connector-horizontal" data-from="undefined-4" data-to="undefined-2"-->
+<!--                     style="top: 1126.25px; left: 675.5px;"></div>-->
+<!--                <div class="connector connector-vertical" data-connects="undefined-2"-->
+<!--                     style="top: 1126.25px; left: 65.5px; height: 107px;"></div>-->
+<!--                <div class="connector connector-horizontal" data-from="undefined-5" data-to="undefined-2"-->
+<!--                     style="top: 1233.25px; left: 675.5px;"></div>-->
+<!--                <div class="connector connector-horizontal" data-from="undefined-6" data-to="undefined-3"-->
+<!--                     style="top: 1340.25px; left: 675.5px;"></div>-->
+<!--                <div class="connector connector-vertical" data-connects="undefined-3"-->
+<!--                     style="top: 1340.25px; left: 65.5px; height: 107px;"></div>-->
+<!--                <div class="connector connector-horizontal" data-from="undefined-7" data-to="undefined-3"-->
+<!--                     style="top: 1447.25px; left: 675.5px;"></div>-->
+<!--                <div class="connector connector-horizontal" data-from="undefined-0" data-to="undefined-0"-->
+<!--                     style="top: 1647.84px; left: 675.5px;"></div>-->
+<!--                <div class="connector connector-vertical" data-connects="undefined-0"-->
+<!--                     style="top: 1647.84px; left: 65.5px; height: 174.188px;"></div>-->
+<!--                <div class="connector connector-horizontal" data-from="undefined-1" data-to="undefined-0"-->
+<!--                     style="top: 1822.03px; left: 675.5px;"></div>-->
+<!--                <div class="connector connector-horizontal" data-from="undefined-2" data-to="undefined-1"-->
+<!--                     style="top: 1977.62px; left: 675.5px;"></div>-->
+<!--                <div class="connector connector-vertical" data-connects="undefined-1"-->
+<!--                     style="top: 1977.62px; left: 65.5px; height: 137px;"></div>-->
+<!--                <div class="connector connector-horizontal" data-from="undefined-3" data-to="undefined-1"-->
+<!--                     style="top: 2114.62px; left: 675.5px;"></div>-->
+<!--                <div class="connector connector-horizontal" data-from="undefined-0" data-to="undefined-0"-->
+<!--                     style="top: 2341.62px; left: 675.5px;"></div>-->
+<!--                <div class="connector connector-vertical" data-connects="undefined-0"-->
+<!--                     style="top: 2341.62px; left: 65.5px; height: 197px;"></div>-->
+<!--                <div class="connector connector-horizontal" data-from="undefined-1" data-to="undefined-0"-->
+<!--                     style="top: 2538.62px; left: 675.5px;"></div>-->
+<!--            </div>-->
+        </div>
     </div>
 </div>
 
@@ -918,7 +1313,7 @@
         scrollInterval = setInterval(() => {
             if (isMouseMoving) return; // Не скроллим, если пользователь двигает мышью
 
-            currentPosition += scrollDirection * 0.5; // Медленный скроллинг
+            currentPosition += scrollDirection * 2.5; // Медленный скроллинг
 
             if (currentPosition >= scrollHeight) {
                 scrollDirection = -1;
@@ -928,7 +1323,7 @@
 
             window.scrollTo({
                 top: currentPosition,
-                behavior: 'auto' // Используем 'auto' для плавного движения
+                behavior: 'smooth' // Используем 'auto' для плавного движения
             });
         }, 50);
     }
@@ -970,7 +1365,7 @@
             await fetch('/api/olympic', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(tournaments[currentTournamentIndex])
+                body: JSON.stringify(tournaments)
             });
 
             alert('Турнир успешно сохранен!');
@@ -990,11 +1385,11 @@
             const loadedTournament = await res.json();
 
             if (loadedTournament) {
-                tournaments.push(loadedTournament);
-                currentTournamentIndex = tournaments.length - 1;
+                tournaments = loadedTournament;
+                currentTournamentIndex = 0;
                 updateTournamentTabs();
-                renderTournament(loadedTournament);
-                alert('Турнир успешно загружен!');
+                renderTournament(loadedTournament[currentTournamentIndex]);
+                console.log('Турнир успешно загружен!');
             }
         } catch (error) {
             console.error('Ошибка при загрузке:', error);
@@ -1367,15 +1762,14 @@
 
         // Определяем, какие раунды показывать
         const startRoundIndex = Math.min(viewSettings.startRound, tournament.rounds.length - 1);
-        console.log(tournament.rounds.length)
-        console.log(viewSettings.endRound)
+
         const endRoundIndex = Math.min(viewSettings.endRound, tournament.rounds.length - 1);
 
         // Создаем раунды в порядке от финала к первому раунду
         for (let i = startRoundIndex; i <= endRoundIndex; i++) {
             const roundIndex = tournament.rounds.length - 1 - i;
             const round = tournament.rounds[roundIndex];
-            console.log(`tournament.rounds[roundIndex] - ${round}`)
+
             const roundElement = document.createElement('div');
             roundElement.className = 'round';
 
@@ -2058,10 +2452,17 @@
                     infoElement.className = 'match-info';
 
                     let infoText = '';
-                    if (match.info.date) infoText += `📅 ${match.info.date} `;
+                    if (match.info.date) infoText += `📅 ${match.info.date} ` ;
                     if (match.info.table) infoText += `🏓 ${match.info.table} `;
                     if (match.info.notes) infoText += `📝 ${match.info.notes}`;
+                    else infoText += `📝 ${roundName}`;
 
+                    infoElement.textContent = infoText.trim();
+                    matchElement.appendChild(infoElement);
+                }else {
+                    const infoElement = document.createElement('div');
+                    infoElement.className = 'match-info';
+                    let infoText = `${roundName}`;
                     infoElement.textContent = infoText.trim();
                     matchElement.appendChild(infoElement);
                 }
@@ -2090,6 +2491,69 @@
         // Добавляем соединительные линии
         tournamentBracket.appendChild(connectorWrapper);
         drawConnectors();
+
+
+        // Настраиваем селекторы раундов
+        const startRoundSelect = document.getElementById('startRound');
+        const endRoundSelect = document.getElementById('endRound');
+
+        // Ограничиваем доступные раунды в зависимости от количества участников
+        const maxRounds = Math.log2(tournament.playerCount);
+        let playerCounts = tournament.playerCount;
+        let playerCountsText;
+        for (let i = 0; i < startRoundSelect.options.length; i++) {
+            playerCounts/=2;
+            switch (playerCounts) {
+                case 2: {
+                    playerCountsText = '1/2 финала';
+                    break;
+                }
+                case 4: {
+                    playerCountsText = '1/4 финала';
+                    break;
+                }
+                case 8: {
+                    playerCountsText = '1/8 финала';
+                    break;
+                }
+                case 16: {
+                    playerCountsText = '1/16 финала';
+                    break;
+                }
+                case 32: {
+                    playerCountsText = '1/32 финала';
+                    break;
+                }
+                case 64: {
+                    playerCountsText = '1/64 финала';
+                    break;
+                }
+                case 128: {
+                    playerCountsText = '1/128 финала';
+                    break;
+                }
+                default: playerCountsText = `Финал`;
+            }
+            if(i >= maxRounds){
+                startRoundSelect.options[i].disabled = true;
+                startRoundSelect.options[i].textContent =' ';
+                endRoundSelect.options[i].disabled = true;
+                endRoundSelect.options[i].textContent = '';
+            }else{
+                startRoundSelect.options[i].disabled = false;
+                startRoundSelect.options[i].textContent = playerCountsText;
+                endRoundSelect.options[i].disabled = false;
+                if(playerCountsText === `Финал`){
+                    endRoundSelect.options[i].selected = true;
+                }
+                endRoundSelect.options[i].textContent = playerCountsText;
+            }
+
+
+
+            // startRoundSelect.options[i].disabled = i < maxRounds;
+            // endRoundSelect.options[i].disabled = i <= maxRounds;
+        }
     }
 
     // Функция для получения названия раунда
@@ -2235,6 +2699,7 @@
     function openMatchModal(match) {
         currentEditingMatch = match;
 
+
         document.getElementById('player1Name').value = match.players[0].name || '';
         document.getElementById('player1Country').value = match.players[0].country || 'ru';
         document.getElementById('player2Name').value = match.players[1].name || '';
@@ -2253,7 +2718,7 @@
         document.getElementById('matchWinner').value = match.winner === 0 ? 'player1' : match.winner === 1 ? 'player2' : '';
         document.getElementById('matchDate').value = match.info?.date || '';
         document.getElementById('tableNumber').value = match.info?.table || '';
-        document.getElementById('matchNotes').value = match.info?.notes || '';
+        document.getElementById('matchNotes').value = match.info?.notes || `📝 `;
 
         matchModal.classList.remove('hidden');
         matchModal.classList.add('flex');
@@ -2268,84 +2733,16 @@
 
     // Инициализация с тестовыми данными
     window.addEventListener('DOMContentLoaded', () => {
-        // Создаем первый тестовый турнир
-        const testTournament1 = generateTournament(64, 'single', 'Чемпионат города');
-        populateWithSampleData(testTournament1);
-        tournaments.push(testTournament1);
+        loadTournamentBtn.click()
 
-        // Создаем второй тестовый турнир
-        const testTournament2 = generateTournament(128, 'single', 'Кубок области');
-        populateWithSampleData(testTournament2);
-        tournaments.push(testTournament2);
-
-        currentTournamentIndex = 0;
+        currentTournamentIndex = tournaments.length-1;
         updateTournamentTabs();
         renderTournament(tournaments[currentTournamentIndex]);
-
-        // Настраиваем селекторы раундов
-        const startRoundSelect = document.getElementById('startRound');
-        const endRoundSelect = document.getElementById('endRound');
-
-        // Ограничиваем доступные раунды в зависимости от количества участников
-        const maxRounds = Math.log2(testTournament1.playerCount);
-        let playerCounts = testTournament1.playerCount;
-        let playerCountsText;
-        for (let i = 0; i < startRoundSelect.options.length; i++) {
-            playerCounts/=2;
-            switch (playerCounts) {
-                case 2: {
-                    playerCountsText = '1/2 финала';
-                    break;
-                }
-                case 4: {
-                    playerCountsText = '1/4 финала';
-                    break;
-                }
-                case 8: {
-                    playerCountsText = '1/8 финала';
-                    break;
-                }
-                case 16: {
-                    playerCountsText = '1/16 финала';
-                    break;
-                }
-                case 32: {
-                    playerCountsText = '1/32 финала';
-                    break;
-                }
-                case 64: {
-                    playerCountsText = '1/64 финала';
-                    break;
-                }
-                case 128: {
-                    playerCountsText = '1/128 финала';
-                    break;
-                }
-                default: playerCountsText = `Финал`;
-            }
-            if(i >= maxRounds){
-                startRoundSelect.options[i].disabled = true;
-                startRoundSelect.options[i].textContent =' ';
-                endRoundSelect.options[i].disabled = true;
-                endRoundSelect.options[i].textContent = '';
-            }else{
-                startRoundSelect.options[i].disabled = false;
-                startRoundSelect.options[i].textContent = playerCountsText;
-                endRoundSelect.options[i].disabled = false;
-                if(playerCountsText === `Финал`){
-                    endRoundSelect.options[i].selected = true;
-                }
-                endRoundSelect.options[i].textContent = playerCountsText;
-            }
-
-
-
-            // startRoundSelect.options[i].disabled = i < maxRounds;
-            // endRoundSelect.options[i].disabled = i <= maxRounds;
-        }
-
 
     });
 </script>
 
-</body></html>
+
+
+</body>
+</html>
