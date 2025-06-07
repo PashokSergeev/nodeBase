@@ -982,6 +982,7 @@
                     <option value="smo">Смоленская область</option>
                     <option value="tam">Тамбовская область</option>
                     <option value="tom">Томская область</option>
+                    <option value="tvobl">Тверская область</option>
                     <option value="tul">Тульская область</option>
                     <option value="tyu">Тюменская область</option>
                     <option value="uly">Ульяновская область</option>
@@ -1084,6 +1085,7 @@
                     <option value="smo">Смоленская область</option>
                     <option value="tam">Тамбовская область</option>
                     <option value="tom">Томская область</option>
+                    <option value="tvobl">Тверская область</option>
                     <option value="tul">Тульская область</option>
                     <option value="tyu">Тюменская область</option>
                     <option value="uly">Ульяновская область</option>
@@ -1899,6 +1901,9 @@
                         case 'hab':
                             flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_habarovskiy_kray_new.jpg";
                             break;
+                        case 'tvobl':
+                            flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tverskaya_obl_new.jpg";
+                            break;
                         case 'amur':
                             flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_amurskay_obl_new.jpg";
                             break;
@@ -2328,6 +2333,9 @@
                             case 'tyu':
                                 flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tumenskaya_obl_enl.jpg";
                                 break;
+                            case 'tvobl':
+                                flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tverskaya_obl_new.jpg";
+                                break;
                             case 'uly':
                                 flagSvg = "https://www.megaflag.ru/sites/default/files/images/shop/products/flag_ulyanovskaya_obl_new.jpg";
                                 break;
@@ -2718,7 +2726,7 @@
         document.getElementById('matchWinner').value = match.winner === 0 ? 'player1' : match.winner === 1 ? 'player2' : '';
         document.getElementById('matchDate').value = match.info?.date || '';
         document.getElementById('tableNumber').value = match.info?.table || '';
-        document.getElementById('matchNotes').value = match.info?.notes || `📝 `;
+        document.getElementById('matchNotes').value = match.info?.notes || ``;
 
         matchModal.classList.remove('hidden');
         matchModal.classList.add('flex');

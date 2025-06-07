@@ -26,9 +26,7 @@
             position: relative;
             overflow-x: hidden;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+
         }
 
         /* Table tennis racket background */
@@ -46,6 +44,8 @@
         #main-content{
             background: linear-gradient(177deg, rgba(0, 47, 108, 0.71) 0%, rgba(200, 16, 46, 0.59) 100%);
             border-radius: 20px;
+            margin: 50px auto 0;
+
 
         }
         .admin-button{
@@ -1125,7 +1125,7 @@
                 <div>
                     <label class="block vibrant-blue mb-1 font-medium text-sm">Название команды</label>
                     <input type="text" id="admin-team1-name" class="w-full dark-input rounded p-1 text-sm"
-                           value="Команда &quot;Динамо&quot;">
+                           value="">
                 </div>
                 <div>
                     <label class="block vibrant-blue mb-1 font-medium text-sm">Флаг региона</label>
@@ -1241,7 +1241,7 @@
                 <div>
                     <label class="block vibrant-pink mb-1 font-medium text-sm">Название команды</label>
                     <input type="text" id="admin-team2-name" class="w-full dark-input rounded p-1 text-sm"
-                           value="Команда &quot;Спартак&quot;">
+                           value="">
                 </div>
                 <div>
                     <label class="block vibrant-pink mb-1 font-medium text-sm">Флаг региона</label>
@@ -2028,7 +2028,7 @@
             player2Div.textContent = namePlayer2[0].toUpperCase() + ' ' + namePlayer2[1];
             team2Div.appendChild(player2Div);
 
-            matchPairs[i].querySelector('.player2-name').textContent = namePlayer2[0].toUpperCase() + ' ' + namePlayer2[1];
+            matchPairs[i].querySelector('.player2-name').textContent = namePlayer2[0].toUpperCase() + ' ' + namePlayer2[1]?namePlayer2[1]:"";
 
             // Add all to row
             rowDiv.appendChild(team1Div);

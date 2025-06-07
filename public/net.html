@@ -561,6 +561,7 @@
                                         <option value="smo">Смоленская область</option>
                                         <option value="tam">Тамбовская область</option>
                                         <option value="tom">Томская область</option>
+                                        <option value="tvobl">Тверская область</option>
                                         <option value="tul">Тульская область</option>
                                         <option value="tyu">Тюменская область</option>
                                         <option value="uly">Ульяновская область</option>
@@ -666,6 +667,7 @@
                                     <option value="smo">Смоленская область</option>
                                     <option value="tam">Тамбовская область</option>
                                     <option value="tom">Томская область</option>
+                                    <option value="tvobl">Тверская область</option>
                                     <option value="tul">Тульская область</option>
                                     <option value="tyu">Тюменская область</option>
                                     <option value="uly">Ульяновская область</option>
@@ -817,6 +819,7 @@
                         <option value="smo">Смоленская область</option>
                         <option value="tam">Тамбовская область</option>
                         <option value="tom">Томская область</option>
+                        <option value="tvobl">Тверская область</option>
                         <option value="tul">Тульская область</option>
                         <option value="tyu">Тюменская область</option>
                         <option value="uly">Ульяновская область</option>
@@ -893,98 +896,99 @@
 
     // Regions with flags
     const regions = [
-        { code: "ady", name: "Республика Адыгея" },
-        { code: "alt", name: "Республика Алтай" },
-        { code: "bash", name: "Республика Башкортостан" },
-        { code: "bury", name: "Республика Бурятия" },
-        { code: "dnr", name: "Республика Донецкая народная республика ДНР" },
-        { code: "dag", name: "Республика Дагестан" },
-        { code: "ing", name: "Республика Ингушетия" },
-        { code: "kb", name: "Республика Кабардино-Балкария" },
-        { code: "klm", name: "Республика Калмыкия" },
-        { code: "kar", name: "Республика Карачаево-Черкесия" },
-        { code: "krl", name: "Республика Карелия" },
-        { code: "kom", name: "Республика Коми" },
-        { code: "cr", name: "Республика Крым" },
-        { code: "lnr", name: "Республика Луганская народная республика" },
-        { code: "mr", name: "Республика Марий Эл" },
-        { code: "mrd", name: "Республика Мордовия" },
-        { code: "sak", name: "Республика Саха (Якутия)" },
-        { code: "alv", name: "Республика Северная Осетия — Алания" },
-        { code: "tat", name: "Республика Татарстан" },
-        { code: "tuv", name: "Республика Тыва" },
-        { code: "udm", name: "Республика Удмуртия" },
-        { code: "khk", name: "Республика Хакасия" },
-        { code: "che", name: "Республика Чечня" },
-        { code: "chv", name: "Республика Чувашия" },
+        {code: "ady", name: "Республика Адыгея"},
+        {code: "alt", name: "Республика Алтай"},
+        {code: "bash", name: "Республика Башкортостан"},
+        {code: "bury", name: "Республика Бурятия"},
+        {code: "dnr", name: "Республика Донецкая народная республика ДНР"},
+        {code: "dag", name: "Республика Дагестан"},
+        {code: "ing", name: "Республика Ингушетия"},
+        {code: "kb", name: "Республика Кабардино-Балкария"},
+        {code: "klm", name: "Республика Калмыкия"},
+        {code: "kar", name: "Республика Карачаево-Черкесия"},
+        {code: "krl", name: "Республика Карелия"},
+        {code: "kom", name: "Республика Коми"},
+        {code: "cr", name: "Республика Крым"},
+        {code: "lnr", name: "Республика Луганская народная республика"},
+        {code: "mr", name: "Республика Марий Эл"},
+        {code: "mrd", name: "Республика Мордовия"},
+        {code: "sak", name: "Республика Саха (Якутия)"},
+        {code: "alv", name: "Республика Северная Осетия — Алания"},
+        {code: "tat", name: "Республика Татарстан"},
+        {code: "tuv", name: "Республика Тыва"},
+        {code: "udm", name: "Республика Удмуртия"},
+        {code: "khk", name: "Республика Хакасия"},
+        {code: "che", name: "Республика Чечня"},
+        {code: "chv", name: "Республика Чувашия"},
 
-        { code: "altk", name: "Алтайский край" },
-        { code: "zbk", name: "Забайкальский край" },
-        { code: "kam", name: "Камчатский край" },
-        { code: "kras", name: "Краснодарский край" },
-        { code: "krd", name: "Красноярский край" },
-        { code: "per", name: "Пермский край" },
-        { code: "pri", name: "Приморский край" },
-        { code: "sta", name: "Ставропольский край" },
-        { code: "hab", name: "Хабаровский край" },
+        {code: "altk", name: "Алтайский край"},
+        {code: "zbk", name: "Забайкальский край"},
+        {code: "kam", name: "Камчатский край"},
+        {code: "kras", name: "Краснодарский край"},
+        {code: "krd", name: "Красноярский край"},
+        {code: "per", name: "Пермский край"},
+        {code: "pri", name: "Приморский край"},
+        {code: "sta", name: "Ставропольский край"},
+        {code: "hab", name: "Хабаровский край"},
 
-        { code: "amur", name: "Амурская область" },
-        { code: "arh", name: "Архангельская область" },
-        { code: "ast", name: "Астраханская область" },
-        { code: "bel", name: "Белгородская область" },
-        { code: "bry", name: "Брянская область" },
-        { code: "vla", name: "Владимирская область" },
-        { code: "vlg", name: "Волгоградская область" },
-        { code: "vls", name: "Вологодская область" },
-        { code: "vrn", name: "Воронежская область" },
-        { code: "zpo", name: "Запорожская область" },
-        { code: "iva", name: "Ивановская область" },
-        { code: "irk", name: "Иркутская область" },
-        { code: "klg", name: "Калининградская область" },
-        { code: "klz", name: "Калужская область" },
-        { code: "kem", name: "Кемеровская область" },
-        { code: "kir", name: "Кировская область" },
-        { code: "kos", name: "Костромская область" },
-        { code: "kur", name: "Курганская область" },
-        { code: "kurs", name: "Курская область" },
-        { code: "len", name: "Ленинградская область" },
-        { code: "lip", name: "Липецкая область" },
-        { code: "mag", name: "Магаданская область" },
-        { code: "mos", name: "Московская область" },
-        { code: "mur", name: "Мурманская область" },
-        { code: "nin", name: "Нижегородская область" },
-        { code: "nov", name: "Новгородская область" },
-        { code: "nvs", name: "Новосибирская область" },
-        { code: "oms", name: "Омская область" },
-        { code: "oren", name: "Оренбургская область" },
-        { code: "orl", name: "Орловская область" },
-        { code: "pnz", name: "Пензенская область" },
-        { code: "psk", name: "Псковская область" },
-        { code: "ros", name: "Ростовская область" },
-        { code: "rya", name: "Рязанская область" },
-        { code: "sam", name: "Самарская область" },
-        { code: "sar", name: "Саратовская область" },
-        { code: "sah", name: "Сахалинская область" },
-        { code: "sve", name: "Свердловская область" },
-        { code: "smo", name: "Смоленская область" },
-        { code: "tam", name: "Тамбовская область" },
-        { code: "tom", name: "Томская область" },
-        { code: "tul", name: "Тульская область" },
-        { code: "tyu", name: "Тюменская область" },
-        { code: "uly", name: "Ульяновская область" },
-        { code: "xobl", name: "Херсонская область" },
-        { code: "cheb", name: "Челябинская область" },
-        { code: "yar", name: "Ярославская область" },
+        {code: "amur", name: "Амурская область"},
+        {code: "arh", name: "Архангельская область"},
+        {code: "ast", name: "Астраханская область"},
+        {code: "bel", name: "Белгородская область"},
+        {code: "bry", name: "Брянская область"},
+        {code: "vla", name: "Владимирская область"},
+        {code: "vlg", name: "Волгоградская область"},
+        {code: "vls", name: "Вологодская область"},
+        {code: "vrn", name: "Воронежская область"},
+        {code: "zpo", name: "Запорожская область"},
+        {code: "iva", name: "Ивановская область"},
+        {code: "irk", name: "Иркутская область"},
+        {code: "klg", name: "Калининградская область"},
+        {code: "klz", name: "Калужская область"},
+        {code: "kem", name: "Кемеровская область"},
+        {code: "kir", name: "Кировская область"},
+        {code: "kos", name: "Костромская область"},
+        {code: "kur", name: "Курганская область"},
+        {code: "kurs", name: "Курская область"},
+        {code: "len", name: "Ленинградская область"},
+        {code: "lip", name: "Липецкая область"},
+        {code: "mag", name: "Магаданская область"},
+        {code: "mos", name: "Московская область"},
+        {code: "mur", name: "Мурманская область"},
+        {code: "nin", name: "Нижегородская область"},
+        {code: "nov", name: "Новгородская область"},
+        {code: "nvs", name: "Новосибирская область"},
+        {code: "oms", name: "Омская область"},
+        {code: "oren", name: "Оренбургская область"},
+        {code: "orl", name: "Орловская область"},
+        {code: "pnz", name: "Пензенская область"},
+        {code: "psk", name: "Псковская область"},
+        {code: "ros", name: "Ростовская область"},
+        {code: "rya", name: "Рязанская область"},
+        {code: "sam", name: "Самарская область"},
+        {code: "sar", name: "Саратовская область"},
+        {code: "sah", name: "Сахалинская область"},
+        {code: "sve", name: "Свердловская область"},
+        {code: "smo", name: "Смоленская область"},
+        {code: "tam", name: "Тамбовская область"},
+        {code: "tom", name: "Томская область"},
+        {code: "tul", name: "Тульская область"},
+        {code: "tvobl", name: "Тверская область"},
+        {code: "tyu", name: "Тюменская область"},
+        {code: "uly", name: "Ульяновская область"},
+        {code: "xobl", name: "Херсонская область"},
+        {code: "cheb", name: "Челябинская область"},
+        {code: "yar", name: "Ярославская область"},
 
-        { code: "msk", name: "Город Москва" },
-        { code: "spb", name: "Город Санкт-Петербург" },
-        { code: "sev", name: "Город Севастополь" },
+        {code: "msk", name: "Город Москва"},
+        {code: "spb", name: "Город Санкт-Петербург"},
+        {code: "sev", name: "Город Севастополь"},
 
-        { code: "evao", name: "Еврейская автономная область" },
-        { code: "nao", name: "Ненецкий автономный округ" },
-        { code: "hmao", name: "Ханты-Мансийский автономный округ" },
-        { code: "chao", name: "Чукотский автономный округ" },
-        { code: "yamalo", name: "Ямало-Ненецкий автономный округ" }
+        {code: "evao", name: "Еврейская автономная область"},
+        {code: "nao", name: "Ненецкий автономный округ"},
+        {code: "hmao", name: "Ханты-Мансийский автономный округ"},
+        {code: "chao", name: "Чукотский автономный округ"},
+        {code: "yamalo", name: "Ямало-Ненецкий автономный округ"}
     ];
 
     // DOM Elements
@@ -1792,6 +1796,9 @@
             case 'tam':
                 flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tambovskaya_obl_new.jpg" alt="flag Тамбовская область">`;
                 break;
+            case 'tvobl':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tverskaya_obl_new.jpg" alt="flag Тверская область">`;
+                break;
             case 'tom':
                 flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tomskaya_obl_enl.jpg" alt="flag Томская область">`;
                 break;
@@ -1930,7 +1937,7 @@
                 // Add stats columns
                 headerRow.innerHTML += `
                         <th class="border-b-2 border-gray-300">Игры</th>
-                        <th class="border-b-2 border-gray-300">Сеты</th>
+<!--                        <th class="border-b-2 border-gray-300">Сеты</th>-->
                         <th class="border-b-2 border-gray-300">Очки</th>
                         <th class="border-b-2 border-gray-300">Место</th>
                     `;
@@ -2018,7 +2025,7 @@
                     });
 
                     // Stats cells
-                    const statsFields = ['games', 'sets', 'points'];
+                    const statsFields = ['games', 'points'];
                     statsFields.forEach(field => {
                         const cell = document.createElement('td');
 

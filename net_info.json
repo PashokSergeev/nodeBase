@@ -1,797 +1,653 @@
 {
   "groups": [
     {
-      "id": "1748806278852",
+      "id": "1749282359303",
       "name": "Группа-1",
       "players": [
         {
-          "id": "1748806330348o68tm",
-          "name": "ЧУВАШИЯ",
-          "rating": "2100",
-          "regionCode": "chv",
+          "id": "1749282440255i9zwp",
+          "name": "Тульская область",
+          "rating": "2786",
+          "regionCode": "tul",
           "matches": {
-            "1748806330348hiltn": null,
-            "1748806330349y1aro": null,
-            "17488063507975niqm": null
+            "1749282521385vq16b": "3:0",
+            "1749282521385wibos": "3:0"
           },
           "games": 2,
-          "sets": 1,
-          "points": 0,
+          "sets": 0,
+          "points": 4,
           "position": 1
         },
         {
-          "id": "1748806330348hiltn",
-          "name": "НОВОСИБИРСКАЯ",
-          "rating": "2050",
-          "regionCode": "nvs",
+          "id": "1749282521385vq16b",
+          "name": "Омская область",
+          "rating": "2132",
+          "regionCode": "oms",
           "matches": {
-            "1748806330348o68tm": null,
-            "1748806330349y1aro": null,
-            "17488063507975niqm": null
+            "1749282440255i9zwp": "0:3",
+            "1749282521385wibos": "3:1"
           },
-          "games": 0,
-          "sets": 1,
-          "points": 0,
+          "games": 2,
+          "sets": 0,
+          "points": 3,
           "position": 2
         },
         {
-          "id": "1748806330349y1aro",
-          "name": "МОСКВА",
-          "rating": "1960",
-          "regionCode": "msk",
+          "id": "1749282521385wibos",
+          "name": "Чувашская Республика",
+          "rating": "2076",
+          "regionCode": "chv",
           "matches": {
-            "1748806330348o68tm": null,
-            "1748806330348hiltn": null,
-            "17488063507975niqm": null
+            "1749282440255i9zwp": "0:3",
+            "1749282521385vq16b": "1:3"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 3
-        },
-        {
-          "id": "17488063507975niqm",
-          "name": "БРЯНСКАЯ",
-          "rating": "1670",
-          "regionCode": "bry",
-          "matches": {
-            "1748806330348o68tm": null,
-            "1748806330348hiltn": null,
-            "1748806330349y1aro": null
-          },
-          "games": 0,
-          "sets": 5,
-          "points": 0,
+          "points": 2,
           "position": 3
         }
       ]
     },
     {
-      "id": "1748806377116",
+      "id": "1749282569050",
       "name": "Группа-2",
       "players": [
         {
-          "id": "1748806393412lttwr",
-          "name": "Сергеев П.А.",
-          "rating": "53",
-          "regionCode": "mrd",
+          "id": "1749282707383ukww1",
+          "name": "Калужская область",
+          "rating": "2761",
+          "regionCode": "klz",
           "matches": {
-            "1748806393412nweqs": null,
-            "1748806393412j4c4w": null,
-            "1748806393412wowoh": null
+            "1749282707383gjio6": "1:3",
+            "1749282707383nwel1": "3:0"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 3,
+          "position": 2
         },
         {
-          "id": "1748806393412nweqs",
-          "name": "Сергеев П.А.",
-          "rating": "543",
-          "regionCode": "krd",
+          "id": "1749282707383gjio6",
+          "name": "Краснодарский край",
+          "rating": "2192",
+          "regionCode": "kras",
           "matches": {
-            "1748806393412lttwr": null,
-            "1748806393412j4c4w": null,
-            "1748806393412wowoh": null
+            "1749282707383ukww1": "3:1",
+            "1749282707383nwel1": "3:1"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 4,
+          "position": 1
         },
         {
-          "id": "1748806393412j4c4w",
-          "name": "Сергеев П.А.",
-          "rating": "345",
-          "regionCode": "arh",
+          "id": "1749282707383nwel1",
+          "name": "Смоленская область",
+          "rating": "2075",
+          "regionCode": "smo",
           "matches": {
-            "1748806393412lttwr": null,
-            "1748806393412nweqs": null,
-            "1748806393412wowoh": null
+            "1749282707383ukww1": "0:3",
+            "1749282707383gjio6": "1:3"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
-        },
-        {
-          "id": "1748806393412wowoh",
-          "name": "Сергеев П.А.",
-          "rating": "534",
-          "regionCode": "amur",
-          "matches": {
-            "1748806393412lttwr": null,
-            "1748806393412nweqs": null,
-            "1748806393412j4c4w": null
-          },
-          "games": 0,
-          "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 2,
+          "position": 3
         }
       ]
     },
     {
-      "id": "1748807163469",
+      "id": "1749282633157",
       "name": "Группа-3",
       "players": [
         {
-          "id": "1748807189677c46cs",
-          "name": "Максимов А.А.",
-          "rating": "345",
-          "regionCode": "sak",
+          "id": "1749282792895qdnuo",
+          "name": "Брянская область",
+          "rating": "2725",
+          "regionCode": "bry",
           "matches": {
-            "17488071896778z7nt": null,
-            "1748807189677xlz9r": null,
-            "1749041593415pt0nk": null
+            "1749282792895y3qpc": "3:0",
+            "1749282792895cyyrr": "3:0"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 4,
+          "position": 1
         },
         {
-          "id": "17488071896778z7nt",
-          "name": "Максимов А.А.",
-          "rating": "543",
-          "regionCode": "hab",
+          "id": "1749282792895y3qpc",
+          "name": "Орловская область",
+          "rating": "2195",
+          "regionCode": "orl",
           "matches": {
-            "1748807189677c46cs": null,
-            "1748807189677xlz9r": null,
-            "1749041593415pt0nk": null
+            "1749282792895qdnuo": "0:3",
+            "1749282792895cyyrr": "2:3"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 2,
+          "position": 3
         },
         {
-          "id": "1748807189677xlz9r",
-          "name": "Максимов А.А.",
-          "rating": "45",
-          "regionCode": "zbk",
+          "id": "1749282792895cyyrr",
+          "name": "Кемеровская область",
+          "rating": "2040",
+          "regionCode": "kem",
           "matches": {
-            "1748807189677c46cs": null,
-            "17488071896778z7nt": null,
-            "1749041593415pt0nk": null
+            "1749282792895qdnuo": "0:3",
+            "1749282792895y3qpc": "3:2"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
-        },
-        {
-          "id": "1749041593415pt0nk",
-          "name": "ЧУВАШИЯ",
-          "rating": "323",
-          "regionCode": "bash",
-          "matches": {
-            "1748807189677c46cs": null,
-            "17488071896778z7nt": null,
-            "1748807189677xlz9r": null
-          },
-          "games": 0,
-          "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 3,
+          "position": 2
         }
       ]
     },
     {
-      "id": "1749041142486",
+      "id": "1749282827674",
       "name": "Группа-4",
       "players": [
         {
-          "id": "1749041165118fkk73",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "dnr",
+          "id": "1749282878906jew8x",
+          "name": "Самарская область",
+          "rating": "2622",
+          "regionCode": "sam",
           "matches": {
-            "1749041165118yzumj": null,
-            "1749041165118k9ue1": null,
-            "1749041165118aon1o": null
+            "17492828789062ex8j": "3:1",
+            "17492828789074pg87": "3:2"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 4,
+          "position": 1
         },
         {
-          "id": "1749041165118yzumj",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "vls",
+          "id": "17492828789062ex8j",
+          "name": "г. Москва",
+          "rating": "2199",
+          "regionCode": "msk",
           "matches": {
-            "1749041165118fkk73": null,
-            "1749041165118k9ue1": null,
-            "1749041165118aon1o": null
+            "1749282878906jew8x": "1:3",
+            "17492828789074pg87": "3:1"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 3,
+          "position": 2
         },
         {
-          "id": "1749041165118k9ue1",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "ady",
+          "id": "17492828789074pg87",
+          "name": "Нижегородская область",
+          "rating": "2017",
+          "regionCode": "nin",
           "matches": {
-            "1749041165118fkk73": null,
-            "1749041165118yzumj": null,
-            "1749041165118aon1o": null
+            "1749282878906jew8x": "2:3",
+            "17492828789062ex8j": "1:3"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
-        },
-        {
-          "id": "1749041165118aon1o",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "vla",
-          "matches": {
-            "1749041165118fkk73": null,
-            "1749041165118yzumj": null,
-            "1749041165118k9ue1": null
-          },
-          "games": 0,
-          "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 2,
+          "position": 3
         }
       ]
     },
     {
-      "id": "1749041167630",
+      "id": "1749283368431",
       "name": "Группа-5",
       "players": [
         {
-          "id": "174904118666260bqe",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "cr",
+          "id": "1749283442450byfk7",
+          "name": "Республика Башкортостан",
+          "rating": "2594",
+          "regionCode": "bash",
           "matches": {
-            "1749041186662p2ii7": null,
-            "1749041186662wq699": null,
-            "1749041186662g2q9r": null
+            "1749283442450qm7bq": "3:1",
+            "17492834424509zjoz": "3:1"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 4,
+          "position": 1
         },
         {
-          "id": "1749041186662p2ii7",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "lnr",
+          "id": "1749283442450qm7bq",
+          "name": "Ульяновская область",
+          "rating": "2228",
+          "regionCode": "uly",
           "matches": {
-            "174904118666260bqe": null,
-            "1749041186662wq699": null,
-            "1749041186662g2q9r": null
+            "1749283442450byfk7": "1:3",
+            "17492834424509zjoz": "0:3"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 2,
+          "position": 3
         },
         {
-          "id": "1749041186662wq699",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "altk",
+          "id": "17492834424509zjoz",
+          "name": "Республика Мордовия",
+          "rating": "1988",
+          "regionCode": "mrd",
           "matches": {
-            "174904118666260bqe": null,
-            "1749041186662p2ii7": null,
-            "1749041186662g2q9r": null
+            "1749283442450byfk7": "1:3",
+            "1749283442450qm7bq": "3:0"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
-        },
-        {
-          "id": "1749041186662g2q9r",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "tuv",
-          "matches": {
-            "174904118666260bqe": null,
-            "1749041186662p2ii7": null,
-            "1749041186662wq699": null
-          },
-          "games": 0,
-          "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 3,
+          "position": 2
         }
       ]
     },
     {
-      "id": "1749041188022",
+      "id": "1749283477498",
       "name": "Группа-6",
       "players": [
         {
-          "id": "1749041210303dzq4w",
-          "name": "ЧУВАШИЯ",
-          "rating": "432",
-          "regionCode": "amur",
-          "matches": {
-            "17490412103034ol6v": null,
-            "1749041210303tw3fv": null,
-            "17490412103034vg40": null
-          },
-          "games": 0,
-          "sets": 0,
-          "points": 0,
-          "position": 0
-        },
-        {
-          "id": "17490412103034ol6v",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "kom",
-          "matches": {
-            "1749041210303dzq4w": null,
-            "1749041210303tw3fv": null,
-            "17490412103034vg40": null
-          },
-          "games": 0,
-          "sets": 0,
-          "points": 0,
-          "position": 0
-        },
-        {
-          "id": "1749041210303tw3fv",
-          "name": "ЧУВАШИЯ",
-          "rating": "4",
+          "id": "1749283522317117pd",
+          "name": "Пермский край",
+          "rating": "2487",
           "regionCode": "per",
           "matches": {
-            "1749041210303dzq4w": null,
-            "17490412103034ol6v": null,
-            "17490412103034vg40": null
+            "1749283522317p4sn5": "3:1",
+            "1749283522317jrf0g": "3:0"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 4,
+          "position": 1
         },
         {
-          "id": "17490412103034vg40",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "tom",
+          "id": "1749283522317p4sn5",
+          "name": "Тамбовская область",
+          "rating": "2237",
+          "regionCode": "tam",
           "matches": {
-            "1749041210303dzq4w": null,
-            "17490412103034ol6v": null,
-            "1749041210303tw3fv": null
+            "1749283522317117pd": "1:3",
+            "1749283522317jrf0g": "3:1"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 3,
+          "position": 2
+        },
+        {
+          "id": "1749283522317jrf0g",
+          "name": "Ярославская область",
+          "rating": "1936",
+          "regionCode": "yar",
+          "matches": {
+            "1749283522317117pd": "0:3",
+            "1749283522317p4sn5": "1:3"
+          },
+          "games": 2,
+          "sets": 0,
+          "points": 2,
+          "position": 3
         }
       ]
     },
     {
-      "id": "1749041564495",
+      "id": "1749283616238",
       "name": "Группа-7",
       "players": [
         {
-          "id": "1749041571558w16d7",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "",
+          "id": "1749283672222yru7t",
+          "name": "г. Санкт-Петербург",
+          "rating": "2456",
+          "regionCode": "spb",
           "matches": {
-            "1749041571558o4i6o": null,
-            "1749041582078igc7f": null,
-            "17490415820787hl33": null
+            "1749283672222nojua": "0:3",
+            "1749283672222d06k2": "3:0"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 3,
+          "position": 2
         },
         {
-          "id": "1749041571558o4i6o",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "",
+          "id": "1749283672222nojua",
+          "name": "Свердловская область",
+          "rating": "2243",
+          "regionCode": "sve",
           "matches": {
-            "1749041571558w16d7": null,
-            "1749041582078igc7f": null,
-            "17490415820787hl33": null
+            "1749283672222yru7t": "3:0",
+            "1749283672222d06k2": "3:0"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 4,
+          "position": 1
         },
         {
-          "id": "1749041582078igc7f",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "bash",
+          "id": "1749283672222d06k2",
+          "name": "Республика Карелия",
+          "rating": "1930",
+          "regionCode": "krl",
           "matches": {
-            "1749041571558w16d7": null,
-            "1749041571558o4i6o": null,
-            "17490415820787hl33": null
+            "1749283672222yru7t": "0:3",
+            "1749283672222nojua": "0:3"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
-        },
-        {
-          "id": "17490415820787hl33",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "bash",
-          "matches": {
-            "1749041571558w16d7": null,
-            "1749041571558o4i6o": null,
-            "1749041582078igc7f": null
-          },
-          "games": 0,
-          "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 2,
+          "position": 3
         }
       ]
     },
     {
-      "id": "1749041597582",
+      "id": "1749283761554",
       "name": "Группа-8",
       "players": [
         {
-          "id": "1749041607454ryhan",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "sak",
+          "id": "1749283820803hdj44",
+          "name": "Воронежская область",
+          "rating": "2453",
+          "regionCode": "vrn",
           "matches": {
-            "1749041607454zy0ee": null,
-            "17490416074542mye1": null,
-            "1749041607454dc70g": null
+            "1749283820803isnyz": "3:2",
+            "1749283820803bscwv": "3:0"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 4,
+          "position": 1
         },
         {
-          "id": "1749041607454zy0ee",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "mr",
+          "id": "1749283820803isnyz",
+          "name": "Саратовская область",
+          "rating": "2247",
+          "regionCode": "sar",
           "matches": {
-            "1749041607454ryhan": null,
-            "17490416074542mye1": null,
-            "1749041607454dc70g": null
+            "1749283820803hdj44": "2:3",
+            "1749283820803bscwv": "3:1"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 3,
+          "position": 2
         },
         {
-          "id": "17490416074542mye1",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "tam",
+          "id": "1749283820803bscwv",
+          "name": "Мурманская область",
+          "rating": "1867",
+          "regionCode": "mur",
           "matches": {
-            "1749041607454ryhan": null,
-            "1749041607454zy0ee": null,
-            "1749041607454dc70g": null
+            "1749283820803hdj44": "0:3",
+            "1749283820803isnyz": "1:3"
           },
-          "games": 0,
+          "games": 2,
           "sets": 0,
-          "points": 0,
-          "position": 0
-        },
-        {
-          "id": "1749041607454dc70g",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "orl",
-          "matches": {
-            "1749041607454ryhan": null,
-            "1749041607454zy0ee": null,
-            "17490416074542mye1": null
-          },
-          "games": 0,
-          "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 2,
+          "position": 3
         }
       ]
     },
     {
-      "id": "1749041609623",
+      "id": "1749283924486",
       "name": "Группа-9",
       "players": [
         {
-          "id": "1749041620766f2jgh",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "mrd",
+          "id": "17492839970956s87i",
+          "name": "Пензенская область",
+          "rating": "2432",
+          "regionCode": "pnz",
           "matches": {
-            "1749041620766e9az6": null,
-            "1749041620766ubamy": null,
-            "1749041620766xad8r": null
+            "17492839970957xc9q": "3:1",
+            "1749283997095lqk98": "3:0",
+            "17492839970957v506": "3:0"
           },
-          "games": 0,
+          "games": 3,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 6,
+          "position": 1
         },
         {
-          "id": "1749041620766e9az6",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "cr",
+          "id": "17492839970957xc9q",
+          "name": "Белгородская область",
+          "rating": "2295",
+          "regionCode": "bel",
           "matches": {
-            "1749041620766f2jgh": null,
-            "1749041620766ubamy": null,
-            "1749041620766xad8r": null
+            "17492839970956s87i": "1:3",
+            "1749283997095lqk98": "3:2",
+            "17492839970957v506": "3:1"
           },
-          "games": 0,
+          "games": 3,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 5,
+          "position": 2
         },
         {
-          "id": "1749041620766ubamy",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "vrn",
+          "id": "1749283997095lqk98",
+          "name": "Республика Татарстан",
+          "rating": "1847",
+          "regionCode": "tat",
           "matches": {
-            "1749041620766f2jgh": null,
-            "1749041620766e9az6": null,
-            "1749041620766xad8r": null
+            "17492839970956s87i": "0:3",
+            "17492839970957xc9q": "2:3",
+            "17492839970957v506": "3:2"
           },
-          "games": 0,
+          "games": 3,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 4,
+          "position": 3
         },
         {
-          "id": "1749041620766xad8r",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "cr",
+          "id": "17492839970957v506",
+          "name": "Курская область",
+          "rating": "1588",
+          "regionCode": "kurs",
           "matches": {
-            "1749041620766f2jgh": null,
-            "1749041620766e9az6": null,
-            "1749041620766ubamy": null
+            "17492839970956s87i": "0:3",
+            "17492839970957xc9q": "1:3",
+            "1749283997095lqk98": "2:3"
           },
-          "games": 0,
+          "games": 3,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 3,
+          "position": 4
         }
       ]
     },
     {
-      "id": "1749041622415",
+      "id": "1749284002493",
       "name": "Группа-10",
       "players": [
         {
-          "id": "1749041633399wgjy2",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "tul",
+          "id": "1749284091377fu9mv",
+          "name": "Московская область",
+          "rating": "2429",
+          "regionCode": "mos",
           "matches": {
-            "1749041633399a6lcw": null,
-            "1749041633399w34ur": null,
-            "17490416333994txmc": null
+            "1749284091377rvwau": "1:3",
+            "1749284091377udggk": "3:0",
+            "174928409137837zxo": "3:0"
           },
-          "games": 0,
+          "games": 3,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 5,
+          "position": 2
         },
         {
-          "id": "1749041633399a6lcw",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "tom",
+          "id": "1749284091377rvwau",
+          "name": "Кировская область",
+          "rating": "2304",
+          "regionCode": "kir",
           "matches": {
-            "1749041633399wgjy2": null,
-            "1749041633399w34ur": null,
-            "17490416333994txmc": null
+            "1749284091377fu9mv": "3:1",
+            "1749284091377udggk": "3:0",
+            "174928409137837zxo": "3:0"
           },
-          "games": 0,
+          "games": 3,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 6,
+          "position": 1
         },
         {
-          "id": "1749041633399w34ur",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "yar",
+          "id": "1749284091377udggk",
+          "name": "Республика Калмыкия",
+          "rating": "1840",
+          "regionCode": "klm",
           "matches": {
-            "1749041633399wgjy2": null,
-            "1749041633399a6lcw": null,
-            "17490416333994txmc": null
+            "1749284091377fu9mv": "0:3",
+            "1749284091377rvwau": "0:3",
+            "174928409137837zxo": "3:0"
           },
-          "games": 0,
+          "games": 3,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 4,
+          "position": 3
         },
         {
-          "id": "17490416333994txmc",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "rya",
+          "id": "174928409137837zxo",
+          "name": "Волгоградская область",
+          "rating": "1611",
+          "regionCode": "vlg",
           "matches": {
-            "1749041633399wgjy2": null,
-            "1749041633399a6lcw": null,
-            "1749041633399w34ur": null
+            "1749284091377fu9mv": "0:3",
+            "1749284091377rvwau": "0:3",
+            "1749284091377udggk": "0:3"
           },
-          "games": 0,
+          "games": 3,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 3,
+          "position": 4
         }
       ]
     },
     {
-      "id": "1749041634440",
+      "id": "1749284093153",
       "name": "Группа-11",
       "players": [
         {
-          "id": "1749041648591q3nj0",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "nin",
+          "id": "1749284284246ee77h",
+          "name": "Тверская область",
+          "rating": "2420",
+          "regionCode": "tvobl",
           "matches": {
-            "17490416485911retl": null,
-            "1749041648591srlvg": null,
-            "1749041648591up4f7": null
+            "1749284284246qjvae": "0:3",
+            "1749284284246p8olv": "3:1",
+            "17492842842466aqlz": "3:0"
           },
-          "games": 0,
+          "games": 3,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 5,
+          "position": 2
         },
         {
-          "id": "17490416485911retl",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "tyu",
+          "id": "1749284284246qjvae",
+          "name": "Челябинская область",
+          "rating": "2358",
+          "regionCode": "cheb",
           "matches": {
-            "1749041648591q3nj0": null,
-            "1749041648591srlvg": null,
-            "1749041648591up4f7": null
+            "1749284284246ee77h": "3:0",
+            "1749284284246p8olv": "3:1",
+            "17492842842466aqlz": "3:0"
           },
-          "games": 0,
+          "games": 3,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 6,
+          "position": 1
         },
         {
-          "id": "1749041648591srlvg",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "tam",
+          "id": "1749284284246p8olv",
+          "name": "Владимирская область",
+          "rating": "1823",
+          "regionCode": "vla",
           "matches": {
-            "1749041648591q3nj0": null,
-            "17490416485911retl": null,
-            "1749041648591up4f7": null
+            "1749284284246ee77h": "1:3",
+            "1749284284246qjvae": "1:3",
+            "17492842842466aqlz": "3:0"
           },
-          "games": 0,
+          "games": 3,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 4,
+          "position": 3
         },
         {
-          "id": "1749041648591up4f7",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "pnz",
+          "id": "17492842842466aqlz",
+          "name": "Донецкая Народная Республика",
+          "rating": "1667",
+          "regionCode": "dnr",
           "matches": {
-            "1749041648591q3nj0": null,
-            "17490416485911retl": null,
-            "1749041648591srlvg": null
+            "1749284284246ee77h": "0:3",
+            "1749284284246qjvae": "0:3",
+            "1749284284246p8olv": "0:3"
           },
-          "games": 0,
+          "games": 3,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 3,
+          "position": 4
         }
       ]
     },
     {
-      "id": "1749041650862",
+      "id": "1749284285766",
       "name": "Группа-12",
       "players": [
         {
-          "id": "1749041663945khs7y",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "sve",
+          "id": "174928437432522zpv",
+          "name": "Ивановская область",
+          "rating": "2399",
+          "regionCode": "iva",
           "matches": {
-            "1749041663945qfbl5": null,
-            "1749041663945j5gos": null,
-            "17490416639452fyd6": null
+            "17492843743263qr5a": "3:0",
+            "1749284374326g4lhx": "3:0",
+            "1749284374326vkolj": "3:1"
           },
-          "games": 0,
+          "games": 3,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 6,
+          "position": 1
         },
         {
-          "id": "1749041663945qfbl5",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "tul",
+          "id": "17492843743263qr5a",
+          "name": "Республика Марий Эл",
+          "rating": "2374",
+          "regionCode": "mr",
           "matches": {
-            "1749041663945khs7y": null,
-            "1749041663945j5gos": null,
-            "17490416639452fyd6": null
+            "174928437432522zpv": "0:3",
+            "1749284374326g4lhx": "3:0",
+            "1749284374326vkolj": "3:2"
           },
-          "games": 0,
+          "games": 3,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 5,
+          "position": 2
         },
         {
-          "id": "1749041663945j5gos",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "tom",
+          "id": "1749284374326g4lhx",
+          "name": "Ханты-Мансийский АО",
+          "rating": "1799",
+          "regionCode": "hmao",
           "matches": {
-            "1749041663945khs7y": null,
-            "1749041663945qfbl5": null,
-            "17490416639452fyd6": null
+            "174928437432522zpv": "0:3",
+            "17492843743263qr5a": "0:3",
+            "1749284374326vkolj": "3:0"
           },
-          "games": 0,
+          "games": 3,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 4,
+          "position": 3
         },
         {
-          "id": "17490416639452fyd6",
-          "name": "ЧУВАШИЯ",
-          "rating": "0",
-          "regionCode": "orl",
+          "id": "1749284374326vkolj",
+          "name": "Рязанская область",
+          "rating": "1745",
+          "regionCode": "rya",
           "matches": {
-            "1749041663945khs7y": null,
-            "1749041663945qfbl5": null,
-            "1749041663945j5gos": null
+            "174928437432522zpv": "1:3",
+            "17492843743263qr5a": "2:3",
+            "1749284374326g4lhx": "0:3"
           },
-          "games": 0,
+          "games": 3,
           "sets": 0,
-          "points": 0,
-          "position": 0
+          "points": 3,
+          "position": 4
         }
       ]
     }
   ],
-  "tournamentTitle": "КОМАНДНЫЙ ЧЕМПИОНАТ СЛНТР СРЕДИ МУЖЧИН-2025"
+  "tournamentTitle": "КОМАНДНЫЙ ЧЕМПИОНАТ СЛНТР СРЕДИ МУЖЧИН"
 }

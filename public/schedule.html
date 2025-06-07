@@ -21,7 +21,7 @@
             color: white;
             height: 100vh;
             display: flex;
-            justify-content: center;
+
             align-items: center;
             flex-direction: column;
             padding: 1rem;
@@ -39,6 +39,7 @@
             background: rgba(0, 38, 77, 0.67);
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-top: 50px ;
 
         }
 
@@ -397,6 +398,7 @@
         <input type="text" placeholder="Player 1 Name" class="playerA"/>
         <label>Регион игрока1:</label>
         <select class="flagA">
+            <option value="nothing">Ничего</option>
             <option value="ady">Адыгея</option>
             <option value="alt">Алтай</option>
             <option value="bash">Башкортостан</option>
@@ -472,6 +474,7 @@
             <option value="sve">Свердловская область</option>
             <option value="smo">Смоленская область</option>
             <option value="tam">Тамбовская область</option>
+            <option value="tvobl">Тверская область</option>
             <option value="tom">Томская область</option>
             <option value="tul">Тульская область</option>
             <option value="tyu">Тюменская область</option>
@@ -494,6 +497,7 @@
         <input type="text" placeholder="Player 2 Name" class="playerB"/>
         <label>Регион игрока2:</label>
         <select class="flagB">
+            <option value="nothing">Ничего</option>
             <option value="ady">Адыгея</option>
             <option value="alt">Алтай</option>
             <option value="bash">Башкортостан</option>
@@ -569,6 +573,7 @@
             <option value="sve">Свердловская область</option>
             <option value="smo">Смоленская область</option>
             <option value="tam">Тамбовская область</option>
+            <option value="tvobl">Тверская область</option>
             <option value="tom">Томская область</option>
             <option value="tul">Тульская область</option>
             <option value="tyu">Тюменская область</option>
@@ -633,6 +638,10 @@
     function flagImg(code) {
         let flagSvg = '';
         switch (code) {
+
+            case 'nothing':
+                flagSvg = `<img class="flag" src="https://img.freepik.com/premium-photo/abstract-background-design-hd-olive-green-color_851755-74064.jpg?semt=ais_hybrid&w=740" alt="flag ничего">`;
+                break;
             case 'ady':
                 flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_adygea_new.jpg" alt="flag Адыгея">`;
                 break;
@@ -853,6 +862,10 @@
                 break;
             case 'tam':
                 flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tambovskaya_obl_new.jpg" alt="flag Тамбовская область">`;
+                break;
+
+            case 'tvobl':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tverskaya_obl_new.jpg" alt="flag Тверская область">`;
                 break;
             case 'tom':
                 flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tomskaya_obl_enl.jpg" alt="flag Томская область">`;
