@@ -30,6 +30,12 @@
     "color": "bg-red-500 hover:bg-red-600"
   },
   {
+    "id": 1749506901585,
+    "name": "Группы2",
+    "url": "net2.html",
+    "color": "bg-red-500 hover:bg-red-600"
+  },
+  {
     "id": 1748948912127,
     "name": "Olympic",
     "url": "olympic.html",

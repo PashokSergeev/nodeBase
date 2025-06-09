@@ -286,7 +286,7 @@
         <img src="images/ttfr_logo_new_03.png">
     </div>
     <div class="competition-logo2">
-        <img src="images/slntr.png">
+        <img src="images/ttfr_logo_new_05.png">
     </div>
 
     <div class="match-header">Предстоящий матч</div>
@@ -610,21 +610,24 @@
         document.getElementById('admin-panel').style.display = isAdmin ? 'flex' : 'none';
 
         if (isAdmin) {
-            document.getElementById('input-title').value = data.title;
-            document.getElementById('input-date').value = data.date;
+            document.getElementById('input-title').value = data.title || '';
+            document.getElementById('input-date').value = data.date || '';
+
             const container = document.getElementById('match-forms');
             container.innerHTML = '';
             data.matches.forEach(match => {
                 const template = document.getElementById('match-template');
                 const clone = template.content.cloneNode(true);
-                clone.querySelector('.head').value = match.head;
-                clone.querySelector('.title').value = match.title;
-                clone.querySelector('.playerA').value = match.playerA;
-                clone.querySelector('.flagA').value = match.flagA;
-                clone.querySelector('.playerB').value = match.playerB;
-                clone.querySelector('.flagB').value = match.flagB;
+                clone.querySelector('.head').value = match.head || '';
+                clone.querySelector('.title').value = match.title || '';
+                clone.querySelector('.playerA').value = match.playerA || '';
+                clone.querySelector('.flagA').value = match.flagA || '';
+                clone.querySelector('.playerB').value = match.playerB || '';
+                clone.querySelector('.flagB').value = match.flagB || '';
                 container.appendChild(clone);
             });
+
+
         }
         const toggleAdminBtn = document.querySelector('.button-back')
         // Add keyboard shortcut for admin mode (Shift+Ctrl+F)
@@ -918,8 +921,8 @@
     }
 
     function applyUpdates(data) {
-        document.getElementById('title').innerText = data.title;
-        document.getElementById('date').innerText = data.date;
+        document.getElementById('title').innerText = data.title || '';
+        document.getElementById('date').innerText = data.date || '';
 
         const next = data.matches[0];
         const rest = data.matches.slice(1);
@@ -933,11 +936,11 @@
             ? `<div class="match-header">${next.head}</div>
             <span class="time-display">${next.title}</span>
             <div class="player-row">
-                <span class="player-name capitalize"><span class="uppercase">${playerA[0]}</span> ${playerA[1]}</span>
+                <span class="player-name capitalize"><span class="uppercase">${playerA[0]}</span> ${playerA[1] ? playerA[1] : ''}</span>
                 ${flagImg(next.flagA)}
                 <span class="vs-divider">-</span>
                 ${flagImg(next.flagB)}
-                <span class="player-name capitalize"><span class="uppercase">${playerB[0]}</span> ${playerB[1]}</span>
+                <span class="player-name capitalize"><span class="uppercase">${playerB[0]}</span> ${playerB[1] ? playerB[1] : ''}</span>
             </div>`
             : '';
         // <div class='match-header'>${next.head}</div>${next.title}<br>${next.playerA}${flagImg(next.flagA)} - ${flagImg(next.flagB)} ${next.playerB}
@@ -954,14 +957,16 @@
                     <div class="match-header">${match.head}</div>
                             <span class="time-display">${match.title}</span>
                             <div class="player-row">
-                                 <span class="player-name capitalize"><span class="uppercase">${playerA[0]}</span> ${playerA[1]}</span>
+                                 <span class="player-name capitalize"><span class="uppercase">${playerA[0]}</span> ${playerA[1] ? playerA[1] : ''}</span>
                                 ${flagImg(match.flagA)}
                                 <span class="vs-divider">-</span>
                                 ${flagImg(match.flagB)}
-                                <span class="player-name capitalize"><span class="uppercase">${playerB[0]}</span> ${playerB[1]}</span>
+                                <span class="player-name capitalize"><span class="uppercase">${playerB[0]}</span> ${playerB[1] ? playerB[1] : ''}</span>
                             </div>
                 </div>`;
         });
+
+
 
     }
 
@@ -970,7 +975,16 @@
         const updates = {
             title: document.getElementById('input-title').value,
             date: document.getElementById('input-date').value,
-            matches: []
+            matches: [
+                {
+                    "head": "",
+                    "title": "",
+                    "playerA": "",
+                    "flagA": "",
+                    "playerB": "",
+                    "flagB": ""
+                }
+            ]
         };
 
         const forms = document.querySelectorAll('.match-form');
@@ -985,6 +999,16 @@
             });
 
         });
+        if(updates.matches.empty){
+            updates.matches.push({
+                "head": "",
+                "title": "",
+                "playerA": "",
+                "flagA": "",
+                "playerB": "",
+                "flagB": ""
+            })
+        }
 
         await fetch('/api/schedule', {
             method: 'POST',

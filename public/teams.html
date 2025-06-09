@@ -1005,7 +1005,7 @@
                 <h2 id="tournament-subtitle" class="tournament-subtitle text-xl md:text-2xl mt-2 gradient-score"></h2>
             </div>
             <div class="w-1/6">
-                <img src="/images/slntr.png" alt="Логотип федерации" class="w-full h-auto">
+                <img src="/images/ttfr_logo_new_05.png" alt="Логотип федерации" class="w-full h-auto">
             </div>
         </div>
     </div>
@@ -1075,13 +1075,13 @@
         </div>
         <div class="flex justify-center space-x-8">
             <div class="w-25 h-20">
-                <img src="/images/ffy.png" alt="Спонсор 1" class="w-full h-full object-contain">
+                <img src="/images/ttfr_logo_new_03.png" alt="Спонсор 1" class="w-full h-full object-contain">
             </div>
             <div class="w-25 h-20">
                 <img src="/images/ttfr_logo_new_05.png" alt="Спонсор 2" class="w-full h-full object-contain">
             </div>
             <div class="w-25 h-20">
-                <img src="/images/slntr.png" alt="Спонсор 3" class="w-full h-full object-contain">
+                <img src="/images/ttfr_logo_new_03.png" alt="Спонсор 3" class="w-full h-full object-contain">
             </div>
         </div>
     </div>
@@ -1504,16 +1504,16 @@
         document.getElementById('admin-tournament-location').value = currentData.tournament.location;
 
         // Update team names
-        document.getElementById('team1-name').textContent = currentData.team1.name
-        document.getElementById('team2-name').textContent = currentData.team2.name
+        document.getElementById('team1-name').textContent = currentData.team1.name;
+        document.getElementById('team2-name').textContent = currentData.team2.name;
 
-        document.getElementById('admin-team1-name').textContent = currentData.team1.name
-        document.getElementById('admin-team2-name').textContent = currentData.team2.name
+        document.getElementById('admin-team1-name').value = currentData.team1.name;
+        document.getElementById('admin-team2-name').value = currentData.team2.name;
 
         // Update flags
-        document.getElementById('admin-team1-flag').value = currentData.team1.flag
+        document.getElementById('admin-team1-flag').value = currentData.team1.flag;
         updateFlag('team1-flag', currentData.team1.flag);
-        document.getElementById('admin-team2-flag').value = currentData.team2.flag
+        document.getElementById('admin-team2-flag').value = currentData.team2.flag;
         updateFlag('team2-flag', currentData.team2.flag);
 
         // Update matches score
@@ -1997,9 +1997,9 @@
             const player1Div = document.createElement('div');
             player1Div.className = 'player-name  text-lg font-bold vibrant-green';
             const namePlayer1 = team1Players[i].split(" ");
-            player1Div.textContent = namePlayer1[0].toUpperCase() + ' ' + namePlayer1[1];
+            player1Div.textContent = `${namePlayer1[0].toUpperCase()} ${namePlayer1[1]?namePlayer1[1]:''}`;
             team1Div.appendChild(player1Div);
-            matchPairs[i].querySelector('.player1-name').textContent = namePlayer1[0].toUpperCase() + ' ' + namePlayer1[1];
+            matchPairs[i].querySelector('.player1-name').textContent = `${namePlayer1[0].toUpperCase()} ${namePlayer1[1]?namePlayer1[1]:''}`;
 
 
 
@@ -2024,11 +2024,11 @@
             team2Div.className = 'w-5/12 text-right';
             const player2Div = document.createElement('div');
             player2Div.className = 'player-name text-lg font-bold vibrant-orange';
-            const namePlayer2 = team2Players[i].split(" ");
-            player2Div.textContent = namePlayer2[0].toUpperCase() + ' ' + namePlayer2[1];
+            const namePlayer2 = (team2Players[i]).split(" ");
+            player2Div.textContent = `${namePlayer2[0].toUpperCase()} ${namePlayer2[1]?namePlayer2[1]:''}`;
             team2Div.appendChild(player2Div);
 
-            matchPairs[i].querySelector('.player2-name').textContent = namePlayer2[0].toUpperCase() + ' ' + namePlayer2[1]?namePlayer2[1]:"";
+            matchPairs[i].querySelector('.player2-name').textContent = `${namePlayer2[0].toUpperCase()} ${namePlayer2[1]?namePlayer2[1]:''}`;
 
             // Add all to row
             rowDiv.appendChild(team1Div);

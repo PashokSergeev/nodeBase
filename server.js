@@ -51,6 +51,23 @@ app.post('/api/net-info', (req, res) => {
     });
 });
 
+//СЕТКА ТУРНИРА
+const NET_INFO_FILE2 = path.join(__dirname, 'net_info2.json');
+
+app.get('/api/net-info2', (req, res) => {
+    fs.readFile(NET_INFO_FILE2, 'utf8', (err, data) => {
+        if (err) return res.status(500).send('Error reading schedule');
+        res.json(JSON.parse(data));
+    });
+});
+
+app.post('/api/net-info2', (req, res) => {
+    fs.writeFile(NET_INFO_FILE2, JSON.stringify(req.body, null, 2), err => {
+        if (err) return res.status(500).send('Error saving schedule');
+        res.sendStatus(200);
+    });
+});
+
 //ПРЕДСТАВЛЕНИЕ КОМАНД
 const TEAMS_FILE = path.join(__dirname, 'teams.json');
 // Чтение JSON
