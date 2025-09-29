@@ -3,12 +3,28 @@
   "date": "г. Москва, СК Чертаново, 07 июня 2025 г. | Камера 1",
   "matches": [
     {
+      "head": "смсч",
+      "title": "смсч",
+      "playerA": "см",
+      "flagA": "alt",
+      "playerB": "смсч",
+      "flagB": "mrd"
+    },
+    {
+      "head": "ппп",
+      "title": "чмссч",
+      "playerA": "смсч",
+      "flagA": "cr",
+      "playerB": "мсчм",
+      "flagB": "mrd"
+    },
+    {
       "head": "",
       "title": "",
       "playerA": "",
-      "flagA": "",
+      "flagA": "nothing",
       "playerB": "",
-      "flagB": ""
+      "flagB": "nothing"
     }
   ]
 }

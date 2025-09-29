@@ -1,6 +1,12 @@
 {
-  "groups": [],
-  "activeGroupId": null,
+  "groups": [
+    {
+      "id": "group_1754818455251",
+      "name": "Video Sequence 1 - 10.08.2025",
+      "videos": []
+    }
+  ],
+  "activeGroupId": "group_1754818455251",
   "musicList": [
     {
       "id": "audio_1749290556878_538",
