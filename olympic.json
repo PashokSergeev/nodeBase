@@ -1,6 +1,6 @@
 [
   {
-    "name": "Первый финал",
+    "name": "Турнир по настольному теннису",
     "playerCount": 32,
     "type": "single",
     "rounds": [
@@ -163,19 +163,19 @@
           "matchIndex": 0,
           "players": [
             {
-              "name": "Х",
-              "country": ""
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "г. Москва",
-              "country": "msk"
+              "name": "",
+              "country": "ru"
             }
           ],
           "score": "",
           "winner": null,
           "info": {
-            "date": "07.06. - 19:00",
-            "table": "1",
+            "date": "",
+            "table": "",
             "notes": ""
           }
         },
@@ -184,19 +184,19 @@
           "matchIndex": 1,
           "players": [
             {
-              "name": "Челябинская область",
-              "country": "cheb"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Воронежская область",
-              "country": "vrn"
+              "name": "",
+              "country": "ru"
             }
           ],
           "score": "",
           "winner": null,
           "info": {
-            "date": "07.06. - 19:00",
-            "table": "2",
+            "date": "",
+            "table": "",
             "notes": ""
           }
         },
@@ -205,19 +205,19 @@
           "matchIndex": 2,
           "players": [
             {
-              "name": "Пермский край",
-              "country": "per"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Калужская область",
-              "country": "klz"
+              "name": "",
+              "country": "ru"
             }
           ],
           "score": "",
           "winner": null,
           "info": {
-            "date": "07.06. - 19:00",
-            "table": "3",
+            "date": "",
+            "table": "",
             "notes": ""
           }
         },
@@ -226,19 +226,19 @@
           "matchIndex": 3,
           "players": [
             {
-              "name": "Республика Мордовия",
-              "country": "mrd"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Брянская область",
-              "country": "bry"
+              "name": "",
+              "country": "ru"
             }
           ],
           "score": "",
           "winner": null,
           "info": {
-            "date": "07.06. - 19:00",
-            "table": "4",
+            "date": "",
+            "table": "",
             "notes": ""
           }
         },
@@ -247,19 +247,19 @@
           "matchIndex": 4,
           "players": [
             {
-              "name": "Самарская область",
-              "country": "sam"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Московская область",
-              "country": "mos"
+              "name": "",
+              "country": "ru"
             }
           ],
           "score": "",
           "winner": null,
           "info": {
-            "date": "07.06. - 19:00",
-            "table": "5",
+            "date": "",
+            "table": "",
             "notes": ""
           }
         },
@@ -268,19 +268,19 @@
           "matchIndex": 5,
           "players": [
             {
-              "name": "Ивановская область",
-              "country": "iva"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Свердловская область",
-              "country": "sve"
+              "name": "",
+              "country": "ru"
             }
           ],
           "score": "",
           "winner": null,
           "info": {
-            "date": "07.06. - 19:00",
-            "table": "6",
+            "date": "",
+            "table": "",
             "notes": ""
           }
         },
@@ -289,19 +289,19 @@
           "matchIndex": 6,
           "players": [
             {
-              "name": "Республика Башкортостан",
-              "country": "bash"
+              "name": "",
+              "country": "ru"
             },
             {
               "name": "",
-              "country": ""
+              "country": "ru"
             }
           ],
           "score": "",
           "winner": null,
           "info": {
-            "date": "07.06. - 19:00",
-            "table": "7",
+            "date": "",
+            "table": "",
             "notes": ""
           }
         },
@@ -310,19 +310,19 @@
           "matchIndex": 7,
           "players": [
             {
-              "name": "Тверская область",
-              "country": "tvobl"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Краснодарский край",
-              "country": "kras"
+              "name": "",
+              "country": "ru"
             }
           ],
           "score": "",
           "winner": null,
           "info": {
-            "date": "07.06. - 19:00",
-            "table": "8",
+            "date": "",
+            "table": "",
             "notes": ""
           }
         }
@@ -333,16 +333,16 @@
           "matchIndex": 0,
           "players": [
             {
-              "name": "Тульская область",
-              "country": "tul"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Х",
-              "country": ""
+              "name": "",
+              "country": "ru"
             }
           ],
           "score": "",
-          "winner": 1,
+          "winner": null,
           "info": {
             "date": "",
             "table": "",
@@ -354,19 +354,19 @@
           "matchIndex": 1,
           "players": [
             {
-              "name": "г. Москва",
-              "country": "msk"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Белгородская область",
-              "country": "bel"
+              "name": "",
+              "country": "ru"
             }
           ],
-          "score": "3–2",
-          "winner": 0,
+          "score": "",
+          "winner": null,
           "info": {
-            "date": "07.06. - 17:00",
-            "table": "1",
+            "date": "",
+            "table": "",
             "notes": ""
           }
         },
@@ -375,19 +375,19 @@
           "matchIndex": 2,
           "players": [
             {
-              "name": "Челябинская область",
-              "country": "cheb"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "г. Санкт-Петербург",
-              "country": "spb"
+              "name": "",
+              "country": "ru"
             }
           ],
-          "score": "3–0",
-          "winner": 0,
+          "score": "",
+          "winner": null,
           "info": {
-            "date": "07.06. - 17:00",
-            "table": "2",
+            "date": "",
+            "table": "",
             "notes": ""
           }
         },
@@ -396,16 +396,16 @@
           "matchIndex": 3,
           "players": [
             {
-              "name": "Х",
-              "country": ""
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Воронежская область",
-              "country": "vrn"
+              "name": "",
+              "country": "ru"
             }
           ],
           "score": "",
-          "winner": 1,
+          "winner": null,
           "info": {
             "date": "",
             "table": "",
@@ -417,16 +417,16 @@
           "matchIndex": 4,
           "players": [
             {
-              "name": "Пермский край",
-              "country": "per"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Х",
-              "country": ""
+              "name": "",
+              "country": "ru"
             }
           ],
           "score": "",
-          "winner": 0,
+          "winner": null,
           "info": {
             "date": "",
             "table": "",
@@ -438,19 +438,19 @@
           "matchIndex": 5,
           "players": [
             {
-              "name": "Калужская область",
-              "country": "klz"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Кировская область",
-              "country": "kir"
+              "name": "",
+              "country": "ru"
             }
           ],
-          "score": "3–1",
-          "winner": 0,
+          "score": "",
+          "winner": null,
           "info": {
-            "date": "07.06. - 17:00",
-            "table": "3",
+            "date": "",
+            "table": "",
             "notes": ""
           }
         },
@@ -459,19 +459,19 @@
           "matchIndex": 6,
           "players": [
             {
-              "name": "Республика Марий Эл",
-              "country": "mr"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Республика Мордовия",
-              "country": "mrd"
+              "name": "",
+              "country": "ru"
             }
           ],
-          "score": "2–3",
-          "winner": 1,
+          "score": "",
+          "winner": null,
           "info": {
-            "date": "07.06. - 17:00",
-            "table": "4",
+            "date": "",
+            "table": "",
             "notes": ""
           }
         },
@@ -480,16 +480,16 @@
           "matchIndex": 7,
           "players": [
             {
-              "name": "Х",
-              "country": ""
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Брянская область",
-              "country": "bry"
+              "name": "",
+              "country": "ru"
             }
           ],
           "score": "",
-          "winner": 1,
+          "winner": null,
           "info": {
             "date": "",
             "table": "",
@@ -501,16 +501,16 @@
           "matchIndex": 8,
           "players": [
             {
-              "name": "Самарская область",
-              "country": "sam"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Х",
-              "country": ""
+              "name": "",
+              "country": "ru"
             }
           ],
           "score": "",
-          "winner": 0,
+          "winner": null,
           "info": {
             "date": "",
             "table": "",
@@ -522,19 +522,19 @@
           "matchIndex": 9,
           "players": [
             {
-              "name": "Кемеровская область",
-              "country": "kem"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Московская область",
-              "country": "mos"
+              "name": "",
+              "country": "ru"
             }
           ],
-          "score": "1–3",
-          "winner": 1,
+          "score": "",
+          "winner": null,
           "info": {
-            "date": "07.06. - 17:00",
-            "table": "5",
+            "date": "",
+            "table": "",
             "notes": ""
           }
         },
@@ -543,19 +543,19 @@
           "matchIndex": 10,
           "players": [
             {
-              "name": "Ивановская область",
-              "country": "iva"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Омская область",
-              "country": "oms"
+              "name": "",
+              "country": "ru"
             }
           ],
-          "score": "3–1",
-          "winner": 0,
+          "score": "",
+          "winner": null,
           "info": {
-            "date": "07.06. - 17:00",
-            "table": "6",
+            "date": "",
+            "table": "",
             "notes": ""
           }
         },
@@ -564,16 +564,16 @@
           "matchIndex": 11,
           "players": [
             {
-              "name": "Х",
-              "country": ""
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Свердловская область",
-              "country": "sve"
+              "name": "",
+              "country": "ru"
             }
           ],
           "score": "",
-          "winner": 1,
+          "winner": null,
           "info": {
             "date": "",
             "table": "",
@@ -585,16 +585,16 @@
           "matchIndex": 12,
           "players": [
             {
-              "name": "Республика Башкортостан",
-              "country": "bash"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Х",
-              "country": ""
+              "name": "",
+              "country": "ru"
             }
           ],
           "score": "",
-          "winner": 0,
+          "winner": null,
           "info": {
             "date": "",
             "table": "",
@@ -606,19 +606,19 @@
           "matchIndex": 13,
           "players": [
             {
-              "name": "Тамбовская область",
-              "country": "tam"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Пензенская область",
-              "country": "pnz"
+              "name": "",
+              "country": "ru"
             }
           ],
           "score": "",
           "winner": null,
           "info": {
-            "date": "07.06. - 17:00",
-            "table": "7",
+            "date": "",
+            "table": "",
             "notes": ""
           }
         },
@@ -627,19 +627,19 @@
           "matchIndex": 14,
           "players": [
             {
-              "name": "Тверская область",
-              "country": "tvobl"
+              "name": "",
+              "country": "ru"
             },
             {
-              "name": "Саратовская область",
-              "country": "sar"
+              "name": "",
+              "country": "ru"
             }
           ],
-          "score": "3–0",
-          "winner": 0,
+          "score": "",
+          "winner": null,
           "info": {
-            "date": "07.06. - 17:00",
-            "table": "8",
+            "date": "",
+            "table": "",
             "notes": ""
           }
         },
@@ -648,130 +648,12 @@
           "matchIndex": 15,
           "players": [
             {
-              "name": "Х",
-              "country": ""
-            },
-            {
-              "name": "Краснодарский край",
-              "country": "kras"
-            }
-          ],
-          "score": "",
-          "winner": 1,
-          "info": {
-            "date": "",
-            "table": "",
-            "notes": ""
-          }
-        }
-      ]
-    ]
-  },
-  {
-    "name": "Второй финал",
-    "playerCount": 16,
-    "type": "single",
-    "rounds": [
-      [
-        {
-          "round": 0,
-          "matchIndex": 0,
-          "players": [
-            {
-              "name": "Чувашская Республика",
-              "country": "chv"
-            },
-            {
-              "name": "Нижегородская область",
-              "country": "nin"
-            }
-          ],
-          "score": "",
-          "winner": 0,
-          "info": {
-            "date": "",
-            "table": "",
-            "notes": ""
-          }
-        }
-      ],
-      [
-        {
-          "round": 1,
-          "matchIndex": 0,
-          "players": [
-            {
-              "name": "Чувашская Республика",
-              "country": "chv"
+              "name": "",
+              "country": "ru"
             },
             {
               "name": "",
-              "country": ""
-            }
-          ],
-          "score": "",
-          "winner": 0,
-          "info": {
-            "date": "",
-            "table": "",
-            "notes": ""
-          }
-        },
-        {
-          "round": 1,
-          "matchIndex": 1,
-          "players": [
-            {
-              "name": "Нижегородская область",
-              "country": "nin"
-            },
-            {
-              "name": "Смоленская область",
-              "country": "smo"
-            }
-          ],
-          "score": "",
-          "winner": 0,
-          "info": {
-            "date": "",
-            "table": "",
-            "notes": ""
-          }
-        }
-      ],
-      [
-        {
-          "round": 2,
-          "matchIndex": 0,
-          "players": [
-            {
-              "name": "Чувашская Республика",
-              "country": "chv"
-            },
-            {
-              "name": "Ульяновская область",
-              "country": "uly"
-            }
-          ],
-          "score": "",
-          "winner": 0,
-          "info": {
-            "date": "",
-            "table": "",
-            "notes": ""
-          }
-        },
-        {
-          "round": 2,
-          "matchIndex": 1,
-          "players": [
-            {
-              "name": "Республика Калмыкия",
-              "country": "klm"
-            },
-            {
-              "name": "Орловская область",
-              "country": "orl"
+              "country": "ru"
             }
           ],
           "score": "",
@@ -779,218 +661,6 @@
           "info": {
             "date": "",
             "table": "",
-            "notes": ""
-          }
-        },
-        {
-          "round": 2,
-          "matchIndex": 2,
-          "players": [
-            {
-              "name": "Нижегородская область",
-              "country": "nin"
-            },
-            {
-              "name": "",
-              "country": ""
-            }
-          ],
-          "score": "",
-          "winner": 0,
-          "info": {
-            "date": "",
-            "table": "",
-            "notes": ""
-          }
-        },
-        {
-          "round": 2,
-          "matchIndex": 3,
-          "players": [
-            {
-              "name": "Мурманская область",
-              "country": "mur"
-            },
-            {
-              "name": "Смоленская область",
-              "country": "smo"
-            }
-          ],
-          "score": "",
-          "winner": 1,
-          "info": {
-            "date": "",
-            "table": "",
-            "notes": ""
-          }
-        }
-      ],
-      [
-        {
-          "round": 3,
-          "matchIndex": 0,
-          "players": [
-            {
-              "name": "Чувашская Республика",
-              "country": "chv"
-            },
-            {
-              "name": "Респулика Татарстан",
-              "country": "tat"
-            }
-          ],
-          "score": "3–0",
-          "winner": 0,
-          "info": {
-            "date": "07.06. - 17:00",
-            "table": "9",
-            "notes": ""
-          }
-        },
-        {
-          "round": 3,
-          "matchIndex": 1,
-          "players": [
-            {
-              "name": "Донецкая Народая Республика",
-              "country": "dnr"
-            },
-            {
-              "name": "Ульяновская область",
-              "country": "uly"
-            }
-          ],
-          "score": "0–3",
-          "winner": 1,
-          "info": {
-            "date": "07.06. - 17:00",
-            "table": "10",
-            "notes": "1/8 финала"
-          }
-        },
-        {
-          "round": 3,
-          "matchIndex": 2,
-          "players": [
-            {
-              "name": "Республика Карелия",
-              "country": "krl"
-            },
-            {
-              "name": "Республика Калмыкия",
-              "country": "klm"
-            }
-          ],
-          "score": "0–3",
-          "winner": 1,
-          "info": {
-            "date": "07.06. - 17:00",
-            "table": "11",
-            "notes": ""
-          }
-        },
-        {
-          "round": 3,
-          "matchIndex": 3,
-          "players": [
-            {
-              "name": "Рязанская область",
-              "country": "rya"
-            },
-            {
-              "name": "Орловская область",
-              "country": "orl"
-            }
-          ],
-          "score": "0–3",
-          "winner": 1,
-          "info": {
-            "date": "07.06. - 17:00",
-            "table": "12",
-            "notes": ""
-          }
-        },
-        {
-          "round": 3,
-          "matchIndex": 4,
-          "players": [
-            {
-              "name": "Нижегородская область",
-              "country": "nin"
-            },
-            {
-              "name": "Владимирская область",
-              "country": "vla"
-            }
-          ],
-          "score": "3–1",
-          "winner": 0,
-          "info": {
-            "date": "07.06. - 17:00",
-            "table": "13",
-            "notes": ""
-          }
-        },
-        {
-          "round": 3,
-          "matchIndex": 5,
-          "players": [
-            {
-              "name": "Курская область",
-              "country": "kurs"
-            },
-            {
-              "name": "Ярославская область",
-              "country": "yar"
-            }
-          ],
-          "score": "",
-          "winner": null,
-          "info": {
-            "date": "07.06. - 17:00",
-            "table": "14",
-            "notes": ""
-          }
-        },
-        {
-          "round": 3,
-          "matchIndex": 6,
-          "players": [
-            {
-              "name": "Мурманская область",
-              "country": "mur"
-            },
-            {
-              "name": "Ханты-Мансийский АО",
-              "country": "hmao"
-            }
-          ],
-          "score": "3–1",
-          "winner": 0,
-          "info": {
-            "date": "07.06. - 17:00",
-            "table": "15",
-            "notes": ""
-          }
-        },
-        {
-          "round": 3,
-          "matchIndex": 7,
-          "players": [
-            {
-              "name": "Волгоградская область",
-              "country": "vlg"
-            },
-            {
-              "name": "Смоленская область",
-              "country": "smo"
-            }
-          ],
-          "score": "2–3",
-          "winner": 1,
-          "info": {
-            "date": "07.06. - 17:00",
-            "table": "16",
             "notes": ""
           }
         }

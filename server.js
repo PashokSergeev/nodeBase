@@ -34,7 +34,7 @@ app.post('/api/schedule', (req, res) => {
 });
 
 
-//СЕТКА ТУРНИРА
+//СЕТКА ТУРНИРА1
 const NET_INFO_FILE = path.join(__dirname, 'net_info.json');
 
 app.get('/api/net-info', (req, res) => {
@@ -51,7 +51,7 @@ app.post('/api/net-info', (req, res) => {
     });
 });
 
-//СЕТКА ТУРНИРА
+//СЕТКА ТУРНИРА2
 const NET_INFO_FILE2 = path.join(__dirname, 'net_info2.json');
 
 app.get('/api/net-info2', (req, res) => {
@@ -63,6 +63,40 @@ app.get('/api/net-info2', (req, res) => {
 
 app.post('/api/net-info2', (req, res) => {
     fs.writeFile(NET_INFO_FILE2, JSON.stringify(req.body, null, 2), err => {
+        if (err) return res.status(500).send('Error saving schedule');
+        res.sendStatus(200);
+    });
+});
+
+//СЕТКА ТУРНИРА3
+const NET_INFO_FILE3 = path.join(__dirname, 'net_info3.json');
+
+app.get('/api/net-info3', (req, res) => {
+    fs.readFile(NET_INFO_FILE3, 'utf8', (err, data) => {
+        if (err) return res.status(500).send('Error reading schedule');
+        res.json(JSON.parse(data));
+    });
+});
+
+app.post('/api/net-info3', (req, res) => {
+    fs.writeFile(NET_INFO_FILE3, JSON.stringify(req.body, null, 2), err => {
+        if (err) return res.status(500).send('Error saving schedule');
+        res.sendStatus(200);
+    });
+});
+
+//СЕТКА ТУРНИРА4
+const NET_INFO_FILE4 = path.join(__dirname, 'net_info4.json');
+
+app.get('/api/net-info4', (req, res) => {
+    fs.readFile(NET_INFO_FILE4, 'utf8', (err, data) => {
+        if (err) return res.status(500).send('Error reading schedule');
+        res.json(JSON.parse(data));
+    });
+});
+
+app.post('/api/net-info4', (req, res) => {
+    fs.writeFile(NET_INFO_FILE4, JSON.stringify(req.body, null, 2), err => {
         if (err) return res.status(500).send('Error saving schedule');
         res.sendStatus(200);
     });

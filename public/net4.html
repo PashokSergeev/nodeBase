@@ -1,0 +1,2320 @@
+<html lang="ru"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система управления турниром по настольному теннису</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: rgba(13, 25, 42, 0.7); /* Semi-transparent background */
+            /*background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjMGQxOTJhIj48L3JlY3Q+CjxwYXRoIGQ9Ik0wIDVMNSAwWk02IDRMNCA2Wk0tMSAxTDEgLTFaIiBzdHJva2U9IiMxMTIyMzMiIHN0cm9rZS13aWR0aD0iMSI+PC9wYXRoPgo8L3N2Zz4=');*/
+            color: #1a202c; /* Dark text for light background */
+        }
+        body::-webkit-scrollbar {
+            width: 0;
+        }
+        .bg-picture{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image: url("/images/bg-image.png");
+            /*background-repeat: no-repeat;*/
+            background-position: center;
+            z-index: -1;
+            opacity: 0.25;
+            transform: rotate(-10deg);
+        }
+        .admin-panel {
+            display: none;
+        }
+        .match-result-cell {
+            width: 40px;
+            height: 40px;
+        }
+        .match-result-input {
+            width: 40px;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        .chess-grid td {
+            border: 1px solid #cbd5e0;
+            text-align: center;
+            vertical-align: middle;
+            min-width: 40px;
+            height: 40px;
+        }
+        .chess-grid th {
+            padding: 8px 4px;
+            text-align: center;
+        }
+        .chess-grid .diagonal {
+            background-color: #e2e8f0;
+        }
+        .stats-input {
+            width: 50px;
+            text-align: center;
+        }
+        .player-info {
+            min-width: 180px;
+        }
+        .flag {
+            display: inline-block;
+            width: 20px;
+            height: 15px;
+            margin-right: 5px;
+            vertical-align: middle;
+            background-size: cover;
+            background-position: center;
+        }
+        .admin-only {
+            display: none;
+        }
+        .admin-mode .admin-only {
+            display: block;
+        }
+        .admin-mode .admin-only-inline {
+            display: inline-block;
+        }
+        .admin-mode .admin-only-cell {
+            display: table-cell;
+        }
+        .edit-player-modal, .logo-upload-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .edit-player-modal.active, .logo-upload-modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid #e2e8f0;
+            color: #1a202c;
+        }
+        .page-content {
+            position: relative;
+            overflow: hidden;
+            min-height: calc(100vh - 120px);
+        }
+        .scrollable-page-content {
+            transition: transform 1s ease-in-out;
+            padding-top: 30px; /* Space at the top for scrolling */
+        }
+        .player-input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .tournament-header {
+            font-family: "Oswald", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+            background: linear-gradient(90deg, #002F6C 0%, #C8102E 100%);
+            /*background: linear-gradient(90deg, #003366 0%, #FFFFFF 100%);*/
+            /*background: linear-gradient(90deg, #1A1F71 0%, #808080 100%);*/
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            min-height: 150px;
+            border-radius: 0 0 30px 30px;
+        }
+        .logo-container {
+            width: 350px;
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .group-header {
+            background: linear-gradient(90deg, #3182ce 0%, #63b3ed 100%);
+            position: relative;
+            overflow: hidden;
+            font-family: "Oswald", sans-serif;
+            font-optical-sizing: auto;
+            text-transform: uppercase;
+        }
+        /* Animated gradient background for group headers */
+        .group-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg,
+            #003366 0%,
+            #D4D4D4 50%,
+            #003366 100%);
+            background-size: 200% 100%;
+            animation: gradientAnimation 8s linear infinite;
+            z-index: 0;
+        }
+        .group-header > * {
+            position: relative;
+            z-index: 1;
+        }
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        .player-number {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            background-color: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            margin-right: 8px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .admin-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: auto;
+            height: auto;
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            z-index: 1000;
+            opacity: 0;
+        }
+        body:hover .admin-toggle {
+            opacity: 0.3;
+        }
+
+        body:hover .admin-toggle:hover {
+            opacity: 1;
+        }
+        .chess-grid {
+            background-color: #ffffff; /* Light background for tables */
+            color: #1a202c;
+        }
+        .main-container {
+            max-width: 1920px; /* Max width 1920px */
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
+        }
+        .file-upload-container {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .file-upload-container input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .file-upload-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #4299e1;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .logo-upload-btn {
+            cursor: pointer;
+            color: #3182ce;
+            text-decoration: underline;
+        }
+        .scroll-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            display: none;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .scrolling .scroll-indicator {
+            display: block;
+        }
+        .scroll-indicator.visible {
+            opacity: 1;
+        }
+        .group-card {
+            margin-bottom: 20px;
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+        /* Enhanced gradient border highlight for active group */
+        .group-card.active {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            animation: pulse 2s infinite;
+            margin-left: 6px;
+            margin-right: 6px;
+        }
+
+        .group-card.active .group-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /*background: linear-gradient(90deg,*/
+            /*#002F6C 0%,*/
+            /*#62204E 20%,*/
+            /*#62204E 40%,*/
+            /*#C8102E 60%,*/
+            /*#C8102E 80%,*/
+            /*#002F6C 100%);*/
+
+            background: linear-gradient(90deg,
+                #002F6C 0%,
+                #C8102E 50%,
+                #002F6C 100%);
+            background-size: 200% 100%;
+            animation: gradientAnimation 8s linear infinite;
+            z-index: 0;
+
+            }
+
+            @keyframes pulse {
+                0% {
+                    box-shadow: 0 0 0 0 rgba(200, 16, 46, 0.7);
+                }
+                70% {
+                    box-shadow: 0 0 0 20px rgb(200, 16, 46, 0);
+                }
+                100% {
+                    box-shadow: 0 0 0 10px rgb(200, 16, 46, 0);
+                }
+            }
+            @keyframes gradientBorder {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+            /* Row animation for active group */
+        .group-card.active tr {
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        .group-card.active tr.highlight-row {
+            transform: translateX(5px);
+            background-color: rgba(237, 242, 247, 0.7);
+        }
+        .group-card.full-width {
+            grid-column: 1 / -1;
+        }
+        /* Background panel behind groups */
+        .groups-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 21, 57, 0.82);
+            border-radius: 1rem;
+            z-index: 0;
+            margin: 10px 0;
+        }
+        /* Page controls with auto-hide functionality */
+        .page-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .page-controls.visible {
+            opacity: 1;
+        }
+        .page-controls button {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .page-controls button:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+            transform: translateY(-2px);
+        }
+        .page-controls button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        /* Position colors */
+        .position-1 {
+            color: #e3a008; /* Gold */
+            font-weight: bold;
+        }
+        .position-2 {
+            color: #718096; /* Silver */
+            font-weight: bold;
+        }
+        .position-3 {
+            color: #c05621; /* Bronze */
+            font-weight: bold;
+        }
+        /* Player name colors based on position */
+        .player-position-1 .player-name {
+            color: #e3a008; /* Gold */
+            font-weight: bold;
+        }
+        .player-position-2 .player-name {
+            color: #718096; /* Silver */
+            font-weight: bold;
+        }
+        .player-position-3 .player-name {
+            color: #c05621; /* Bronze */
+            font-weight: bold;
+        }
+        @media (max-width: 640px) {
+            .player-input-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.relative{position:relative}.z-10{z-index:10}.col-span-1{grid-column:span 1 / span 1}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:0.25rem}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.ml-2{margin-left:0.5rem}.mt-2{margin-top:0.5rem}.mt-4{margin-top:1rem}.block{display:block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.max-h-40{max-height:10rem}.min-h-screen{min-height:100vh}.w-full{width:100%}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-end{justify-content:flex-end}.justify-between{justify-content:space-between}.gap-4{gap:1rem}.gap-8{gap:2rem}.gap-2{gap:0.5rem}.space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-6 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.rounded{border-radius:0.25rem}.rounded-lg{border-radius:0.5rem}.border{border-width:1px}.border-gray-200{--tw-border-opacity:1;border-color:rgb(229 231 235 / var(--tw-border-opacity, 1))}.border-gray-300{--tw-border-opacity:1;border-color:rgb(209 213 219 / var(--tw-border-opacity, 1))}.bg-blue-500{--tw-bg-opacity:1;background-color:rgb(59 130 246 / var(--tw-bg-opacity, 1))}.bg-blue-600{--tw-bg-opacity:1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.bg-gray-100{--tw-bg-opacity:1;background-color:rgb(243 244 246 / var(--tw-bg-opacity, 1))}.bg-gray-500{--tw-bg-opacity:1;background-color:rgb(107 114 128 / var(--tw-bg-opacity, 1))}.bg-green-600{--tw-bg-opacity:1;background-color:rgb(22 163 74 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.p-4{padding:1rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-6{padding-top:1.5rem;padding-bottom:1.5rem}.pt-3{padding-top:0.75rem}.text-center{text-align:center}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.text-gray-700{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity, 1))}.text-gray-800{--tw-text-opacity:1;color:rgb(31 41 55 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-md{--tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.hover\:bg-blue-600:hover{--tw-bg-opacity:1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.hover\:bg-blue-700:hover{--tw-bg-opacity:1;background-color:rgb(29 78 216 / var(--tw-bg-opacity, 1))}.hover\:bg-gray-600:hover{--tw-bg-opacity:1;background-color:rgb(75 85 99 / var(--tw-bg-opacity, 1))}.hover\:bg-green-700:hover{--tw-bg-opacity:1;background-color:rgb(21 128 61 / var(--tw-bg-opacity, 1))}@media (min-width: 1024px){.lg\:col-span-2{grid-column:span 2 / span 2}.lg\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}</style></head>
+<body>
+<!-- Background elements -->
+<div class="bg-picture"></div>
+
+<div class="min-h-screen main-container">
+    <!-- Header -->
+    <header class="tournament-header text-white shadow-lg">
+        <div class="container mx-auto py-8 flex justify-between items-center gap-16">
+            <div class="logo-container">
+                <img id="leftLogo" class="logo-img" src="images/ttfr_logo_new_03.png" alt="Left Logo">
+            </div>
+            <h1 id="tournamentTitle" class="text-3xl font-bold text-center ">Турнир по настольному теннису</h1>
+            <div class="logo-container">
+                <img id="rightLogo" class="logo-img" src="images/ttfr_logo_new_05.png" alt="Right Logo">
+            </div>
+        </div>
+    </header>
+
+    <!-- Hidden Admin Toggle Button -->
+    <button id="toggleAdminBtn" class="admin-toggle"> Админ панель</button>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel bg-white shadow-md p-4 mb-6 border border-gray-200">
+        <div class="container mx-auto">
+            <h2 class="text-xl font-bold mb-4 text-gray-800">Панель администратора</h2>
+
+            <div class="space-y-6">
+                <!-- Tournament Title Editor -->
+                <div class="bg-gray-100 p-4 rounded-lg border border-gray-300">
+                    <h3 class="font-bold mb-2 text-gray-800">Настройки турнира</h3>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Заголовок турнира</label>
+                        <input type="text" id="tournamentTitleInput" class="border border-gray-300 bg-white text-gray-800 rounded px-3 py-2 w-full" value="Турнир по настольному теннису">
+                        <div class="mt-2 flex justify-end">
+                            <button id="updateTitleBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                                Обновить заголовок
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Create Group Form -->
+                <div class="bg-gray-100 p-4 rounded-lg border border-gray-300">
+                    <h3 class="font-bold mb-2 text-gray-800">Создать новую группу</h3>
+                    <div class="flex">
+                        <button id="createGroupBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded w-full shadow-sm">
+                            Создать новую группу
+                        </button>
+                        <button class="delete-all-group-btn admin-only bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-sm">
+                            Удалить все группы
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Add Players Form -->
+                <div class="bg-gray-100 p-4 rounded-lg border border-gray-300">
+                    <h3 class="font-bold mb-2 text-gray-800">Добавить игроков</h3>
+                    <div class="mb-2">
+                        <select id="groupSelect" class="border border-gray-300 bg-white text-gray-800 rounded px-3 py-2 w-full">
+                            <option value="">Выберите группу</option>
+                        </select>
+                    </div>
+                    <div id="playersInputContainer" class="player-input-grid">
+                        <!-- Player input rows will be added here -->
+                        <div class="player-input-row">
+                            <div class="space-y-2">
+                                <div class="flex items-center">
+                                    <span class="player-number">1</span>
+                                    <input type="text" placeholder="ФИО игрока" class="player-name border border-gray-300 bg-white text-gray-800 rounded px-3 py-2 w-full">
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <input type="number" placeholder="Рейтинг" class="player-rating border border-gray-300 bg-white text-gray-800 rounded px-3 py-2">
+                                    <select class="player-region border border-gray-300 bg-white text-gray-800 rounded px-3 py-2">
+                                        <option value="">Выберите регион</option>
+                                        <option value="ady">Адыгея</option>
+                                        <option value="alt">Алтай</option>
+                                        <option value="bash">Башкортостан</option>
+                                        <option value="bury">Бурятия</option>
+                                        <option value="dnr">Донецкая народная республика ДНР</option>
+                                        <option value="dag">Дагестан</option>
+                                        <option value="ing">Ингушетия</option>
+                                        <option value="kb">Кабардино-Балкария</option>
+                                        <option value="klm">Калмыкия</option>
+                                        <option value="kar">Карачаево-Черкесия</option>
+                                        <option value="krl">Карелия</option>
+                                        <option value="kom">Коми</option>
+                                        <option value="cr">Крым</option>
+                                        <option value="lnr">Луганская народная республика</option>
+                                        <option value="mr">Марий Эл</option>
+                                        <option value="mrd">Мордовия</option>
+                                        <option value="sak">Саха (Якутия)</option>
+                                        <option value="alv">Северная Осетия — Алания</option>
+                                        <option value="tat">Татарстан</option>
+                                        <option value="tuv">Тыва</option>
+                                        <option value="udm">Удмуртия</option>
+                                        <option value="khk">Хакасия</option>
+                                        <option value="che">Чечня</option>
+                                        <option value="chv">Чувашия</option>
+
+                                        <option value="altk">Алтайский край</option>
+                                        <option value="zbk">Забайкальский край</option>
+                                        <option value="kam">Камчатский край</option>
+                                        <option value="kras">Краснодарский край</option>
+                                        <option value="krd">Красноярский край</option>
+                                        <option value="per">Пермский край</option>
+                                        <option value="pri">Приморский край</option>
+                                        <option value="sta">Ставропольский край</option>
+                                        <option value="hab">Хабаровский край</option>
+
+                                        <option value="amur">Амурская область</option>
+                                        <option value="arh">Архангельская область</option>
+                                        <option value="ast">Астраханская область</option>
+                                        <option value="bel">Белгородская область</option>
+                                        <option value="bry">Брянская область</option>
+                                        <option value="vla">Владимирская область</option>
+                                        <option value="vlg">Волгоградская область</option>
+                                        <option value="vls">Вологодская область</option>
+                                        <option value="vrn">Воронежская область</option>
+                                        <option value="zpo">Запорожская область</option>
+                                        <option value="iva">Ивановская область</option>
+                                        <option value="irk">Иркутская область</option>
+                                        <option value="klg">Калининградская область</option>
+                                        <option value="klz">Калужская область</option>
+                                        <option value="kem">Кемеровская область</option>
+                                        <option value="kir">Кировская область</option>
+                                        <option value="kos">Костромская область</option>
+                                        <option value="kur">Курганская область</option>
+                                        <option value="kurs">Курская область</option>
+                                        <option value="len">Ленинградская область</option>
+                                        <option value="lip">Липецкая область</option>
+                                        <option value="mag">Магаданская область</option>
+                                        <option value="mos">Московская область</option>
+                                        <option value="mur">Мурманская область</option>
+                                        <option value="nin">Нижегородская область</option>
+                                        <option value="nov">Новгородская область</option>
+                                        <option value="nvs">Новосибирская область</option>
+                                        <option value="oms">Омская область</option>
+                                        <option value="oren">Оренбургская область</option>
+                                        <option value="orl">Орловская область</option>
+                                        <option value="pnz">Пензенская область</option>
+                                        <option value="psk">Псковская область</option>
+                                        <option value="ros">Ростовская область</option>
+                                        <option value="rya">Рязанская область</option>
+                                        <option value="sam">Самарская область</option>
+                                        <option value="sar">Саратовская область</option>
+                                        <option value="sah">Сахалинская область</option>
+                                        <option value="sve">Свердловская область</option>
+                                        <option value="smo">Смоленская область</option>
+                                        <option value="tam">Тамбовская область</option>
+                                        <option value="tom">Томская область</option>
+                                        <option value="tvobl">Тверская область</option>
+                                        <option value="tul">Тульская область</option>
+                                        <option value="tyu">Тюменская область</option>
+                                        <option value="uly">Ульяновская область</option>
+                                        <option value="xobl">Херсонская область</option>
+                                        <option value="cheb">Челябинская область</option>
+                                        <option value="yar">Ярославская область</option>
+
+                                        <option value="msk">Москва</option>
+                                        <option value="spb">Санкт-Петербург</option>
+                                        <option value="sev">Севастополь</option>
+
+                                        <option value="evao">Еврейская АО</option>
+                                        <option value="nao">Ненецкий АО</option>
+                                        <option value="hmao">Ханты-Мансийский АО</option>
+                                        <option value="chao">Чукотский АО</option>
+                                        <option value="yamalo">Ямало-Ненецкий АО</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div><div class="player-input-row">
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <span class="player-number">2</span>
+                                <input type="text" placeholder="ФИО игрока" class="player-name border border-gray-300 bg-white text-gray-800 rounded px-3 py-2 w-full">
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="number" placeholder="Рейтинг" class="player-rating border border-gray-300 bg-white text-gray-800 rounded px-3 py-2">
+                                <select class="player-region border border-gray-300 bg-white text-gray-800 rounded px-3 py-2">
+                                    <option value="">Выберите регион</option>
+                                    <option value="ady">Адыгея</option>
+                                    <option value="alt">Алтай</option>
+                                    <option value="bash">Башкортостан</option>
+                                    <option value="bury">Бурятия</option>
+                                    <option value="dnr">Донецкая народная республика ДНР</option>
+                                    <option value="dag">Дагестан</option>
+                                    <option value="ing">Ингушетия</option>
+                                    <option value="kb">Кабардино-Балкария</option>
+                                    <option value="klm">Калмыкия</option>
+                                    <option value="kar">Карачаево-Черкесия</option>
+                                    <option value="krl">Карелия</option>
+                                    <option value="kom">Коми</option>
+                                    <option value="cr">Крым</option>
+                                    <option value="lnr">Луганская народная республика</option>
+                                    <option value="mr">Марий Эл</option>
+                                    <option value="mrd">Мордовия</option>
+                                    <option value="sak">Саха (Якутия)</option>
+                                    <option value="alv">Северная Осетия — Алания</option>
+                                    <option value="tat">Татарстан</option>
+                                    <option value="tuv">Тыва</option>
+                                    <option value="udm">Удмуртия</option>
+                                    <option value="khk">Хакасия</option>
+                                    <option value="che">Чечня</option>
+                                    <option value="chv">Чувашия</option>
+
+                                    <option value="altk">Алтайский край</option>
+                                    <option value="zbk">Забайкальский край</option>
+                                    <option value="kam">Камчатский край</option>
+                                    <option value="kras">Краснодарский край</option>
+                                    <option value="krd">Красноярский край</option>
+                                    <option value="per">Пермский край</option>
+                                    <option value="pri">Приморский край</option>
+                                    <option value="sta">Ставропольский край</option>
+                                    <option value="hab">Хабаровский край</option>
+
+                                    <option value="amur">Амурская область</option>
+                                    <option value="arh">Архангельская область</option>
+                                    <option value="ast">Астраханская область</option>
+                                    <option value="bel">Белгородская область</option>
+                                    <option value="bry">Брянская область</option>
+                                    <option value="vla">Владимирская область</option>
+                                    <option value="vlg">Волгоградская область</option>
+                                    <option value="vls">Вологодская область</option>
+                                    <option value="vrn">Воронежская область</option>
+                                    <option value="zpo">Запорожская область</option>
+                                    <option value="iva">Ивановская область</option>
+                                    <option value="irk">Иркутская область</option>
+                                    <option value="klg">Калининградская область</option>
+                                    <option value="klz">Калужская область</option>
+                                    <option value="kem">Кемеровская область</option>
+                                    <option value="kir">Кировская область</option>
+                                    <option value="kos">Костромская область</option>
+                                    <option value="kur">Курганская область</option>
+                                    <option value="kurs">Курская область</option>
+                                    <option value="len">Ленинградская область</option>
+                                    <option value="lip">Липецкая область</option>
+                                    <option value="mag">Магаданская область</option>
+                                    <option value="mos">Московская область</option>
+                                    <option value="mur">Мурманская область</option>
+                                    <option value="nin">Нижегородская область</option>
+                                    <option value="nov">Новгородская область</option>
+                                    <option value="nvs">Новосибирская область</option>
+                                    <option value="oms">Омская область</option>
+                                    <option value="oren">Оренбургская область</option>
+                                    <option value="orl">Орловская область</option>
+                                    <option value="pnz">Пензенская область</option>
+                                    <option value="psk">Псковская область</option>
+                                    <option value="ros">Ростовская область</option>
+                                    <option value="rya">Рязанская область</option>
+                                    <option value="sam">Самарская область</option>
+                                    <option value="sar">Саратовская область</option>
+                                    <option value="sah">Сахалинская область</option>
+                                    <option value="sve">Свердловская область</option>
+                                    <option value="smo">Смоленская область</option>
+                                    <option value="tam">Тамбовская область</option>
+                                    <option value="tom">Томская область</option>
+                                    <option value="tvobl">Тверская область</option>
+                                    <option value="tul">Тульская область</option>
+                                    <option value="tyu">Тюменская область</option>
+                                    <option value="uly">Ульяновская область</option>
+                                    <option value="xobl">Херсонская область</option>
+                                    <option value="cheb">Челябинская область</option>
+                                    <option value="yar">Ярославская область</option>
+
+                                    <option value="msk">Москва</option>
+                                    <option value="spb">Санкт-Петербург</option>
+                                    <option value="sev">Севастополь</option>
+
+                                    <option value="evao">Еврейская АО</option>
+                                    <option value="nao">Ненецкий АО</option>
+                                    <option value="hmao">Ханты-Мансийский АО</option>
+                                    <option value="chao">Чукотский АО</option>
+                                    <option value="yamalo">Ямало-Ненецкий АО</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div></div>
+                    <div class="flex flex-col space-y-2 mt-4">
+                        <button id="addPlayerRowBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow-sm">
+                            + Добавить еще игрока
+                        </button>
+                        <button id="addPlayersBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow-sm">
+                            Добавить игроков
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-6">
+        <div class="page-content" id="pageContent">
+            <!-- Background panel behind groups -->
+            <div class="groups-background"></div>
+
+            <div class="scrollable-page-content" id="scrollablePageContent">
+                <div id="groupsContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
+                    <div class="text-center text-white py-10 col-span-1 lg:col-span-2">
+                        Нет созданных групп. Используйте панель администратора для создания групп и добавления игроков.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Controls (visible only in viewer mode) -->
+        <div class="page-controls" id="pageControls" style="display: none;">
+            <button id="prevGroupBtn" disabled="">← Предыдущая</button>
+            <button id="pauseScrollBtn">Пауза</button>
+            <button id="nextGroupBtn">Следующая →</button>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator" id="scrollIndicator" style="display: none;">Группа <span id="currentGroupNum">1</span> из <span id="totalGroupsNum">0</span></div>
+    </main>
+
+    <!-- Edit Player Modal -->
+    <div id="editPlayerModal" class="edit-player-modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold mb-4 text-gray-800">Редактировать данные игрока</h3>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">ФИО игрока</label>
+                    <input type="text" id="editPlayerName" class="border border-gray-300 bg-white text-gray-800 rounded px-3 py-2 w-full">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Рейтинг</label>
+                    <input type="number" id="editPlayerRating" class="border border-gray-300 bg-white text-gray-800 rounded px-3 py-2 w-full">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Регион</label>
+                    <select id="editPlayerRegion" class="border border-gray-300 bg-white text-gray-800 rounded px-3 py-2 w-full">
+                        <option value="ady">Адыгея</option>
+                        <option value="alt">Алтай</option>
+                        <option value="bash">Башкортостан</option>
+                        <option value="bury">Бурятия</option>
+                        <option value="dnr">Донецкая народная республика ДНР</option>
+                        <option value="dag">Дагестан</option>
+                        <option value="ing">Ингушетия</option>
+                        <option value="kb">Кабардино-Балкария</option>
+                        <option value="klm">Калмыкия</option>
+                        <option value="kar">Карачаево-Черкесия</option>
+                        <option value="krl">Карелия</option>
+                        <option value="kom">Коми</option>
+                        <option value="cr">Крым</option>
+                        <option value="lnr">Луганская народная республика</option>
+                        <option value="mr">Марий Эл</option>
+                        <option value="mrd">Мордовия</option>
+                        <option value="sak">Саха (Якутия)</option>
+                        <option value="alv">Северная Осетия — Алания</option>
+                        <option value="tat">Татарстан</option>
+                        <option value="tuv">Тыва</option>
+                        <option value="udm">Удмуртия</option>
+                        <option value="khk">Хакасия</option>
+                        <option value="che">Чечня</option>
+                        <option value="chv">Чувашия</option>
+
+                        <option value="altk">Алтайский край</option>
+                        <option value="zbk">Забайкальский край</option>
+                        <option value="kam">Камчатский край</option>
+                        <option value="kras">Краснодарский край</option>
+                        <option value="krd">Красноярский край</option>
+                        <option value="per">Пермский край</option>
+                        <option value="pri">Приморский край</option>
+                        <option value="sta">Ставропольский край</option>
+                        <option value="hab">Хабаровский край</option>
+
+                        <option value="amur">Амурская область</option>
+                        <option value="arh">Архангельская область</option>
+                        <option value="ast">Астраханская область</option>
+                        <option value="bel">Белгородская область</option>
+                        <option value="bry">Брянская область</option>
+                        <option value="vla">Владимирская область</option>
+                        <option value="vlg">Волгоградская область</option>
+                        <option value="vls">Вологодская область</option>
+                        <option value="vrn">Воронежская область</option>
+                        <option value="zpo">Запорожская область</option>
+                        <option value="iva">Ивановская область</option>
+                        <option value="irk">Иркутская область</option>
+                        <option value="klg">Калининградская область</option>
+                        <option value="klz">Калужская область</option>
+                        <option value="kem">Кемеровская область</option>
+                        <option value="kir">Кировская область</option>
+                        <option value="kos">Костромская область</option>
+                        <option value="kur">Курганская область</option>
+                        <option value="kurs">Курская область</option>
+                        <option value="len">Ленинградская область</option>
+                        <option value="lip">Липецкая область</option>
+                        <option value="mag">Магаданская область</option>
+                        <option value="mos">Московская область</option>
+                        <option value="mur">Мурманская область</option>
+                        <option value="nin">Нижегородская область</option>
+                        <option value="nov">Новгородская область</option>
+                        <option value="nvs">Новосибирская область</option>
+                        <option value="oms">Омская область</option>
+                        <option value="oren">Оренбургская область</option>
+                        <option value="orl">Орловская область</option>
+                        <option value="pnz">Пензенская область</option>
+                        <option value="psk">Псковская область</option>
+                        <option value="ros">Ростовская область</option>
+                        <option value="rya">Рязанская область</option>
+                        <option value="sam">Самарская область</option>
+                        <option value="sar">Саратовская область</option>
+                        <option value="sah">Сахалинская область</option>
+                        <option value="sve">Свердловская область</option>
+                        <option value="smo">Смоленская область</option>
+                        <option value="tam">Тамбовская область</option>
+                        <option value="tom">Томская область</option>
+                        <option value="tvobl">Тверская область</option>
+                        <option value="tul">Тульская область</option>
+                        <option value="tyu">Тюменская область</option>
+                        <option value="uly">Ульяновская область</option>
+                        <option value="xobl">Херсонская область</option>
+                        <option value="cheb">Челябинская область</option>
+                        <option value="yar">Ярославская область</option>
+
+                        <option value="msk">Москва</option>
+                        <option value="spb">Санкт-Петербург</option>
+                        <option value="sev">Севастополь</option>
+
+                        <option value="evao">Еврейская АО</option>
+                        <option value="nao">Ненецкий АО</option>
+                        <option value="hmao">Ханты-Мансийский АО</option>
+                        <option value="chao">Чукотский АО</option>
+                        <option value="yamalo">Ямало-Ненецкий АО</option>
+                    </select>
+                </div>
+                <div class="flex justify-end space-x-2 pt-3">
+                    <button id="cancelEditBtn" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+                        Отмена
+                    </button>
+                    <button id="savePlayerBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                        Сохранить
+                    </button>
+                </div>
+            </div>
+            <input type="hidden" id="editPlayerGroupId">
+            <input type="hidden" id="editPlayerId">
+        </div>
+    </div>
+
+    <!-- Logo Upload Modal -->
+    <div id="logoUploadModal" class="logo-upload-modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold mb-4 text-gray-800">Загрузка логотипа</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Выберите изображение</label>
+                    <input type="file" id="logoFileInput" accept="image/*" class="border border-gray-300 bg-white text-gray-800 rounded px-3 py-2 w-full">
+                </div>
+                <div class="mt-4 text-center">
+                    <img id="logoPreview" class="max-h-40 mx-auto hidden" alt="Предпросмотр логотипа">
+                </div>
+                <div class="flex justify-end space-x-2 pt-3">
+                    <button id="cancelLogoUploadBtn" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+                        Отмена
+                    </button>
+                    <button id="confirmLogoUploadBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                        Применить
+                    </button>
+                </div>
+            </div>
+            <input type="hidden" id="logoUploadTarget">
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Data structure
+    let groups = [];
+    let isAdminMode = false;
+    let pageScrollAnimation = null;
+    let rowAnimationInterval = null;
+    let tournamentTitle = "Турнир по настольному теннису";
+    let playerCounter = 1;
+    let apiUrl = '/api/net-info4'; // API endpoint for data storage
+    let currentGroupIndex = 0;
+    let isPaused = false;
+    let controlsVisible = false;
+    let controlsTimeout = null;
+    let currentRowIndex = 0;
+
+    // Regions with flags
+    const regions = [
+        {code: "ady", name: "Республика Адыгея"},
+        {code: "alt", name: "Республика Алтай"},
+        {code: "bash", name: "Республика Башкортостан"},
+        {code: "bury", name: "Республика Бурятия"},
+        {code: "dnr", name: "Республика Донецкая народная республика ДНР"},
+        {code: "dag", name: "Республика Дагестан"},
+        {code: "ing", name: "Республика Ингушетия"},
+        {code: "kb", name: "Республика Кабардино-Балкария"},
+        {code: "klm", name: "Республика Калмыкия"},
+        {code: "kar", name: "Республика Карачаево-Черкесия"},
+        {code: "krl", name: "Республика Карелия"},
+        {code: "kom", name: "Республика Коми"},
+        {code: "cr", name: "Республика Крым"},
+        {code: "lnr", name: "Республика Луганская народная республика"},
+        {code: "mr", name: "Республика Марий Эл"},
+        {code: "mrd", name: "Республика Мордовия"},
+        {code: "sak", name: "Республика Саха (Якутия)"},
+        {code: "alv", name: "Республика Северная Осетия — Алания"},
+        {code: "tat", name: "Республика Татарстан"},
+        {code: "tuv", name: "Республика Тыва"},
+        {code: "udm", name: "Республика Удмуртия"},
+        {code: "khk", name: "Республика Хакасия"},
+        {code: "che", name: "Республика Чечня"},
+        {code: "chv", name: "Республика Чувашия"},
+
+        {code: "altk", name: "Алтайский край"},
+        {code: "zbk", name: "Забайкальский край"},
+        {code: "kam", name: "Камчатский край"},
+        {code: "kras", name: "Краснодарский край"},
+        {code: "krd", name: "Красноярский край"},
+        {code: "per", name: "Пермский край"},
+        {code: "pri", name: "Приморский край"},
+        {code: "sta", name: "Ставропольский край"},
+        {code: "hab", name: "Хабаровский край"},
+
+        {code: "amur", name: "Амурская область"},
+        {code: "arh", name: "Архангельская область"},
+        {code: "ast", name: "Астраханская область"},
+        {code: "bel", name: "Белгородская область"},
+        {code: "bry", name: "Брянская область"},
+        {code: "vla", name: "Владимирская область"},
+        {code: "vlg", name: "Волгоградская область"},
+        {code: "vls", name: "Вологодская область"},
+        {code: "vrn", name: "Воронежская область"},
+        {code: "zpo", name: "Запорожская область"},
+        {code: "iva", name: "Ивановская область"},
+        {code: "irk", name: "Иркутская область"},
+        {code: "klg", name: "Калининградская область"},
+        {code: "klz", name: "Калужская область"},
+        {code: "kem", name: "Кемеровская область"},
+        {code: "kir", name: "Кировская область"},
+        {code: "kos", name: "Костромская область"},
+        {code: "kur", name: "Курганская область"},
+        {code: "kurs", name: "Курская область"},
+        {code: "len", name: "Ленинградская область"},
+        {code: "lip", name: "Липецкая область"},
+        {code: "mag", name: "Магаданская область"},
+        {code: "mos", name: "Московская область"},
+        {code: "mur", name: "Мурманская область"},
+        {code: "nin", name: "Нижегородская область"},
+        {code: "nov", name: "Новгородская область"},
+        {code: "nvs", name: "Новосибирская область"},
+        {code: "oms", name: "Омская область"},
+        {code: "oren", name: "Оренбургская область"},
+        {code: "orl", name: "Орловская область"},
+        {code: "pnz", name: "Пензенская область"},
+        {code: "psk", name: "Псковская область"},
+        {code: "ros", name: "Ростовская область"},
+        {code: "rya", name: "Рязанская область"},
+        {code: "sam", name: "Самарская область"},
+        {code: "sar", name: "Саратовская область"},
+        {code: "sah", name: "Сахалинская область"},
+        {code: "sve", name: "Свердловская область"},
+        {code: "smo", name: "Смоленская область"},
+        {code: "tam", name: "Тамбовская область"},
+        {code: "tom", name: "Томская область"},
+        {code: "tul", name: "Тульская область"},
+        {code: "tvobl", name: "Тверская область"},
+        {code: "tyu", name: "Тюменская область"},
+        {code: "uly", name: "Ульяновская область"},
+        {code: "xobl", name: "Херсонская область"},
+        {code: "cheb", name: "Челябинская область"},
+        {code: "yar", name: "Ярославская область"},
+
+        {code: "msk", name: "Город Москва"},
+        {code: "spb", name: "Город Санкт-Петербург"},
+        {code: "sev", name: "Город Севастополь"},
+
+        {code: "evao", name: "Еврейская автономная область"},
+        {code: "nao", name: "Ненецкий автономный округ"},
+        {code: "hmao", name: "Ханты-Мансийский автономный округ"},
+        {code: "chao", name: "Чукотский автономный округ"},
+        {code: "yamalo", name: "Ямало-Ненецкий автономный округ"}
+    ];
+
+    // DOM Elements
+    const toggleAdminBtn = document.getElementById('toggleAdminBtn');
+    const adminPanel = document.getElementById('adminPanel');
+    const createGroupBtn = document.getElementById('createGroupBtn');
+    const groupSelect = document.getElementById('groupSelect');
+    const addPlayerRowBtn = document.getElementById('addPlayerRowBtn');
+    const addPlayersBtn = document.getElementById('addPlayersBtn');
+    const playersInputContainer = document.getElementById('playersInputContainer');
+    const groupsContainer = document.getElementById('groupsContainer');
+    const body = document.body;
+
+    // Page scrolling elements
+    const pageContent = document.getElementById('pageContent');
+    const scrollablePageContent = document.getElementById('scrollablePageContent');
+    const scrollIndicator = document.getElementById('scrollIndicator');
+    const currentGroupNum = document.getElementById('currentGroupNum');
+    const totalGroupsNum = document.getElementById('totalGroupsNum');
+    const pageControls = document.getElementById('pageControls');
+    const prevGroupBtn = document.getElementById('prevGroupBtn');
+    const nextGroupBtn = document.getElementById('nextGroupBtn');
+    const pauseScrollBtn = document.getElementById('pauseScrollBtn');
+
+    // Tournament title and logo elements
+    const tournamentTitleElement = document.getElementById('tournamentTitle');
+    const tournamentTitleInput = document.getElementById('tournamentTitleInput');
+    const updateTitleBtn = document.getElementById('updateTitleBtn');
+
+
+    // Edit Player Modal Elements
+    const editPlayerModal = document.getElementById('editPlayerModal');
+    const editPlayerName = document.getElementById('editPlayerName');
+    const editPlayerRating = document.getElementById('editPlayerRating');
+    const editPlayerRegion = document.getElementById('editPlayerRegion');
+    const editPlayerGroupId = document.getElementById('editPlayerGroupId');
+    const editPlayerId = document.getElementById('editPlayerId');
+    const cancelEditBtn = document.getElementById('cancelEditBtn');
+    const savePlayerBtn = document.getElementById('savePlayerBtn');
+
+    // Logo Upload Modal Elements
+    const logoUploadModal = document.getElementById('logoUploadModal');
+    const logoFileInput = document.getElementById('logoFileInput');
+    const logoPreview = document.getElementById('logoPreview');
+    const logoUploadTarget = document.getElementById('logoUploadTarget');
+    const cancelLogoUploadBtn = document.getElementById('cancelLogoUploadBtn');
+    const logoUploadBtns = document.querySelectorAll('.logo-upload-btn');
+
+    // Initialize region selects
+    function initializeRegionSelects() {
+        document.querySelectorAll('.player-region').forEach(select => {
+            if (select.options.length <= 1) {
+                regions.forEach(region => {
+                    const option = document.createElement('option');
+                    option.value = region.code;
+                    option.textContent = region.name;
+                    select.appendChild(option);
+                });
+            }
+        });
+
+        // Initialize edit player region select
+        if (editPlayerRegion.options.length <= 1) {
+            regions.forEach(region => {
+                const option = document.createElement('option');
+                option.value = region.code;
+                option.textContent = region.name;
+                editPlayerRegion.appendChild(option);
+            });
+        }
+    }
+
+    // Toggle admin panel and mode
+    toggleAdminBtn.addEventListener('click', () => {
+        isAdminMode = !isAdminMode;
+        adminPanel.style.display = isAdminMode ? 'block' : 'none';
+
+        if (isAdminMode) {
+            body.classList.add('admin-mode');
+            stopPageScrollAnimation();
+            stopRowAnimation();
+            pageControls.style.display = 'none';
+            scrollIndicator.style.display = 'none';
+        } else {
+            body.classList.remove('admin-mode');
+            startPageScrollAnimation();
+            pageControls.style.display = 'flex';
+            pageControls.classList.remove('visible');
+            updateScrollIndicator();
+        }
+
+        renderGroups();
+    });
+
+    // Show controls when user moves mouse
+    document.addEventListener('mousemove', showControls);
+    document.addEventListener('touchstart', showControls);
+
+    // Show controls function
+    function showControls() {
+        if (isAdminMode || groups.length === 0) return;
+
+        // Show controls and indicator
+        pageControls.classList.add('visible');
+        scrollIndicator.classList.add('visible');
+
+        // Clear existing timeout
+        if (controlsTimeout) {
+            clearTimeout(controlsTimeout);
+        }
+
+        // Set timeout to hide controls after 3 seconds
+        controlsTimeout = setTimeout(() => {
+            if (!isPaused) {
+                pageControls.classList.remove('visible');
+                scrollIndicator.classList.remove('visible');
+            }
+        }, 500);
+    }
+
+    // Page control buttons
+    prevGroupBtn.addEventListener('click', () => {
+        navigateToGroup(currentGroupIndex - 1);
+        showControls(); // Reset the timeout
+    });
+
+    nextGroupBtn.addEventListener('click', () => {
+        navigateToGroup(currentGroupIndex + 1);
+        showControls(); // Reset the timeout
+    });
+
+    pauseScrollBtn.addEventListener('click', () => {
+        togglePause();
+        showControls(); // Reset the timeout
+    });
+
+    // Toggle pause state
+    function togglePause() {
+        isPaused = !isPaused;
+        pauseScrollBtn.textContent = isPaused ? 'Продолжить' : 'Пауза';
+
+        // Keep controls visible when paused
+        if (isPaused) {
+            pageControls.classList.add('visible');
+            scrollIndicator.classList.add('visible');
+            stopRowAnimation();
+        } else {
+            // Start the hide timeout
+            showControls();
+            startRowAnimation();
+        }
+    }
+
+    // Navigate to specific group
+    function navigateToGroup(index) {
+        if (index < 0 || index >= groups.length) return;
+
+        currentGroupIndex = index;
+        currentRowIndex = 0; // Reset row animation
+        showCurrentGroup();
+        updateScrollIndicator();
+        updateNavigationButtons();
+
+        // Restart row animation
+        if (!isPaused) {
+            stopRowAnimation();
+            startRowAnimation();
+        }
+    }
+
+    // Update navigation buttons state
+    function updateNavigationButtons() {
+        prevGroupBtn.disabled = currentGroupIndex === 0;
+        nextGroupBtn.disabled = currentGroupIndex === groups.length - 1;
+    }
+
+    // Update scroll indicator
+    function updateScrollIndicator() {
+        if (groups.length === 0) {
+            scrollIndicator.style.display = 'none';
+            return;
+        }
+
+        currentGroupNum.textContent = currentGroupIndex + 1;
+        totalGroupsNum.textContent = groups.length;
+
+        if (!isAdminMode) {
+            scrollIndicator.style.display = 'block';
+            body.classList.add('scrolling');
+        } else {
+            scrollIndicator.style.display = 'none';
+            body.classList.remove('scrolling');
+        }
+    }
+
+    // Show current group
+    function showCurrentGroup() {
+        const groupCards = document.querySelectorAll('.group-card');
+
+        groupCards.forEach((card, index) => {
+            if (index === currentGroupIndex) {
+                card.classList.add('active');
+                groupCards[index+2].scrollIntoView({ behavior: 'smooth', block: "end"});
+
+
+                // // Make sure there's space at the top when scrolling
+                // setTimeout(() => {
+                //     window.scrollBy(0, 30);
+                // }, 500);
+            } else {
+                card.classList.remove('active');
+            }
+        });
+    }
+
+    // Start row animation for the active group
+    function startRowAnimation() {
+        if (isAdminMode || groups.length === 0 || isPaused) return;
+
+        // Clear any existing animation
+        stopRowAnimation();
+
+        // Get the active group's rows
+        const activeGroup = document.querySelector('.group-card.active');
+        if (!activeGroup) return;
+
+        const rows = activeGroup.querySelectorAll('tbody tr');
+        if (rows.length === 0) return;
+
+        // Reset current row index
+        currentRowIndex = 0;
+
+        // Remove highlight from all rows
+
+
+        // Start animation interval
+        rowAnimationInterval = setInterval(() => {
+            // Remove highlight from all rows
+
+            // Add highlight to current row
+
+            // Move to next row or back to first
+            currentRowIndex = (currentRowIndex + 1) % rows.length;
+
+        }, 500); // Highlight each row for 2 seconds
+    }
+
+    // Stop row animation
+    function stopRowAnimation() {
+        if (rowAnimationInterval) {
+            clearInterval(rowAnimationInterval);
+            rowAnimationInterval = null;
+        }
+    }
+
+    // Start page scroll animation
+    function startPageScrollAnimation() {
+        if (isAdminMode || groups.length === 0) return;
+
+        // Clear any existing animation
+        stopPageScrollAnimation();
+
+        // Set initial group
+        currentGroupIndex = 0;
+        showCurrentGroup();
+        updateScrollIndicator();
+        updateNavigationButtons();
+
+        // Start row animation for the first group
+        startRowAnimation();
+
+        // Start animation interval
+        pageScrollAnimation = setInterval(() => {
+            if (isPaused) return;
+
+            // Move to next group or back to first
+            currentGroupIndex = (currentGroupIndex + 1) % groups.length;
+            currentRowIndex = 0; // Reset row animation
+            showCurrentGroup();
+            updateScrollIndicator();
+            updateNavigationButtons();
+
+            // Restart row animation for the new group
+            stopRowAnimation();
+            startRowAnimation();
+
+        }, 5000); // Show each group for 5 seconds
+    }
+
+    // Stop page scroll animation
+    function stopPageScrollAnimation() {
+        if (pageScrollAnimation) {
+            clearInterval(pageScrollAnimation);
+            pageScrollAnimation = null;
+        }
+
+        stopRowAnimation();
+    }
+
+    // Update tournament title
+    updateTitleBtn.addEventListener('click', () => {
+        tournamentTitle = tournamentTitleInput.value.trim() || "Турнир по настольному теннису";
+        tournamentTitleElement.textContent = tournamentTitle;
+        saveData();
+    });
+
+
+
+    // Logo upload modal functionality
+    logoUploadBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const target = btn.dataset.target;
+            logoUploadTarget.value = target;
+            logoFileInput.value = '';
+            logoPreview.classList.add('hidden');
+            logoUploadModal.classList.add('active');
+        });
+    });
+
+    logoFileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                logoPreview.src = event.target.result;
+                logoPreview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        } else {
+            logoPreview.classList.add('hidden');
+        }
+    });
+
+    cancelLogoUploadBtn.addEventListener('click', () => {
+        logoUploadModal.classList.remove('active');
+    });
+
+
+
+    // Create a new group
+    createGroupBtn.addEventListener('click', () => {
+        const newGroup = createNewGroup();
+        updateGroupSelect();
+
+        // Automatically select the newly created group
+        groupSelect.value = newGroup.id;
+
+        // Reset player counter when creating a new group
+        playerCounter = 1;
+
+        // Clear existing player input rows
+        playersInputContainer.innerHTML = '';
+
+        // Add two initial player input rows
+        addPlayerInputRow();
+        addPlayerInputRow();
+
+        renderGroups();
+        saveData();
+    });
+
+    // Add a new player input row
+    addPlayerRowBtn.addEventListener('click', () => {
+        addPlayerInputRow();
+        initializeRegionSelects();
+    });
+
+    // Add players to a group
+    addPlayersBtn.addEventListener('click', () => {
+        const groupId = groupSelect.value;
+        if (!groupId) {
+            alert('Пожалуйста, выберите группу');
+            return;
+        }
+
+        const playerRows = document.querySelectorAll('.player-input-row');
+        let addedPlayers = false;
+
+        playerRows.forEach(row => {
+            const nameInput = row.querySelector('.player-name');
+            const ratingInput = row.querySelector('.player-rating');
+            const regionSelect = row.querySelector('.player-region');
+
+            const name = nameInput.value.trim();
+            const rating = ratingInput.value;
+            const regionCode = regionSelect.value;
+
+            if (name) {
+                addPlayerToGroup(groupId, name, rating, regionCode);
+                nameInput.value = '';
+                ratingInput.value = '';
+                regionSelect.selectedIndex = 0;
+                addedPlayers = true;
+            }
+        });
+
+        if (addedPlayers) {
+            renderGroups();
+            saveData();
+        }
+    });
+
+    // Edit Player Modal Events
+    cancelEditBtn.addEventListener('click', () => {
+        closeEditPlayerModal();
+    });
+
+    savePlayerBtn.addEventListener('click', () => {
+        const groupId = editPlayerGroupId.value;
+        const playerId = editPlayerId.value;
+        const name = editPlayerName.value.trim();
+        const rating = editPlayerRating.value;
+        const regionCode = editPlayerRegion.value;
+
+        if (!name) {
+            alert('Имя игрока не может быть пустым');
+            return;
+        }
+
+        updatePlayerData(groupId, playerId, name, rating, regionCode);
+        closeEditPlayerModal();
+        renderGroups();
+        saveData();
+    });
+
+    // Open edit player modal
+    function openEditPlayerModal(groupId, playerId) {
+        const group = groups.find(g => g.id === groupId);
+        if (!group) return;
+
+        const player = group.players.find(p => p.id === playerId);
+        if (!player) return;
+
+        editPlayerName.value = player.name;
+        editPlayerRating.value = player.rating;
+        editPlayerRegion.value = player.regionCode || '';
+        editPlayerGroupId.value = groupId;
+        editPlayerId.value = playerId;
+
+        editPlayerModal.classList.add('active');
+    }
+
+    // Close edit player modal
+    function closeEditPlayerModal() {
+        editPlayerModal.classList.remove('active');
+    }
+
+    // Update player data
+    function updatePlayerData(groupId, playerId, name, rating, regionCode) {
+        const group = groups.find(g => g.id === groupId);
+        if (!group) return;
+
+        const player = group.players.find(p => p.id === playerId);
+        if (!player) return;
+
+        player.name = name;
+        player.rating = rating || '0';
+        player.regionCode = regionCode || '';
+    }
+
+    // Create a new group with automatic naming
+    function createNewGroup() {
+        // Find the highest group number
+        let maxGroupNum = 0;
+        groups.forEach(group => {
+            const match = group.name.match(/Группа-(\d+)/);
+            if (match) {
+                const groupNum = parseInt(match[1]);
+                if (groupNum > maxGroupNum) {
+                    maxGroupNum = groupNum;
+                }
+            }
+        });
+
+        // Create new group with next number
+        const newGroup = {
+            id: Date.now().toString(),
+            name: `Группа-${maxGroupNum + 1}`,
+            players: []
+        };
+
+        groups.push(newGroup);
+        return newGroup;
+    }
+
+    // Add a player to a group
+    function addPlayerToGroup(groupId, name, rating, regionCode) {
+        const group = groups.find(g => g.id === groupId);
+        if (group) {
+            const newPlayer = {
+                id: Date.now().toString() + Math.random().toString(36).substr(2, 5),
+                name,
+                rating: rating || '0',
+                regionCode: regionCode || '',
+                matches: {},
+                games: 0,
+                sets: 0,
+                points: 0,
+                position: 0
+            };
+
+            group.players.push(newPlayer);
+
+            // Initialize matches for all players in the group
+            initializeMatches(group);
+        }
+    }
+
+    // Add a new player input row
+    function addPlayerInputRow() {
+        const row = document.createElement('div');
+        row.className = 'player-input-row';
+        row.innerHTML = `
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <span class="player-number">${playerCounter}</span>
+                        <input type="text" placeholder="ФИО игрока" class="player-name border border-gray-300 bg-white text-gray-800 rounded px-3 py-2 w-full">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="number" placeholder="Рейтинг" class="player-rating border border-gray-300 bg-white text-gray-800 rounded px-3 py-2">
+                        <select class="player-region border border-gray-300 bg-white text-gray-800 rounded px-3 py-2">
+                            <option value="">Выберите регион</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+        playersInputContainer.appendChild(row);
+        playerCounter++;
+    }
+
+    // Initialize matches between players
+    function initializeMatches(group) {
+        // Reset all matches
+        group.players.forEach(player => {
+            player.matches = {};
+        });
+
+        // Create match entries for each pair of players
+        for (let i = 0; i < group.players.length; i++) {
+            for (let j = 0; j < group.players.length; j++) {
+                if (i !== j) {
+                    const player1 = group.players[i];
+                    const player2 = group.players[j];
+
+                    if (!player1.matches[player2.id]) {
+                        player1.matches[player2.id] = null; // Will store the match result
+                    }
+                }
+            }
+        }
+    }
+
+    // Update group selection dropdown
+    function updateGroupSelect() {
+        groupSelect.innerHTML = '<option value="">Выберите группу</option>';
+        groups.forEach(group => {
+            const option = document.createElement('option');
+            option.value = group.id;
+            option.textContent = group.name;
+            groupSelect.appendChild(option);
+        });
+    }
+
+    // Renumber groups after deletion
+    function renumberGroups() {
+        // Sort groups by their current number
+        groups.sort((a, b) => {
+            const aMatch = a.name.match(/Группа-(\d+)/);
+            const bMatch = b.name.match(/Группа-(\d+)/);
+            const aNum = aMatch ? parseInt(aMatch[1]) : 0;
+            const bNum = bMatch ? parseInt(bMatch[1]) : 0;
+            return aNum - bNum;
+        });
+
+        // Renumber groups
+        groups.forEach((group, index) => {
+            group.name = `Группа-${index + 1}`;
+        });
+    }
+
+    // Get flag HTML for region code
+    function getFlagHtml(regionCode) {
+        if (!regionCode) return '';
+
+        let flagSvg = '';
+        switch (regionCode) {
+            case 'ady':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_adygea_new.jpg" alt="flag Адыгея">`;
+                break;
+            case 'alt':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_altay_new.jpg" alt="flag Алтай">`;
+                break;
+            case 'bash':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_bashkorkostan_res_new.jpg" alt="flag Башкортостан">`;
+                break;
+            case 'bury':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_buryatiya_new.jpg   " alt="flag Бурятия">`;
+                break;
+            case 'dnr':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_dnr.jpg" alt="flag ДНР">`;
+                break;
+            case 'dag':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_dagestan_enl.jpg" alt="flag Дагестан">`;
+                break;
+            case 'ing':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_ingushetiya_enl.jpg" alt="flag Ингушетия">`;
+                break;
+            case 'kb':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kabardino_balkarskoy_pes_enl.jpg" alt="flag Кабардино-Балкария">`;
+                break;
+            case 'klm':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kalmyikiya_enl.jpg  " alt="flag Калмыкия">`;
+                break;
+            case 'kar':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_karachaevo_cherkesskay_res_new.jpg" alt="flag Карачаево-Черкесия">`;
+                break;
+            case 'krl':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kareliya_enl.jpg" alt="flag Карелия">`;
+                break;
+            case 'kom':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_komi_new.jpg" alt="flag Коми">`;
+                break;
+            case 'cr':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_krym.jpg" alt="flag Крым">`;
+                break;
+            case 'lnr':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_lnr1.jpg" alt="flag Луганская народная республика">`;
+                break;
+            case 'mr':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_mari_el_new.jpg" alt="flag Марий Эл">`;
+                break;
+            case 'mrd':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_mordovia_enl.jpg" alt="flag Мордовия">`;
+                break;
+            case 'sak':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_saha_yakuyiya_new.jpg" alt="flag Саха (Якутия)">`;
+                break;
+            case 'alv':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_sev_osetiya_new.jpg" alt="flag Северная Осетия — Алания">`;
+                break;
+            case 'tat':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tatarstan_new.jpg" alt="flag Татарстан">`;
+                break;
+            case 'tuv':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tyva_new.jpg" alt="flag Тыва">`;
+                break;
+            case 'udm':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_udmurtiya_res_new.jpg" alt="flag Удмуртия">`;
+                break;
+            case 'khk':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_hakasia_new.jpg" alt="flag Хакасия">`;
+                break;
+            case 'che':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_chechni.jpg" alt="flag Чечня">`;
+                break;
+            case 'chv':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_chuvashskaya_res_new.jpg" alt="flag Чувашия">`;
+                break;
+
+            case 'altk':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_altay_kray_enl.jpg" alt="flag Алтайский край">`;
+                break;
+            case 'zbk':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_zabaykalskiy_kray_enl.jpg" alt="flag Забайкальский край">`;
+                break;
+            case 'kam':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kamchatskiy_kray_new.jpg" alt="flag Камчатский край">`;
+                break;
+            case 'kras':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_krasnodarskiy_kray_new.jpg" alt="flag Краснодарский край">`;
+                break;
+            case 'krd':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_krasnoyarskiy_kray_new.jpg" alt="flag Красноярский край">`;
+                break;
+            case 'per':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_permskiy_kray_new.jpg" alt="flag Пермский край">`;
+                break;
+            case 'pri':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_primorskiy_kray_new.jpg" alt="flag Приморский край">`;
+                break;
+            case 'sta':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_stavropolskiy_kray_new.jpg" alt="flag Ставропольский край">`;
+                break;
+            case 'hab':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_habarovskiy_kray_new.jpg" alt="flag Хабаровский край">`;
+                break;
+
+            case 'amur':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_amurskay_obl_new.jpg" alt="flag Амурская область">`;
+                break;
+            case 'arh':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_arhangelskaja_obl_new.jpg" alt="flag Архангельская область">`;
+                break;
+            case 'ast':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_astrahanskay_obl_new.jpg" alt="flag Астраханская область">`;
+                break;
+            case 'bel':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_belgorodskay_obl_new_0.jpg" alt="flag Белгородская область">`;
+                break;
+            case 'bry':
+                flagSvg = `<img  class="flag"src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_bryanskay_obl_new.jpg" alt="flag Брянская область">`;
+                break;
+            case 'vla':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_vladim_obl.jpg" alt="flag Владимирская область">`;
+                break;
+            case 'vlg':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_volgograd_obl_enl.jpg" alt="flag Волгоградская область">`;
+                break;
+            case 'vls':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_vologodskay_obl_enl_0.jpg" alt="flag Вологодская область">`;
+                break;
+            case 'vrn':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_voronezskay_obl_enl.jpg" alt="flag Воронежская область">`;
+                break;
+            case 'zpo':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_zaporogskaia_obl.jpg" alt="flag Запорожская область">`;
+                break;
+            case 'iva':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_ivanovskay_obl_enl.jpg" alt="flag Ивановская область">`;
+                break;
+            case 'irk':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_irkutskay_obl_new.jpg" alt="flag Иркутская область">`;
+                break;
+            case 'klg':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kaliningradskoy_obl_new.jpg" alt="flag Калининградская область">`;
+                break;
+            case 'klz':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kaluzskay_obl_enl.jpg" alt="flag Калужская область">`;
+                break;
+            case 'kem':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kemerovskay_obl_new.jpg" alt="flag Кемеровская область">`;
+                break;
+            case 'kir':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kirovskay_obl_new.jpg" alt="flag Кировская область">`;
+                break;
+            case 'kos':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kostromskay_obl_enl.jpg" alt="flag Костромская область">`;
+                break;
+            case 'kur':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kurganskay_obl_enl.jpg" alt="flag Курганская область">`;
+                break;
+            case 'kurs':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_kurskay_obl_new.jpg" alt="flag Курская область">`;
+                break;
+            case 'len':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_leningradskay_obl_new.jpg" alt="flag Ленинградская область">`;
+                break;
+            case 'lip':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_lipetskay_obl_enl.jpg" alt="flag Липецкая область">`;
+                break;
+            case 'mag':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_magadanskay_obl_enl.jpg" alt="flag Магаданская область">`;
+                break;
+            case 'mos':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_moskovskay_obl_new.jpg" alt="flag Московская область">`;
+                break;
+            case 'mur':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_murmanskay_obl_new.jpg" alt="flag Мурманская область">`;
+                break;
+            case 'nin':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_nizegorodskay_obl_new.jpg" alt="flag Нижегородская область">`;
+                break;
+            case 'nov':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_novgorodskay_obl_new.jpg" alt="flag Новгородская область">`;
+                break;
+            case 'nvs':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_novosibirskay_obl_new.jpg" alt="flag Новосибирская область">`;
+                break;
+            case 'oms':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_omskay_obl_new.jpg" alt="flag Омская область">`;
+                break;
+            case 'oren':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_orenburskay_obl_enl.jpg" alt="flag Оренбургская область">`;
+                break;
+            case 'orl':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_orlovskay_obl_enl.jpg" alt="flag Орловская область">`;
+                break;
+            case 'pnz':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_penza_region_new.jpg" alt="flag Пензенская область">`;
+                break;
+            case 'psk':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_pskovskay_obl_new.jpg" alt="flag Псковская область">`;
+                break;
+            case 'ros':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_rostovskaya_obl_enl.jpg" alt="flag Ростовская область">`;
+                break;
+            case 'rya':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_ryazanskaya_obl_enl.jpg" alt="flag Рязанская область">`;
+                break;
+            case 'sam':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_samarskaya_obl_new.jpg" alt="flag Самарская область">`;
+                break;
+            case 'sar':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_saratovskaya_obl_enl_0.jpg" alt="flag Саратовская область">`;
+                break;
+            case 'sah':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_sahalinskaya_obl_enl.jpg" alt="flag Сахалинская область">`;
+                break;
+            case 'sve':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_sverdlovskaya_obl_new.jpg" alt="flag Свердловская область">`;
+                break;
+            case 'smo':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_smolenskaya_obl_enl.jpg" alt="flag Смоленская область">`;
+                break;
+            case 'tam':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tambovskaya_obl_new.jpg" alt="flag Тамбовская область">`;
+                break;
+            case 'tvobl':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tverskaya_obl_new.jpg" alt="flag Тверская область">`;
+                break;
+            case 'tom':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tomskaya_obl_enl.jpg" alt="flag Томская область">`;
+                break;
+            case 'tul':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tulskaya_obl_enl.jpg" alt="flag Тульская область">`;
+                break;
+            case 'tyu':
+                flagSvg = `<img class="flag" src=https://www.megaflag.ru/sites/default/files/images/shop/products/flag_tumenskaya_obl_enl.jpg"" alt="flag Тюменская область">`;
+                break;
+            case 'uly':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_ulyanovskaya_obl_new.jpg" alt="flag Ульяновская область">`;
+                break;
+            case 'xobl':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_hersonskaia_obl.jpg" alt="flag Херсонская область">`;
+                break;
+            case 'cheb':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_chelyabinskaya_obl_enl.jpg" alt="flag Челябинская область">`;
+                break;
+            case 'yar':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_yaroslavskaya_obl_enl.jpg" alt="flag Ярославская область">`;
+                break;
+
+            case 'msk':
+                flagSvg = `<img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Moscow%2C_Russia.svg/1280px-Flag_of_Moscow%2C_Russia.svg.png" alt="flag Москва">`;
+                break;
+            case 'spb':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_st_peterburg.jpg" alt="flag Санкт-Петербург">`;
+                break;
+            case 'sev':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_sevastopol.jpg" alt="flag Севастополь">`;
+                break;
+
+            case 'evao':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_evrejskaja_ao.jpg" alt="flag Еврейская АО">`;
+                break;
+            case 'nao':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_nenetskiy_avt_okrug_enl.jpg" alt="flag Ненецкий АО">`;
+                break;
+            case 'hmao':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_hanty_mansiyskiy_avt_okr1.jpg" alt="flag ХМАО">`;
+                break;
+            case 'chao':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_chucotskiy_avt_okr_new.jpg" alt="flag Чукотский АО">`;
+                break;
+            case 'yamalo':
+                flagSvg = `<img class="flag" src="https://www.megaflag.ru/sites/default/files/images/shop/products/flag_jamalo_neneckogo_avt_okr.jpg" alt="flag Ямало-Ненецкий АО">`;
+        }
+        return flagSvg;    }
+
+    // Get region name from code
+    function getRegionName(regionCode) {
+        const region = regions.find(r => r.code === regionCode);
+        return region ? region.name : 'Не указан';
+    }
+
+    // Determine if a group should be full width
+    function shouldBeFullWidth(group) {
+        // If group has more than 8 players, make it full width
+        return group.players.length > 8;
+    }
+
+    // Get position class for styling
+    function getPositionClass(position) {
+        if (position === 1) return 'position-1';
+        if (position === 2) return 'position-2';
+        if (position === 3) return 'position-3';
+        return '';
+    }
+
+    // Render all groups
+    function renderGroups() {
+        // Stop existing animation
+        stopPageScrollAnimation();
+        stopRowAnimation();
+
+        if (groups.length === 0) {
+            groupsContainer.innerHTML = `
+                    <div class="text-center text-white py-10 col-span-1 lg:col-span-2">
+                        Нет созданных групп. Используйте панель администратора для создания групп и добавления игроков.
+                    </div>
+                `;
+
+            // Hide controls when no groups
+            pageControls.style.display = 'none';
+            scrollIndicator.style.display = 'none';
+            return;
+        }
+
+        groupsContainer.innerHTML = '';
+
+        groups.forEach((group, index) => {
+            const isFullWidth = shouldBeFullWidth(group);
+
+            const groupElement = document.createElement('div');
+            groupElement.className = `group-card bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 ${isFullWidth ? 'full-width' : ''}`;
+            groupElement.id = `group-${group.id}`;
+
+            // Group header
+            const header = document.createElement('div');
+            header.className = 'group-header text-white p-4 flex justify-between items-center';
+            header.innerHTML = `
+                    <h2 class="text-xl font-bold">${group.name}</h2>
+                    <div class="flex space-x-2">
+                        <button class="delete-group-btn admin-only bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-sm" data-group-id="${group.id}">
+                            Удалить группу
+                        </button>
+                    </div>
+                `;
+            groupElement.appendChild(header);
+
+            // Group content
+            const contentWrapper = document.createElement('div');
+            contentWrapper.className = 'overflow-x-auto';
+
+            if (group.players.length === 0) {
+                contentWrapper.innerHTML = '<p class="text-gray-500 text-center py-4">В этой группе пока нет игроков</p>';
+            } else {
+                // Create chess-style grid for match results
+                const table = document.createElement('table');
+                table.className = 'chess-grid min-w-full border-collapse';
+
+                const thead = document.createElement('thead');
+                let headerRow = document.createElement('tr');
+
+                // Header cells
+                headerRow.innerHTML = `
+                        <th class="border-b-2 border-gray-300">№</th>
+                        <th class="border-b-2 border-gray-300 text-left player-info">Участник</th>
+                    `;
+
+                // Add column for each player
+                group.players.forEach((player, index) => {
+                    headerRow.innerHTML += `<th class="border-b-2 border-gray-300">${index + 1}</th>`;
+                });
+
+                // Add stats columns
+                headerRow.innerHTML += `
+                        <th class="border-b-2 border-gray-300">Игры</th>
+<!--                        <th class="border-b-2 border-gray-300">Сеты</th>-->
+                        <th class="border-b-2 border-gray-300">Очки</th>
+                        <th class="border-b-2 border-gray-300">Место</th>
+                    `;
+
+                // Only add Actions column in admin mode
+                if (isAdminMode) {
+                    headerRow.innerHTML += `<th class="border-b-2 border-gray-300">Действия</th>`;
+                }
+
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+
+                // Table body
+                const tbody = document.createElement('tbody');
+
+                group.players.forEach((player, rowIndex) => {
+                    const row = document.createElement('tr');
+
+                    // Player number
+                    row.innerHTML = `<td class="font-bold">${rowIndex + 1}</td>`;
+
+                    // Player info with position-based coloring
+                    const playerInfoCell = document.createElement('td');
+                    playerInfoCell.className = `text-left p-2 player-info player-position-${player.position}`;
+
+                    // Add edit button in admin mode
+                    let editButton = '';
+                    if (isAdminMode) {
+                        editButton = `
+                                <button class="edit-player-btn text-blue-600 hover:text-blue-500 text-xs ml-2"
+                                        data-group-id="${group.id}"
+                                        data-player-id="${player.id}">
+                                    ✏️
+                                </button>
+                            `;
+                    }
+
+                    playerInfoCell.innerHTML = `
+                            <div class="font-medium">
+                                ${getFlagHtml(player.regionCode)}
+                                <span class="player-name">${player.name}</span>
+                                ${editButton}
+                            </div>
+                            <div class="text-xs text-gray-500">
+                                Рейтинг: ${player.rating}
+
+                            </div>
+
+                        `;
+                    ////////// ${getRegionName(player.regionCode)}, рейтинг: ${player.rating}
+                    row.appendChild(playerInfoCell);
+
+                    // Match result cells
+                    group.players.forEach((opponent, colIndex) => {
+                        const cell = document.createElement('td');
+
+                        if (rowIndex === colIndex) {
+                            // Diagonal cell (same player)
+                            cell.className = 'diagonal';
+                            cell.innerHTML = 'X';
+                        } else {
+                            // Match result cell
+                            cell.className = 'match-result-cell';
+                            const matchResult = player.matches[opponent.id];
+
+                            if (isAdminMode) {
+                                // Editable input in admin mode
+                                const input = document.createElement('input');
+                                input.type = 'text';
+                                input.className = 'w-full h-full text-center border-0 focus:ring-2 focus:ring-blue-300 outline-none bg-gray-100 text-gray-800';
+                                input.value = matchResult !== null ? matchResult : '';
+                                input.dataset.playerId = player.id;
+                                input.dataset.opponentId = opponent.id;
+                                input.dataset.groupId = group.id;
+                                input.addEventListener('change', handleMatchResultChange);
+
+                                cell.appendChild(input);
+                            } else {
+                                // Read-only display in viewer mode
+                                cell.innerHTML = matchResult !== null ? matchResult : '';
+                            }
+                        }
+
+                        row.appendChild(cell);
+                    });
+
+                    // Stats cells
+                    const statsFields = ['games', 'points'];
+                    statsFields.forEach(field => {
+                        const cell = document.createElement('td');
+
+                        if (isAdminMode) {
+                            // Editable input in admin mode
+                            const input = document.createElement('input');
+                            input.type = 'number';
+                            input.className = 'stats-input border border-gray-300 bg-white text-gray-800 rounded';
+                            input.value = player[field] || '';
+                            input.dataset.playerId = player.id;
+                            input.dataset.field = field;
+                            input.dataset.groupId = group.id;
+                            input.addEventListener('change', handleStatsChange);
+
+                            cell.appendChild(input);
+                        } else {
+                            // Read-only display in viewer mode
+                            cell.textContent = player[field] || '';
+                        }
+
+                        row.appendChild(cell);
+                    });
+
+                    // Position cell with special styling for top 3
+                    const positionCell = document.createElement('td');
+                    const positionClass = getPositionClass(player.position);
+
+                    if (isAdminMode) {
+                        // Editable input in admin mode
+                        const input = document.createElement('input');
+                        input.type = 'number';
+                        input.className = `stats-input border border-gray-300 bg-white rounded ${positionClass}`;
+                        input.value = player.position || '';
+                        input.dataset.playerId = player.id;
+                        input.dataset.field = 'position';
+                        input.dataset.groupId = group.id;
+                        input.addEventListener('change', handleStatsChange);
+
+                        positionCell.appendChild(input);
+                    } else {
+                        // Read-only display in viewer mode with special styling
+                        positionCell.className = positionClass;
+                        positionCell.textContent = player.position || '';
+                    }
+
+                    row.appendChild(positionCell);
+
+                    // Actions cell - only add in admin mode
+                    if (isAdminMode) {
+                        const actionsCell = document.createElement('td');
+                        actionsCell.className = 'text-center';
+
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.className = 'text-red-600 hover:text-red-500';
+                        deleteBtn.textContent = 'Удалить';
+                        deleteBtn.dataset.groupId = group.id;
+                        deleteBtn.dataset.playerId = player.id;
+                        deleteBtn.addEventListener('click', handlePlayerDelete);
+
+                        actionsCell.appendChild(deleteBtn);
+                        row.appendChild(actionsCell);
+                    }
+
+                    tbody.appendChild(row);
+                });
+
+                table.appendChild(tbody);
+                contentWrapper.appendChild(table);
+            }
+
+            groupElement.appendChild(contentWrapper);
+            groupsContainer.appendChild(groupElement);
+        });
+
+        // Add event listeners for delete group buttons
+        document.querySelectorAll('.delete-group-btn').forEach(button => {
+            button.addEventListener('click', handleGroupDelete);
+        });
+
+        // Add event listeners for delete all groups button
+        document.querySelectorAll('.delete-all-group-btn').forEach(button => {
+            button.addEventListener('click', handleAllGroupsDelete);
+        });
+
+
+
+        // Add event listeners for edit player buttons
+        document.querySelectorAll('.edit-player-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const groupId = e.target.dataset.groupId;
+                const playerId = e.target.dataset.playerId;
+                openEditPlayerModal(groupId, playerId);
+            });
+        });
+
+        // Update total groups count
+        totalGroupsNum.textContent = groups.length;
+
+        // Start page scroll animation if in viewer mode
+        if (!isAdminMode) {
+            setTimeout(() => {
+                startPageScrollAnimation();
+            }, 500);
+
+            // Show page controls but keep them hidden initially
+            pageControls.style.display = 'flex';
+            pageControls.classList.remove('visible');
+            scrollIndicator.classList.remove('visible');
+        } else {
+            // Hide page controls in admin mode
+            pageControls.style.display = 'none';
+            scrollIndicator.style.display = 'none';
+        }
+    }
+
+    // Handle match result change
+    function handleMatchResultChange(e) {
+        const groupId = e.target.dataset.groupId;
+        const playerId = e.target.dataset.playerId;
+        const opponentId = e.target.dataset.opponentId;
+        const value = e.target.value.trim();
+
+        const group = groups.find(g => g.id === groupId);
+        if (!group) return;
+
+        const player = group.players.find(p => p.id === playerId);
+        if (!player) return;
+
+        player.matches[opponentId] = value !== '' ? value : null;
+
+        saveData();
+    }
+
+    // Handle stats change
+    function handleStatsChange(e) {
+        const groupId = e.target.dataset.groupId;
+        const playerId = e.target.dataset.playerId;
+        const field = e.target.dataset.field;
+        const value = e.target.value.trim();
+
+        const group = groups.find(g => g.id === groupId);
+        if (!group) return;
+
+        const player = group.players.find(p => p.id === playerId);
+        if (!player) return;
+
+        player[field] = value !== '' ? parseInt(value) : 0;
+
+        // If position changed, update the player name styling
+        if (field === 'position') {
+            renderGroups(); // Re-render to update position-based styling
+        }
+
+        saveData();
+    }
+
+    // Handle group delete
+    function handleGroupDelete(e) {
+        const groupId = e.target.dataset.groupId;
+
+        if (confirm('Вы уверены, что хотите удалить эту группу?')) {
+            groups = groups.filter(group => group.id !== groupId);
+            renumberGroups();
+            updateGroupSelect();
+            renderGroups();
+            saveData();
+        }
+    }
+
+    // Handle All groups delete
+    function handleAllGroupsDelete(e) {
+        if (confirm('Вы уверены, что хотите удалить все группы?')) {
+            groups = [];
+            renumberGroups();
+            updateGroupSelect();
+            renderGroups();
+            saveData();
+        }
+    }
+
+    // Handle player delete
+    function handlePlayerDelete(e) {
+        const groupId = e.target.dataset.groupId;
+        const playerId = e.target.dataset.playerId;
+
+        if (confirm('Вы уверены, что хотите удалить этого игрока?')) {
+            const group = groups.find(g => g.id === groupId);
+            if (group) {
+                group.players = group.players.filter(player => player.id !== playerId);
+                initializeMatches(group);
+                renderGroups();
+                saveData();
+            }
+        }
+    }
+
+    // Save data to API
+    async function saveData() {
+        try {
+            const dataToSave = {
+                groups: groups,
+                tournamentTitle: tournamentTitle,
+
+            };
+
+            await fetch(apiUrl, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(dataToSave)
+            });
+
+            console.log('Data saved successfully');
+        } catch (error) {
+            console.error('Error saving data:', error);
+            // Continue with local operation even if API save fails
+        }
+    }
+
+    // Load data from API
+    async function loadData() {
+        try {
+            groupsContainer.innerHTML = `
+                    <div class="text-center text-white py-10 col-span-1 lg:col-span-2">
+                        Загрузка данных...
+                    </div>
+                `;
+
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+
+            if (data.groups) {
+                groups = data.groups;
+            }
+
+            // Load tournament title
+            if (data.tournamentTitle) {
+                tournamentTitle = data.tournamentTitle;
+                tournamentTitleElement.textContent = tournamentTitle;
+                tournamentTitleInput.value = tournamentTitle;
+            }
+
+
+            updateGroupSelect();
+            renderGroups();
+
+            console.log('Data loaded successfully');
+        } catch (error) {
+            console.error('Error loading data:', error);
+            // If API fails, initialize with empty data
+            groups = [];
+            renderGroups();
+        }
+    }
+
+    // Initialize the app
+    function initializeApp() {
+        // Try to load data from API
+        loadData().catch(() => {
+            // If loading fails, initialize with empty state
+            groups = [];
+            renderGroups();
+        });
+
+        // Add initial player input rows
+        addPlayerInputRow();
+        addPlayerInputRow();
+
+        initializeRegionSelects(); // Initialize region selects
+
+        // Hide page controls initially
+        pageControls.style.display = 'none';
+
+        // Add keyboard shortcut for admin mode (Shift+Ctrl+F)
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'F') {
+                toggleAdminBtn.click();
+            }
+        });
+    }
+
+    // Start the application
+    initializeApp();
+</script>
+
+
+
+</body>
+</html>
