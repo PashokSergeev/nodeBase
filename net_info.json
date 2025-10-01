@@ -1,4 +1,221 @@
 {
-  "groups": [],
-  "tournamentTitle": "МАЛЬЧИКИ ДО 12"
+  "groups": [
+    {
+      "id": "1759347182133",
+      "name": "Группа-1",
+      "players": [
+        {
+          "id": "1759347354461pt5fj",
+          "name": "ШОНИН Арсений Алексеевич",
+          "rating": "370",
+          "regionCode": "msk",
+          "matches": {
+            "1759347354461z1hfb": null,
+            "1759347354461hmwkp": null,
+            "1759347354462hurgj": null,
+            "1759347354462hez6d": null,
+            "1759347354462lpavk": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347354461z1hfb",
+          "name": "ИСКАКИН Максим Денисович",
+          "rating": "308",
+          "regionCode": "sve",
+          "matches": {
+            "1759347354461pt5fj": null,
+            "1759347354461hmwkp": null,
+            "1759347354462hurgj": null,
+            "1759347354462hez6d": null,
+            "1759347354462lpavk": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347354461hmwkp",
+          "name": "ЗОЛОТОТРУБОВ Александр Дмитриевич",
+          "rating": "285",
+          "regionCode": "mos",
+          "matches": {
+            "1759347354461pt5fj": null,
+            "1759347354461z1hfb": null,
+            "1759347354462hurgj": null,
+            "1759347354462hez6d": null,
+            "1759347354462lpavk": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347354462hurgj",
+          "name": "ГУЛЬНЕВ Василий Павлович",
+          "rating": "280",
+          "regionCode": "nin",
+          "matches": {
+            "1759347354461pt5fj": null,
+            "1759347354461z1hfb": null,
+            "1759347354461hmwkp": null,
+            "1759347354462hez6d": null,
+            "1759347354462lpavk": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347354462hez6d",
+          "name": "КОВКОВ Матвей Павлович",
+          "rating": "259",
+          "regionCode": "spb",
+          "matches": {
+            "1759347354461pt5fj": null,
+            "1759347354461z1hfb": null,
+            "1759347354461hmwkp": null,
+            "1759347354462hurgj": null,
+            "1759347354462lpavk": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347354462lpavk",
+          "name": "ФАЙЗУЛЛИН Тимур Рауфович",
+          "rating": "259",
+          "regionCode": "oren",
+          "matches": {
+            "1759347354461pt5fj": null,
+            "1759347354461z1hfb": null,
+            "1759347354461hmwkp": null,
+            "1759347354462hurgj": null,
+            "1759347354462hez6d": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
+    },
+    {
+      "id": "1759347373605",
+      "name": "Группа-2",
+      "players": [
+        {
+          "id": "17593474991268h8f6",
+          "name": "ТОРОПОВ Михаил Сергеевич",
+          "rating": "311",
+          "regionCode": "oren",
+          "matches": {
+            "1759347499126pu90a": null,
+            "1759347499126di26o": null,
+            "1759347499126uup9j": null,
+            "17593474991265j0j0": null,
+            "1759347499126zplaz": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347499126pu90a",
+          "name": "МЕЛЬНИКОВ Александр Анатольевич",
+          "rating": "310",
+          "regionCode": "sah",
+          "matches": {
+            "17593474991268h8f6": null,
+            "1759347499126di26o": null,
+            "1759347499126uup9j": null,
+            "17593474991265j0j0": null,
+            "1759347499126zplaz": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347499126di26o",
+          "name": "ТУРАБАЕВ Данил Тимофеевич",
+          "rating": "288",
+          "regionCode": "sve",
+          "matches": {
+            "17593474991268h8f6": null,
+            "1759347499126pu90a": null,
+            "1759347499126uup9j": null,
+            "17593474991265j0j0": null,
+            "1759347499126zplaz": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347499126uup9j",
+          "name": "РЯБКОВ Максим Сергеевич",
+          "rating": "282",
+          "regionCode": "sve",
+          "matches": {
+            "17593474991268h8f6": null,
+            "1759347499126pu90a": null,
+            "1759347499126di26o": null,
+            "17593474991265j0j0": null,
+            "1759347499126zplaz": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "17593474991265j0j0",
+          "name": "РЯЗАНОВ Савелий Александрович",
+          "rating": "264",
+          "regionCode": "msk",
+          "matches": {
+            "17593474991268h8f6": null,
+            "1759347499126pu90a": null,
+            "1759347499126di26o": null,
+            "1759347499126uup9j": null,
+            "1759347499126zplaz": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347499126zplaz",
+          "name": "ГИЗАТУЛЛИН Самир Артурович",
+          "rating": "56",
+          "regionCode": "mr",
+          "matches": {
+            "17593474991268h8f6": null,
+            "1759347499126pu90a": null,
+            "1759347499126di26o": null,
+            "1759347499126uup9j": null,
+            "17593474991265j0j0": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
+    }
+  ],
+  "tournamentTitle": "Одиночный разряд. Мальчики до 12 лет. Квалификационные соревнования."
 }

@@ -1,10 +1,221 @@
 {
   "groups": [
     {
-      "id": "1749506764160",
+      "id": "1759347599165",
       "name": "Группа-1",
-      "players": []
+      "players": [
+        {
+          "id": "175934770038116cff",
+          "name": "ИЛЬИНА Олеся Алексеевна",
+          "rating": "718",
+          "regionCode": "spb",
+          "matches": {
+            "1759347700381xb87d": null,
+            "1759347700381skg0y": null,
+            "1759347700381ltwtc": null,
+            "1759347700382zcv6b": null,
+            "1759347700382joxn9": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347700381xb87d",
+          "name": "ГУДИМИНКО Мария Андреевна",
+          "rating": "349",
+          "regionCode": "oren",
+          "matches": {
+            "175934770038116cff": null,
+            "1759347700381skg0y": null,
+            "1759347700381ltwtc": null,
+            "1759347700382zcv6b": null,
+            "1759347700382joxn9": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347700381skg0y",
+          "name": "ЧЕРКАСОВА Софья Викторовна",
+          "rating": "318",
+          "regionCode": "oren",
+          "matches": {
+            "175934770038116cff": null,
+            "1759347700381xb87d": null,
+            "1759347700381ltwtc": null,
+            "1759347700382zcv6b": null,
+            "1759347700382joxn9": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347700381ltwtc",
+          "name": "СУВОРИНА Варвара Михайловна",
+          "rating": "305",
+          "regionCode": "vrn",
+          "matches": {
+            "175934770038116cff": null,
+            "1759347700381xb87d": null,
+            "1759347700381skg0y": null,
+            "1759347700382zcv6b": null,
+            "1759347700382joxn9": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347700382zcv6b",
+          "name": "ЛАРИОНОВА Надежда Евгеньевна",
+          "rating": "294",
+          "regionCode": "sve",
+          "matches": {
+            "175934770038116cff": null,
+            "1759347700381xb87d": null,
+            "1759347700381skg0y": null,
+            "1759347700381ltwtc": null,
+            "1759347700382joxn9": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347700382joxn9",
+          "name": "ЗАХАРОВА Анастасия Игоревна",
+          "rating": "20",
+          "regionCode": "mr",
+          "matches": {
+            "175934770038116cff": null,
+            "1759347700381xb87d": null,
+            "1759347700381skg0y": null,
+            "1759347700381ltwtc": null,
+            "1759347700382zcv6b": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
+    },
+    {
+      "id": "1759347703566",
+      "name": "Группа-2",
+      "players": [
+        {
+          "id": "17593478069659qcny",
+          "name": "РОЩИНА Василиса Ильинична",
+          "rating": "381",
+          "regionCode": "vlg",
+          "matches": {
+            "1759347806965n6j9t": null,
+            "1759347806965tfkw2": null,
+            "1759347806965vg41d": null,
+            "1759347806965pjlnc": null,
+            "17593478069656149f": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347806965n6j9t",
+          "name": "ЛЕЖНЕВА Анна Игоревна",
+          "rating": "358",
+          "regionCode": "oren",
+          "matches": {
+            "17593478069659qcny": null,
+            "1759347806965tfkw2": null,
+            "1759347806965vg41d": null,
+            "1759347806965pjlnc": null,
+            "17593478069656149f": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347806965tfkw2",
+          "name": "ЖИРЕЛЬЕВА Валерия Александровна",
+          "rating": "325",
+          "regionCode": "spb",
+          "matches": {
+            "17593478069659qcny": null,
+            "1759347806965n6j9t": null,
+            "1759347806965vg41d": null,
+            "1759347806965pjlnc": null,
+            "17593478069656149f": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347806965vg41d",
+          "name": "ЯРОСЛАВЦЕВА Анастасия Денисовна",
+          "rating": "316",
+          "regionCode": "oren",
+          "matches": {
+            "17593478069659qcny": null,
+            "1759347806965n6j9t": null,
+            "1759347806965tfkw2": null,
+            "1759347806965pjlnc": null,
+            "17593478069656149f": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347806965pjlnc",
+          "name": "КОРОТКОВА Милана Сергеевна",
+          "rating": "270",
+          "regionCode": "chv",
+          "matches": {
+            "17593478069659qcny": null,
+            "1759347806965n6j9t": null,
+            "1759347806965tfkw2": null,
+            "1759347806965vg41d": null,
+            "17593478069656149f": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "17593478069656149f",
+          "name": "РАЗИНА Алена Станиславовна",
+          "rating": "258",
+          "regionCode": "spb",
+          "matches": {
+            "17593478069659qcny": null,
+            "1759347806965n6j9t": null,
+            "1759347806965tfkw2": null,
+            "1759347806965vg41d": null,
+            "1759347806965pjlnc": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
     }
   ],
-  "tournamentTitle": "ДЕВОЧКИ ДО 12"
+  "tournamentTitle": "Одиночный разряд. Девочки до 12 лет. Квалификационные соревнования"
 }

@@ -1,10 +1,221 @@
 {
   "groups": [
     {
-      "id": "1749506764160",
+      "id": "1759348175574",
       "name": "Группа-1",
-      "players": []
+      "players": [
+        {
+          "id": "17593482905972htnr",
+          "name": "ТЕРЕХОВА Ярослава Андреевна",
+          "rating": "912",
+          "regionCode": "sve",
+          "matches": {
+            "1759348290598ez82v": null,
+            "1759348290598ue07o": null,
+            "1759348290598ya62g": null,
+            "1759348290598ad7le": null,
+            "17593482905986cu0t": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759348290598ez82v",
+          "name": "КОНДРАТЕНКО Вероника Александровна",
+          "rating": "620",
+          "regionCode": "msk",
+          "matches": {
+            "17593482905972htnr": null,
+            "1759348290598ue07o": null,
+            "1759348290598ya62g": null,
+            "1759348290598ad7le": null,
+            "17593482905986cu0t": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759348290598ue07o",
+          "name": "БРЯНЦЕВА Анастасия Андреевна",
+          "rating": "568",
+          "regionCode": "oren",
+          "matches": {
+            "17593482905972htnr": null,
+            "1759348290598ez82v": null,
+            "1759348290598ya62g": null,
+            "1759348290598ad7le": null,
+            "17593482905986cu0t": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759348290598ya62g",
+          "name": "БАРАНОВА Диана Дмитриевна",
+          "rating": "519",
+          "regionCode": "sam",
+          "matches": {
+            "17593482905972htnr": null,
+            "1759348290598ez82v": null,
+            "1759348290598ue07o": null,
+            "1759348290598ad7le": null,
+            "17593482905986cu0t": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759348290598ad7le",
+          "name": "ДРОЖЖИНА Елизавета Михайловна",
+          "rating": "513",
+          "regionCode": "len",
+          "matches": {
+            "17593482905972htnr": null,
+            "1759348290598ez82v": null,
+            "1759348290598ue07o": null,
+            "1759348290598ya62g": null,
+            "17593482905986cu0t": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "17593482905986cu0t",
+          "name": "ГУСМАНОВА Жасмин Айратовна",
+          "rating": "482",
+          "regionCode": "tat",
+          "matches": {
+            "17593482905972htnr": null,
+            "1759348290598ez82v": null,
+            "1759348290598ue07o": null,
+            "1759348290598ya62g": null,
+            "1759348290598ad7le": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
+    },
+    {
+      "id": "1759348293229",
+      "name": "Группа-2",
+      "players": [
+        {
+          "id": "17593483811499s70l",
+          "name": "ПЛАЧКОВСКАЯ Элина Александровна",
+          "rating": "789",
+          "regionCode": "kras",
+          "matches": {
+            "1759348381149pgt11": null,
+            "1759348381149go20m": null,
+            "1759348381149ud4f9": null,
+            "17593483811494suyz": null,
+            "17593483811496bdm4": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759348381149pgt11",
+          "name": "ЛАКЕЕВА Анастасия Васильевна",
+          "rating": "710",
+          "regionCode": "nin",
+          "matches": {
+            "17593483811499s70l": null,
+            "1759348381149go20m": null,
+            "1759348381149ud4f9": null,
+            "17593483811494suyz": null,
+            "17593483811496bdm4": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759348381149go20m",
+          "name": "РЫБАЛЧЕНКО Виктория Александровна",
+          "rating": "556",
+          "regionCode": "mos",
+          "matches": {
+            "17593483811499s70l": null,
+            "1759348381149pgt11": null,
+            "1759348381149ud4f9": null,
+            "17593483811494suyz": null,
+            "17593483811496bdm4": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759348381149ud4f9",
+          "name": "ИВАНОВА Арина Юрьевна",
+          "rating": "544",
+          "regionCode": "len",
+          "matches": {
+            "17593483811499s70l": null,
+            "1759348381149pgt11": null,
+            "1759348381149go20m": null,
+            "17593483811494suyz": null,
+            "17593483811496bdm4": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "17593483811494suyz",
+          "name": "СКОСЫРЕВА Евгения Романовна",
+          "rating": "511",
+          "regionCode": "tat",
+          "matches": {
+            "17593483811499s70l": null,
+            "1759348381149pgt11": null,
+            "1759348381149go20m": null,
+            "1759348381149ud4f9": null,
+            "17593483811496bdm4": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "17593483811496bdm4",
+          "name": "ТОЛСТОВА Кира Александровна",
+          "rating": "181",
+          "regionCode": "mr",
+          "matches": {
+            "17593483811499s70l": null,
+            "1759348381149pgt11": null,
+            "1759348381149go20m": null,
+            "1759348381149ud4f9": null,
+            "17593483811494suyz": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
     }
   ],
-  "tournamentTitle": "ДЕВОЧКИ ДО 14"
+  "tournamentTitle": "Одиночный разряд. Девушки до 14 лет. Квалификационные соревнования"
 }

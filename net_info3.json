@@ -1,10 +1,221 @@
 {
   "groups": [
     {
-      "id": "1749506764160",
+      "id": "1759347846853",
       "name": "Группа-1",
-      "players": []
+      "players": [
+        {
+          "id": "1759347984533okh3y",
+          "name": "МАНАНКОВ Матвей Сергеевич",
+          "rating": "840",
+          "regionCode": "sve",
+          "matches": {
+            "175934798453368ao2": null,
+            "1759347984533ptf8t": null,
+            "1759347984533f3d11": null,
+            "17593479845339yhkb": null,
+            "1759347984533wxl96": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "175934798453368ao2",
+          "name": "ПОСТОВАЛОВ Кирилл Артемович",
+          "rating": "574",
+          "regionCode": "msk",
+          "matches": {
+            "1759347984533okh3y": null,
+            "1759347984533ptf8t": null,
+            "1759347984533f3d11": null,
+            "17593479845339yhkb": null,
+            "1759347984533wxl96": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347984533ptf8t",
+          "name": "КЛОЧКО Елисей Игоревич",
+          "rating": "563",
+          "regionCode": "msk",
+          "matches": {
+            "1759347984533okh3y": null,
+            "175934798453368ao2": null,
+            "1759347984533f3d11": null,
+            "17593479845339yhkb": null,
+            "1759347984533wxl96": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347984533f3d11",
+          "name": "ЯКАТОВ Димиль Вадимович",
+          "rating": "534",
+          "regionCode": "oren",
+          "matches": {
+            "1759347984533okh3y": null,
+            "175934798453368ao2": null,
+            "1759347984533ptf8t": null,
+            "17593479845339yhkb": null,
+            "1759347984533wxl96": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "17593479845339yhkb",
+          "name": "ЯГОВКИН Александр Андреевич",
+          "rating": "527",
+          "regionCode": "sam",
+          "matches": {
+            "1759347984533okh3y": null,
+            "175934798453368ao2": null,
+            "1759347984533ptf8t": null,
+            "1759347984533f3d11": null,
+            "1759347984533wxl96": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759347984533wxl96",
+          "name": "МАЛЬЧУКОВ Тимур Евгеньевич",
+          "rating": "69",
+          "regionCode": "mr",
+          "matches": {
+            "1759347984533okh3y": null,
+            "175934798453368ao2": null,
+            "1759347984533ptf8t": null,
+            "1759347984533f3d11": null,
+            "17593479845339yhkb": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
+    },
+    {
+      "id": "1759347991253",
+      "name": "Группа-2",
+      "players": [
+        {
+          "id": "1759348106525gn99b",
+          "name": "КАНТАЕВ Кирилл Константинович",
+          "rating": "603",
+          "regionCode": "oren",
+          "matches": {
+            "17593481065254dbc8": null,
+            "1759348106525395s5": null,
+            "1759348106525wq78z": null,
+            "1759348106525hulr0": null,
+            "1759348106526y0ah9": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "17593481065254dbc8",
+          "name": "ПИХАНОВ Сергей Леонидович",
+          "rating": "587",
+          "regionCode": "msk",
+          "matches": {
+            "1759348106525gn99b": null,
+            "1759348106525395s5": null,
+            "1759348106525wq78z": null,
+            "1759348106525hulr0": null,
+            "1759348106526y0ah9": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759348106525395s5",
+          "name": "БАРОТОВ Амир Равшанович",
+          "rating": "559",
+          "regionCode": "sam",
+          "matches": {
+            "1759348106525gn99b": null,
+            "17593481065254dbc8": null,
+            "1759348106525wq78z": null,
+            "1759348106525hulr0": null,
+            "1759348106526y0ah9": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759348106525wq78z",
+          "name": "ЖИТНЮК Захар Владимирович",
+          "rating": "550",
+          "regionCode": "msk",
+          "matches": {
+            "1759348106525gn99b": null,
+            "17593481065254dbc8": null,
+            "1759348106525395s5": null,
+            "1759348106525hulr0": null,
+            "1759348106526y0ah9": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759348106525hulr0",
+          "name": "МАРЧУК Алексей Олегович",
+          "rating": "529",
+          "regionCode": "oren",
+          "matches": {
+            "1759348106525gn99b": null,
+            "17593481065254dbc8": null,
+            "1759348106525395s5": null,
+            "1759348106525wq78z": null,
+            "1759348106526y0ah9": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        },
+        {
+          "id": "1759348106526y0ah9",
+          "name": "ЧЕРНЫШКОВ Степан Алексеевич",
+          "rating": "512",
+          "regionCode": "kras",
+          "matches": {
+            "1759348106525gn99b": null,
+            "17593481065254dbc8": null,
+            "1759348106525395s5": null,
+            "1759348106525wq78z": null,
+            "1759348106525hulr0": null
+          },
+          "games": 0,
+          "sets": 0,
+          "points": 0,
+          "position": 0
+        }
+      ]
     }
   ],
-  "tournamentTitle": "МАЛЬЧИКИ ДО 14"
+  "tournamentTitle": "Одиночный разряд. Юноши до 14 лет. Квалификационные соревнования"
 }
